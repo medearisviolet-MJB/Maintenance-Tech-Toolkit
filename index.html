@@ -246,6 +246,40 @@ step="any" value="0.85">
 
 <div id="maResult" aria-live="polite" style="margin-top:18px;white-space:pre-line"></div>
 
+<hr>
+
+<h2>⚡ Motor Overload Calculator</h2>
+
+<label>Motor Nameplate FLA (Amps)</label>
+<input type="number" id="olFLA"
+  placeholder="Enter motor FLA"
+  min="0" step="any">
+
+<label>Motor Service Factor / Temperature Rise</label>
+<select id="olFactor">
+  <option value="1.25">
+    SF 1.15+ or Temperature Rise 40°C or Less
+  </option>
+  <option value="1.15">
+    All Other Motors
+  </option>
+</select>
+
+<button class="action"
+  onclick="calculateMotorOverload()">
+  Calculate Motor Overload
+</button>
+
+<div id="olResult"
+  aria-live="polite"
+  style="margin-top:18px;white-space:pre-line">
+</div>
+
+<p style="font-size:12px;">
+  Maximum overload trip-current calculation.
+  Verify manufacturer relay settings.
+</p>
+
 `;
   }
 
@@ -488,6 +522,34 @@ function calculateMASignal() {
     "Signal Percentage: " + percent.toFixed(2) + "%\n" +
     "Input Current: " + signal.toFixed(2) + " mA\n" +
     status;
+}
+
+function calculateMotorOverload() {
+  const flaText = document.getElementById("olFLA").value;
+  const fla = Number(flaText);
+  const factor = Number(
+    document.getElementById("olFactor").value
+  );
+  const result = document.getElementById("olResult");
+
+  if (
+    flaText.trim() === "" ||
+    !Number.isFinite(fla) ||
+    fla <= 0
+  ) {
+    result.textContent = "Please enter a valid motor FLA.";
+    return;
+  }
+
+  const overload = fla * factor;
+  const percentage = factor * 100;
+
+  result.textContent =
+    "Motor FLA: " + fla.toFixed(2) + " A\n" +
+    "Overload Percentage: " + percentage.toFixed(0) + "%\n" +
+    "Maximum Trip Current: " + overload.toFixed(2) + " A\n\n" +
+    "Formula: FLA × Overload Percentage\n\n" +
+    "Note: Actual overload relay settings depend on manufacturer instructions.";
 }
 
 </script>
