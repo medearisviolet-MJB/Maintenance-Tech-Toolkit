@@ -374,6 +374,48 @@ function calculateVoltageDrop() {
     "<small>" + message + "</small>";
 }
 
+function calculateTransformer() {
+  const result = document.getElementById("trResult");
+
+  const phase = document.getElementById("trPhase").value;
+  const kvaText = document.getElementById("trKVA").value.trim();
+  const primaryText = document.getElementById("trPrimary").value.trim();
+  const secondaryText = document.getElementById("trSecondary").value.trim();
+
+  if ([kvaText, primaryText, secondaryText].some(x => x === "")) {
+    result.textContent = "Enter all transformer values.";
+    return;
+  }
+
+  const kva = Number(kvaText);
+  const primaryV = Number(primaryText);
+  const secondaryV = Number(secondaryText);
+
+  if (![kva, primaryV, secondaryV].every(Number.isFinite) ||
+      kva <= 0 || primaryV <= 0 || secondaryV <= 0) {
+    result.textContent = "All values must be greater than zero.";
+    return;
+  }
+
+  const phaseFactor = phase === "3" ? Math.sqrt(3) : 1;
+
+  const primaryAmps = (kva * 1000) / (phaseFactor * primaryV);
+  const secondaryAmps = (kva * 1000) / (phaseFactor * secondaryV);
+
+  const ratio = primaryV / secondaryV;
+
+  const transformerType = primaryV > secondaryV ? "Step-down" :
+                          primaryV < secondaryV ? "Step-up" :
+                          "Equal-voltage";
+
+  result.innerHTML =
+    "<strong>Transformer Type:</strong> " + transformerType + "<br>" +
+    "<strong>Primary Current:</strong> " + primaryAmps.toFixed(2) + " A<br>" +
+    "<strong>Secondary Current:</strong> " + secondaryAmps.toFixed(2) + " A<br>" +
+    "<strong>Voltage Ratio:</strong> " + ratio.toFixed(2) + ":1<br>" +
+    "<strong>Transformer Rating:</strong> " + kva.toFixed(2) + " kVA";
+}
+
 </script>
 
 </body>
