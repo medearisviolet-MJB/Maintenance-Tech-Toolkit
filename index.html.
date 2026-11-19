@@ -2,35 +2,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0" />
-  <title>Maintenance Tech Toolkit</title>
-  <style>
-    body {
-      margin: 0;
-      background: #101827;
-      color: white;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 { color: #38bdf8; }
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 12px;
-      font-size: 18px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maintenance Tech Toolkit</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+header {
+  background: #1e293b;
+  padding: 25px 15px;
+  text-align: center;
+}
+h1 { color: #38bdf8; font-size: 25px; }
+header p { color: #94a3b8; }
+main { padding: 18px; max-width: 700px; margin: auto; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 24px 8px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+.card span {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.card:active { background: #0369a1; }
+.panel {
+  margin-top: 22px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+}
+h2 { color: #38bdf8; font-size: 21px; }
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+.action {
+  background: #0284c7;
+  color: white;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+#result {
+  margin-top: 18px;
+  font-size: 20px;
+  color: #4ade80;
+}
+</style>
 </head>
 <body>
-  <h1>Maintenance Tech Toolkit</h1>
-  <p>Your industrial maintenance companion</p>
 
-  <div class="card">⚡ Electrical Calculators</div>
-  <div class="card">🧠 PLC Troubleshooting</div>
-  <div class="card">⚙️ VFD Fault Codes</div>
-  <div class="card">🔧 Maintenance Guides</div>
+<header>
+  <h1>⚙️ Maintenance Tech Toolkit</h1>
+  <p>Industrial Maintenance Companion</p>
+</header>
+
+<main>
+  <div class="grid">
+    <button class="card" onclick="show('electrical')">
+      <span>⚡</span>Electrical
+    </button>
+    <button class="card" onclick="show('plc')">
+      <span>🧠</span>PLC
+    </button>
+    <button class="card" onclick="show('vfd')">
+      <span>⚙️</span>VFD
+    </button>
+    <button class="card" onclick="show('maintenance')">
+      <span>🔧</span>Maintenance
+    </button>
+  </div>
+
+  <section class="panel" id="content">
+    <h2>Welcome, Technician!</h2>
+    <p>Select a tool above to get started.</p>
+  </section>
+</main>
+
+<script>
+function show(page) {
+  const content = document.getElementById("content");
+
+  if (page === "electrical") {
+    content.innerHTML = `
+      <h2>⚡ Ohm's Law Calculator</h2>
+      <p>Calculate current using voltage and resistance.</p>
+      <label for="voltage">Voltage (V)</label>
+      <input id="voltage" type="number" step="any"
+             placeholder="Enter voltage">
+      <label for="resistance">Resistance (Ω)</label>
+      <input id="resistance" type="number" step="any"
+             placeholder="Enter resistance">
+      <button class="action" onclick="calculate()">
+        Calculate Current
+      </button>
+      <div id="result" aria-live="polite"></div>
+    `;
+  }
+
+  if (page === "plc") {
+    content.innerHTML = `
+      <h2>🧠 PLC Troubleshooting</h2>
+      <p>Allen-Bradley, Siemens, and PLC diagnostics.</p>
+      <p>More troubleshooting tools coming soon.</p>
+    `;
+  }
+
+  if (page === "vfd") {
+    content.innerHTML = `
+      <h2>⚙️ VFD Fault Codes</h2>
+      <p>Drive faults, diagnostics, and troubleshooting.</p>
+      <p>Fault reference library coming soon.</p>
+    `;
+  }
+
+  if (page === "maintenance") {
+    content.innerHTML = `
+      <h2>🔧 Maintenance Guides</h2>
+      <p>Motors, sensors, relays, and industrial equipment.</p>
+      <p>Maintenance guides coming soon.</p>
+    `;
+  }
+}
+
+function calculate() {
+  const vText = document.getElementById("voltage").value;
+  const rText = document.getElementById("resistance").value;
+  const result = document.getElementById("result");
+
+  if (vText === "" || rText === "") {
+    result.textContent = "Enter voltage and resistance.";
+    return;
+  }
+
+  const voltage = Number(vText);
+  const resistance = Number(rText);
+
+  if (!Number.isFinite(voltage) ||
+      !Number.isFinite(resistance) ||
+      resistance <= 0) {
+    result.textContent = "Enter a resistance greater than zero.";
+    return;
+  }
+
+  const current = voltage / resistance;
+  result.textContent = "Current: " +
+    Number(current.toFixed(4)) + " Amps";
+}
+</script>
+
 </body>
 </html>
