@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+  <title>Maintenance Tech Toolkit</title>
+  <style>
+    body {
+      margin: 0;
+      background: #101827;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 { color: #38bdf8; }
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Maintenance Tech Toolkit</h1>
+  <p>Your industrial maintenance companion</p>
+
+  <div class="card">⚡ Electrical Calculators</div>
+  <div class="card">🧠 PLC Troubleshooting</div>
+  <div class="card">⚙️ VFD Fault Codes</div>
+  <div class="card">🔧 Maintenance Guides</div>
+</body>
+</html>
