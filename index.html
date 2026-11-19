@@ -130,6 +130,11 @@ function show(page) {
 <input id="motorVoltage" type="number" step="any" value="480">
 <label for="motorEfficiency">Efficiency (%)</label>
 <input id="motorEfficiency" type="number" step="any" value="90">
+<button onclick="calculateMotorCurrent()">
+  Calculate Motor Current
+</button>
+
+<p id="motorResult"></p>
     `;
   }
 
