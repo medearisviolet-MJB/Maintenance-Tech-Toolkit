@@ -181,7 +181,7 @@ function calculate() {
   const current = voltage / resistance;
   result.textContent = "Current: " +
     Number(current.toFixed(4)) + " Amps";
-  
+}
 function calculateMotorCurrent() {
   const hpText = document.getElementById("motorHP").value;
   const voltageText = document.getElementById("motorVoltage").value;
@@ -220,7 +220,7 @@ function calculateMotorCurrent() {
   result.textContent =
     "Estimated Motor Current: " +
     amps.toFixed(2) + " Amps";
-}
+
 
 }
 </script>
