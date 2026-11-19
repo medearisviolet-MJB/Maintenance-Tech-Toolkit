@@ -188,6 +188,33 @@ step="any" value="0.85">
 </button>
 
 <div id="vdResult" aria-live="polite" style="margin-top:18px"></div>
+
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Transformer Calculator</h2>
+<p>Calculate transformer currents and voltage ratios.</p>
+
+<label for="trPhase">Transformer Phase</label>
+<select id="trPhase" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="3">Three-Phase</option>
+  <option value="1">Single-Phase</option>
+</select>
+
+<label for="trKVA">Transformer Rating (kVA)</label>
+<input id="trKVA" type="number" step="any" value="45">
+
+<label for="trPrimary">Primary Voltage (V)</label>
+<input id="trPrimary" type="number" step="any" value="480">
+
+<label for="trSecondary">Secondary Voltage (V)</label>
+<input id="trSecondary" type="number" step="any" value="208">
+
+<button class="action" onclick="calculateTransformer()">
+  Calculate Transformer
+</button>
+
+<div id="trResult" aria-live="polite" style="margin-top:18px"></div>
+
 `;
   }
 
