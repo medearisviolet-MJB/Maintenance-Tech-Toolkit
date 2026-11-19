@@ -181,6 +181,47 @@ function calculate() {
   const current = voltage / resistance;
   result.textContent = "Current: " +
     Number(current.toFixed(4)) + " Amps";
+  
+function calculateMotorCurrent() {
+  const hpText = document.getElementById("motorHP").value;
+  const voltageText = document.getElementById("motorVoltage").value;
+  const efficiencyText =
+    document.getElementById("motorEfficiency").value;
+  const pfText = document.getElementById("motorPF").value;
+  const result = document.getElementById("motorResult");
+
+  if ([hpText, voltageText, efficiencyText, pfText]
+      .some(value => value.trim() === "")) {
+    result.textContent = "Enter all motor values.";
+    return;
+  }
+
+  const hp = Number(hpText);
+  const voltage = Number(voltageText);
+  const efficiency = Number(efficiencyText) / 100;
+  const pf = Number(pfText);
+
+  if (
+    ![hp, voltage, efficiency, pf].every(Number.isFinite) ||
+    hp <= 0 ||
+    voltage <= 0 ||
+    efficiency <= 0 ||
+    efficiency > 1 ||
+    pf <= 0 ||
+    pf > 1
+  ) {
+    result.textContent = "Check your motor values.";
+    return;
+  }
+
+  const amps = (hp * 746) /
+    (Math.sqrt(3) * voltage * efficiency * pf);
+
+  result.textContent =
+    "Estimated Motor Current: " +
+    amps.toFixed(2) + " Amps";
+}
+
 }
 </script>
 
