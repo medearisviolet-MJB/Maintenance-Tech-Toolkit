@@ -215,6 +215,37 @@ step="any" value="0.85">
 
 <div id="trResult" aria-live="polite" style="margin-top:18px"></div>
 
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>📊 4-20 mA Signal Calculator</h2>
+<p>Scale analog signals into engineering units.</p>
+
+<label for="maSignal">Input Signal (mA)</label>
+<input id="maSignal" type="number" step="any" value="12">
+
+<label for="maMin">Minimum Engineering Value</label>
+<input id="maMin" type="number" step="any" value="0">
+
+<label for="maMax">Maximum Engineering Value</label>
+<input id="maMax" type="number" step="any" value="100">
+
+<label for="maUnit">Engineering Unit</label>
+<select id="maUnit" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="PSI">PSI</option>
+  <option value="°F">Degrees F</option>
+  <option value="°C">Degrees C</option>
+  <option value="%">Percent</option>
+  <option value="GPM">GPM</option>
+  <option value="in">Inches</option>
+  <option value="ft">Feet</option>
+</select>
+
+<button class="action" onclick="calculateMASignal()">
+  Calculate Analog Signal
+</button>
+
+<div id="maResult" aria-live="polite" style="margin-top:18px;white-space:pre-line"></div>
+
 `;
   }
 
