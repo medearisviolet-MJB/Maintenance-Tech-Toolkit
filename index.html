@@ -393,6 +393,43 @@ style="margin-top:18px;color:#4ade80;font-size:18px">
 Results use power triangle relationships.
 Leading or lagging power factor is not determined.
 </p>
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>🔥 Three-Phase Heater Calculator</h2>
+<p>Delta and Wye heating element connections.</p>
+
+<label for="heaterConnection">Connection Type</label>
+<select id="heaterConnection"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+<option value="delta">Delta (Δ)</option>
+<option value="wye">Wye (Y)</option>
+</select>
+
+<label for="heaterVoltage">Line Voltage (V)</label>
+<input id="heaterVoltage" type="number"
+step="any" value="480">
+
+<label for="heaterResistance">
+Resistance Per Element (Ohms)
+</label>
+<input id="heaterResistance" type="number"
+step="any" value="24">
+
+<button class="action" onclick="calculateHeater()">
+Calculate Heater
+</button>
+
+<div id="heaterResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;
+font-size:18px"></div>
+
+<p style="font-size:12px;color:#94a3b8">
+Assumes three equal resistive elements.
+Delta: elements connect line-to-line.
+Wye: elements connect to a common star point.
+Verify element voltage ratings before wiring.
+</p>
 `;
   }
 
@@ -852,6 +889,61 @@ function calculatePowerFactor() {
     "<br><br>Reactive Power: " + kvar.toFixed(2) + " kVAR" +
     "<br><br>Power Factor: " + (kw / kva).toFixed(3);
 }
+  function calculateHeater() {
+  const connection =
+    document.getElementById("heaterConnection").value;
+  const vText =
+    document.getElementById("heaterVoltage").value;
+  const rText =
+    document.getElementById("heaterResistance").value;
+  const result =
+    document.getElementById("heaterResult");
+
+  if (vText.trim() === "" || rText.trim() === "") {
+    result.textContent = "Enter voltage and resistance.";
+    return;
+  }
+
+  const voltage = Number(vText);
+  const resistance = Number(rText);
+
+  if (!Number.isFinite(voltage) ||
+      !Number.isFinite(resistance) ||
+      voltage <= 0 || resistance <= 0) {
+    result.textContent = "Enter valid positive values.";
+    return;
+  }
+
+  if (connection !== "delta" && connection !== "wye") {
+    result.textContent = "Select Delta or Wye.";
+    return;
+  }
+
+  const elementVoltage = connection === "delta"
+    ? voltage : voltage / Math.sqrt(3);
+
+  const elementCurrent = elementVoltage / resistance;
+
+  const lineCurrent = connection === "delta"
+    ? elementCurrent * Math.sqrt(3)
+    : elementCurrent;
+
+  const totalWatts =
+    3 * elementVoltage * elementCurrent;
+
+  const totalKW = totalWatts / 1000;
+
+  result.innerHTML =
+    "Connection: " + connection.toUpperCase() +
+    "<br><br>Element Voltage: " +
+    elementVoltage.toFixed(2) + " V" +
+    "<br><br>Element Current: " +
+    elementCurrent.toFixed(2) + " A" +
+    "<br><br>Line Current: " +
+    lineCurrent.toFixed(2) + " A" +
+    "<br><br>Total Power: " +
+    totalKW.toFixed(2) + " kW";
+  }
 </script>
 
 </body>
