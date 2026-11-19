@@ -138,7 +138,57 @@ step="any" value="0.85">
 </button>
 
 <p id="motorResult"></p>
-    `;
+    `
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Voltage Drop Calculator</h2>
+<p>Calculate voltage loss across electrical conductors.</p>
+
+<label for="vdPhase">Circuit Type</label>
+<select id="vdPhase" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="3">Three-Phase</option>
+  <option value="1">Single-Phase</option>
+</select>
+
+<label for="vdVoltage">Supply Voltage (V)</label>
+<input id="vdVoltage" type="number" step="any" value="480">
+
+<label for="vdAmps">Load Current (Amps)</label>
+<input id="vdAmps" type="number" step="any" value="30">
+
+<label for="vdLength">One-Way Wire Length (Feet)</label>
+<input id="vdLength" type="number" step="any" value="100">
+
+<label for="vdMaterial">Conductor Material</label>
+<select id="vdMaterial" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="copper">Copper</option>
+  <option value="aluminum">Aluminum</option>
+</select>
+
+<label for="vdWire">Conductor Size</label>
+<select id="vdWire" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="14">14 AWG</option>
+  <option value="12">12 AWG</option>
+  <option value="10">10 AWG</option>
+  <option value="8" selected>8 AWG</option>
+  <option value="6">6 AWG</option>
+  <option value="4">4 AWG</option>
+  <option value="2">2 AWG</option>
+  <option value="1/0">1/0 AWG</option>
+  <option value="2/0">2/0 AWG</option>
+  <option value="3/0">3/0 AWG</option>
+  <option value="4/0">4/0 AWG</option>
+  <option value="250">250 kcmil</option>
+  <option value="300">300 kcmil</option>
+  <option value="350">350 kcmil</option>
+</select>
+
+<button class="action" onclick="calculateVoltageDrop()">
+  Calculate Voltage Drop
+</button>
+
+<div id="vdResult" aria-live="polite" style="margin-top:18px"></div>
+;
   }
 
   if (page === "plc") {
