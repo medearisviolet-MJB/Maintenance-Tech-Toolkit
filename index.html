@@ -329,7 +329,37 @@ step="any" value="0.85">
   electrical input power using voltage,
   power factor and efficiency.
 </p>
+<hr style="border:1px solid #334155;margin:25px 0">
 
+<h2>⚙️ VFD & Motor RPM Calculator</h2>
+<p>Calculate motor speed, slip, and estimated RPM.</p>
+
+<label for="vfdHz">VFD Frequency (Hz)</label>
+<input id="vfdHz" type="number" step="any" value="60">
+
+<label for="motorPoles">Motor Poles</label>
+<select id="motorPoles"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+<option value="2">2 Poles</option>
+<option value="4" selected>4 Poles</option>
+<option value="6">6 Poles</option>
+<option value="8">8 Poles</option>
+</select>
+
+<label for="ratedHz">Nameplate Frequency (Hz)</label>
+<input id="ratedHz" type="number" step="any" value="60">
+
+<label for="ratedRPM">Nameplate RPM</label>
+<input id="ratedRPM" type="number" step="any" value="1750">
+
+<button class="action" onclick="calculateVFDRPM()">
+Calculate Motor RPM
+</button>
+
+<div id="vfdRPMResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;font-size:18px">
+</div>
 `;
   }
 
@@ -669,6 +699,45 @@ function calculateMotorHorsepower() {
     "Electrical Input: " + kw.toFixed(2) + " kW\n\n" +
     "Calculations use nominal 746 watts per HP.";
 }
+  function calculateVFDRPM() {
+  const ids = ["vfdHz", "ratedHz", "ratedRPM"];
+  const result = document.getElementById("vfdRPMResult");
+
+  if (ids.some(id =>
+    document.getElementById(id).value.trim() === ""
+  )) {
+    result.textContent = "Enter all motor values.";
+    return;
+  }
+
+  const hz = Number(document.getElementById("vfdHz").value);
+  const poles = Number(document.getElementById("motorPoles").value);
+  const ratedHz = Number(document.getElementById("ratedHz").value);
+  const ratedRPM = Number(document.getElementById("ratedRPM").value);
+
+  const ratedSyncRPM = (120 * ratedHz) / poles;
+
+  if (
+    ![hz, poles, ratedHz, ratedRPM].every(Number.isFinite) ||
+    hz < 0 || ratedHz <= 0 ||
+    ratedRPM <= 0 || ratedRPM > ratedSyncRPM
+  ) {
+    result.textContent = "Check motor values and nameplate RPM.";
+    return;
+  }
+
+  const synchronousRPM = (120 * hz) / poles;
+  const slipPercent =
+    ((ratedSyncRPM - ratedRPM) / ratedSyncRPM) * 100;
+  const estimatedRPM =
+    synchronousRPM * (1 - slipPercent / 100);
+
+  result.innerHTML =
+    "Synchronous RPM: " + synchronousRPM.toFixed(0) +
+    "<br><br>Rated Slip: " + slipPercent.toFixed(2) + "%" +
+    "<br><br>Estimated Running RPM: " +
+    estimatedRPM.toFixed(0) + " RPM";
+  }
 </script>
 
 </body>
