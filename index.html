@@ -447,6 +447,49 @@ function calculateTransformer() {
     "<strong>Transformer Rating:</strong> " + kva.toFixed(2) + " kVA";
 }
 
+function calculateMASignal() {
+  const result = document.getElementById("maResult");
+
+  const signalText = document.getElementById("maSignal").value;
+  const minText = document.getElementById("maMin").value;
+  const maxText = document.getElementById("maMax").value;
+  const unit = document.getElementById("maUnit").value;
+
+  if ([signalText, minText, maxText].some(x => x.trim() === "")) {
+    result.textContent = "Enter all signal values.";
+    return;
+  }
+
+  const signal = Number(signalText);
+  const min = Number(minText);
+  const max = Number(maxText);
+
+  if (![signal, min, max].every(Number.isFinite) ||
+      signal < 0 || max <= min) {
+    result.textContent = "Check your signal and range values.";
+    return;
+  }
+
+  const percent = ((signal - 4) / 16) * 100;
+
+  const scaledValue =
+    min + ((signal - 4) / 16) * (max - min);
+
+  let status = "Within normal 4-20 mA span.";
+
+  if (signal < 4) {
+    status = "Below 4 mA: Check for under-range or loop fault.";
+  } else if (signal > 20) {
+    status = "Above 20 mA: Check for over-range.";
+  }
+
+  result.textContent =
+    "Scaled Value: " + scaledValue.toFixed(2) + " " + unit + "\n" +
+    "Signal Percentage: " + percent.toFixed(2) + "%\n" +
+    "Input Current: " + signal.toFixed(2) + " mA\n" +
+    status;
+}
+
 </script>
 
 </body>
