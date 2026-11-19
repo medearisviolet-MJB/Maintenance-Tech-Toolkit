@@ -360,6 +360,39 @@ Calculate Motor RPM
 <div id="vfdRPMResult" aria-live="polite"
 style="margin-top:18px;color:#4ade80;font-size:18px">
 </div>
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Power Factor Calculator</h2>
+<p>Calculate kW, kVA, kVAR, and power factor.</p>
+
+<label for="pfMode">Select Known Values</label>
+<select id="pfMode" onchange="setPFMode()"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+  <option value="kw_kva">kW and kVA</option>
+  <option value="kw_pf">kW and Power Factor</option>
+  <option value="kva_pf">kVA and Power Factor</option>
+  <option value="kw_kvar">kW and kVAR</option>
+</select>
+
+<label id="pfLabel1" for="pfInput1">Real Power (kW)</label>
+<input id="pfInput1" type="number" step="any" value="10">
+
+<label id="pfLabel2" for="pfInput2">Apparent Power (kVA)</label>
+<input id="pfInput2" type="number" step="any" value="12.5">
+
+<button class="action" onclick="calculatePowerFactor()">
+  Calculate Power Factor
+</button>
+
+<div id="pfResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;font-size:18px">
+</div>
+
+<p style="font-size:12px;color:#94a3b8">
+Results use power triangle relationships.
+Leading or lagging power factor is not determined.
+</p>
 `;
   }
 
@@ -738,6 +771,87 @@ function calculateMotorHorsepower() {
     "<br><br>Estimated Running RPM: " +
     estimatedRPM.toFixed(0) + " RPM";
   }
+  function setPFMode() {
+  const modes = {
+    kw_kva: ["Real Power (kW)", "Apparent Power (kVA)", 10, 12.5],
+    kw_pf: ["Real Power (kW)", "Power Factor (0-1)", 10, 0.8],
+    kva_pf: ["Apparent Power (kVA)", "Power Factor (0-1)", 12.5, 0.8],
+    kw_kvar: ["Real Power (kW)", "Reactive Power (kVAR)", 10, 7.5]
+  };
+  const m = document.getElementById("pfMode").value;
+  const v = modes[m];
+  document.getElementById("pfLabel1").textContent = v[0];
+  document.getElementById("pfLabel2").textContent = v[1];
+  document.getElementById("pfInput1").value = v[2];
+  document.getElementById("pfInput2").value = v[3];
+  document.getElementById("pfResult").textContent = "";
+}
+
+function calculatePowerFactor() {
+  const get = id => document.getElementById(id).value;
+  const mode = get("pfMode");
+  const out = document.getElementById("pfResult");
+  const rawA = get("pfInput1");
+  const rawB = get("pfInput2");
+  const error = msg => {
+    out.style.color = "#f87171";
+    out.textContent = msg;
+  };
+
+  if (rawA.trim() === "" || rawB.trim() === "") {
+    error("Enter both values.");
+    return;
+  }
+
+  const a = Number(rawA), b = Number(rawB);
+  if (!Number.isFinite(a) || !Number.isFinite(b) ||
+      a <= 0 || b < 0) {
+    error("Enter valid positive power values.");
+    return;
+  }
+
+  let kw, kva, kvar;
+
+  if (mode === "kw_kva") {
+    if (b < a) {
+      error("kVA must be at least kW.");
+      return;
+    }
+    kw = a;
+    kva = b;
+    kvar = Math.sqrt(kva * kva - kw * kw);
+  } else if (mode === "kw_pf") {
+    if (b <= 0 || b > 1) {
+      error("PF must be greater than 0 and at most 1.");
+      return;
+    }
+    kw = a;
+    kva = kw / b;
+    kvar = Math.sqrt(Math.max(0, kva * kva - kw * kw));
+  } else if (mode === "kva_pf") {
+    if (b > 1) {
+      error("PF must be between 0 and 1.");
+      return;
+    }
+    kva = a;
+    kw = kva * b;
+    kvar = Math.sqrt(Math.max(0, kva * kva - kw * kw));
+  } else if (mode === "kw_kvar") {
+    kw = a;
+    kvar = b;
+    kva = Math.hypot(kw, kvar);
+  } else {
+    error("Invalid calculation mode.");
+    return;
+  }
+
+  out.style.color = "#4ade80";
+  out.innerHTML =
+    "Real Power: " + kw.toFixed(2) + " kW" +
+    "<br><br>Apparent Power: " + kva.toFixed(2) + " kVA" +
+    "<br><br>Reactive Power: " + kvar.toFixed(2) + " kVAR" +
+    "<br><br>Power Factor: " + (kw / kva).toFixed(3);
+}
 </script>
 
 </body>
