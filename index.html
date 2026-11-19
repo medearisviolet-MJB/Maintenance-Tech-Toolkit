@@ -119,7 +119,17 @@ function show(page) {
       <button class="action" onclick="calculate()">
         Calculate Current
       </button>
-      <div id="result" aria-live="polite"></div>
+      <div id="result" aria-live="polite"></div> 
+      <CodeBlock language="html" editable>
+<hr style="border:1px solid #334155;margin:25px 0">
+<h2>⚙️ Three-Phase Motor Current</h2>
+<p>Estimate three-phase motor full-load current.</p>
+<label for="motorHP">Motor Horsepower (HP)</label>
+<input id="motorHP" type="number" step="any" value="10">
+<label for="motorVoltage">Voltage (V)</label>
+<input id="motorVoltage" type="number" step="any" value="480">
+<label for="motorEfficiency">Efficiency (%)</label>
+<input id="motorEfficiency" type="number" step="any" value="90">
     `;
   }
 
