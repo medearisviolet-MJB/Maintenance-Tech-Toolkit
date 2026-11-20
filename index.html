@@ -558,6 +558,36 @@ Wye: elements connect to a common star point.
 Verify element voltage ratings before wiring.
 </p>
 `;
+    
+const group = document.querySelector(
+  ".electrical-group .group-content"
+);
+
+if (group) {
+  let currentBody = null;
+
+  [...group.children].forEach(element => {
+    if (element.tagName === "H2") {
+      const calculator = document.createElement("details");
+      calculator.className = "calculator";
+
+      const summary = document.createElement("summary");
+      summary.textContent = element.textContent;
+
+      const body = document.createElement("div");
+      body.className = "calculator-body";
+
+      calculator.append(summary, body);
+      group.insertBefore(calculator, element);
+
+      element.remove();
+      currentBody = body;
+    } else if (currentBody) {
+      currentBody.appendChild(element);
+    }
+  });
+}
+
   }
 
   if (page === "plc") {
