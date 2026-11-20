@@ -1176,6 +1176,165 @@ content.insertAdjacentHTML("beforeend", `
 
 </details>
 
+<!-- Laser Distance Sensor -->
+<details class="calculator">
+  <summary>📏 Laser Distance Sensor</summary>
+
+  <svg viewBox="0 0 390 290"
+       width="100%"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="390" height="290"
+          rx="12" fill="#0f172a"/>
+
+    <!-- Sensor body -->
+    <rect x="92" y="55" width="128" height="170"
+          rx="10" fill="#1e293b" stroke="#64748b"/>
+
+    <text x="156" y="110"
+          text-anchor="middle"
+          fill="white" font-size="16">
+      DISTANCE
+    </text>
+
+    <text x="156" y="132"
+          text-anchor="middle"
+          fill="white" font-size="16">
+      SENSOR
+    </text>
+
+    <text x="156" y="155"
+          text-anchor="middle"
+          fill="#94a3b8" font-size="11">
+      Q1 / Q2 / ANALOG
+    </text>
+
+    <!-- Little laser beam -->
+    <polygon points="220,118 255,108 255,128"
+             fill="#ef4444"/>
+
+    <!-- PLC Digital Inputs -->
+    <rect x="285" y="45" width="82" height="115"
+          rx="8" fill="#1e293b" stroke="#38bdf8"/>
+
+    <text x="326" y="68"
+          text-anchor="middle"
+          fill="#38bdf8" font-size="14">
+      PLC DI
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="294" y="95">I0 = Q1</text>
+      <text x="294" y="120">I1 = Q2</text>
+      <text x="294" y="145">COM</text>
+    </g>
+
+    <!-- PLC Analog Input -->
+    <rect x="285" y="180" width="82" height="70"
+          rx="8" fill="#1e293b" stroke="#22c55e"/>
+
+    <text x="326" y="203"
+          text-anchor="middle"
+          fill="#22c55e" font-size="14">
+      PLC AI
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="294" y="225">AI0</text>
+      <text x="294" y="245">COM</text>
+    </g>
+
+    <!-- Brown +24V -->
+    <path d="M15 82 H92"
+          stroke="#b9783a" stroke-width="4" fill="none"/>
+    <text x="15" y="68"
+          fill="#fbbf24" font-size="11">
+      BN +24V
+    </text>
+
+    <!-- Blue 0V -->
+    <path d="M15 206 H92"
+          stroke="#38bdf8" stroke-width="4" fill="none"/>
+    <text x="15" y="193"
+          fill="#7dd3fc" font-size="11">
+      BU 0V
+    </text>
+
+    <!-- Black Q1 -->
+    <path d="M220 102 H285"
+          stroke="#d1d5db" stroke-width="4" fill="none"/>
+    <text x="228" y="91"
+          fill="#e5e7eb" font-size="11">
+      BK Q1
+    </text>
+
+    <!-- White Q2 -->
+    <path d="M220 128 H285"
+          stroke="#ffffff" stroke-width="4" fill="none"/>
+    <text x="228" y="145"
+          fill="white" font-size="11">
+      WH Q2
+    </text>
+
+    <!-- Gray Analog -->
+    <path d="M220 176 H285"
+          stroke="#9ca3af" stroke-width="4" fill="none"/>
+    <text x="228" y="166"
+          fill="#d1d5db" font-size="11">
+      GY Analog
+    </text>
+
+    <!-- Digital common tied to 0V -->
+    <path d="M285 145 H260 V270 H42 V206"
+          stroke="#38bdf8" stroke-width="3" fill="none"/>
+    <circle cx="42" cy="206" r="4" fill="#38bdf8"/>
+
+    <!-- Analog common tied to 0V -->
+    <path d="M285 245 H272 V270"
+          stroke="#38bdf8" stroke-width="3" fill="none"/>
+
+    <text x="120" y="282"
+          fill="#7dd3fc" font-size="11">
+      0V common return
+    </text>
+  </svg>
+
+  <h3>Wire Connections</h3>
+
+  <p>🟤 Brown: +24V DC power</p>
+  <p>🔵 Blue: 0V DC common</p>
+  <p>⚫ Black: Q1 digital output to PLC input I0</p>
+  <p>⚪ White: Q2 digital output to PLC input I1</p>
+  <p>⚙️ Gray: Analog output to PLC analog input AI0</p>
+
+  <h3>How It Works</h3>
+
+  <p>
+    Q1 and Q2 are switching outputs.
+    These can be set up as independent
+    switching points or windows depending
+    on the sensor model.
+  </p>
+
+  <p>
+    The analog output provides a distance
+    value, commonly 4–20 mA or 0–10 V,
+    to the PLC analog input.
+  </p>
+
+  <p>
+    In this example, the PLC digital input
+    common is tied to 0V, which matches a
+    typical PNP output arrangement.
+  </p>
+
+  <p>
+    Always verify the actual pinout and
+    whether the sensor analog output is
+    4–20 mA or 0–10 V before wiring.
+  </p>
+
+</details>
     </div>
   </details>
 `);
