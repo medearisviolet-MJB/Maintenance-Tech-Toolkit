@@ -5,6 +5,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maintenance Tech Toolkit</title>
+  
+/* CHROME GRAY COLLAPSIBLE CALCULATORS */
+
+.calculator-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.calculator-control {
+  flex: 1;
+  background: #505965;
+  color: white;
+  border: 1px solid #bec6cf;
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calculator {
+  margin: 14px 0;
+  background: #172338;
+  border: 2px solid #aab3bd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.calculator summary {
+  background: linear-gradient(
+    135deg,
+    #edf0f2 0%,
+    #9aa3ad 45%,
+    #d8dde2 75%,
+    #929ba6 100%
+  );
+  color: #17202d;
+  padding: 17px 45px 17px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+
+.calculator summary::-webkit-details-marker {
+  display: none;
+}
+
+.calculator summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 23px;
+}
+
+.calculator[open] summary::after {
+  content: "−";
+}
+
+.calculator[open] {
+  box-shadow: 0 0 10px #8e99a644;
+}
+
+.calculator summary:focus-visible {
+  outline: 3px solid white;
+  outline-offset: -3px;
+}
+
+.calculator-body {
+  padding: 16px;
+}
+
+.calculator-body label {
+  display: block;
+  margin-top: 12px;
+}
+
+.calculator-body select {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.calculator-body .action {
+  background: linear-gradient(
+    135deg,
+    #d8dde2,
+    #919ba6
+  );
+  color: #17202d;
+  font-weight: bold;
+}
+
 <style>
 * { box-sizing: border-box; }
 body {
@@ -944,6 +1042,107 @@ function calculatePowerFactor() {
     "<br><br>Total Power: " +
     totalKW.toFixed(2) + " kW";
   }
+  
+// AUTOMATIC COLLAPSIBLE CALCULATORS
+
+const originalShow = show;
+
+show = function(page) {
+  originalShow(page);
+
+  if (page !== "electrical") return;
+
+  const content =
+    document.getElementById("content");
+
+  const headings = [...content.children]
+    .filter(el => el.tagName === "H2");
+
+  headings.forEach(heading => {
+
+    const details =
+      document.createElement("details");
+
+    details.className = "calculator";
+
+    const summary =
+      document.createElement("summary");
+
+    summary.textContent =
+      heading.textContent.trim();
+
+    const body =
+      document.createElement("div");
+
+    body.className = "calculator-body";
+
+    let node = heading.nextSibling;
+
+    heading.replaceWith(details);
+
+    while (
+      node &&
+      !(node.nodeType === 1 &&
+        node.tagName === "H2")
+    ) {
+      const next = node.nextSibling;
+
+      if (
+        node.nodeType === 1 &&
+        node.tagName === "HR"
+      ) {
+        node.remove();
+      } else {
+        body.appendChild(node);
+      }
+
+      node = next;
+    }
+
+    details.append(summary, body);
+  });
+
+  // Expand / Collapse All Buttons
+
+  const toolbar =
+    document.createElement("div");
+
+  toolbar.className =
+    "calculator-toolbar";
+
+  toolbar.innerHTML = `
+    <button type="button"
+      class="calculator-control">
+      Expand All
+    </button>
+    <button type="button"
+      class="calculator-control">
+      Collapse All
+    </button>
+  `;
+
+  const buttons =
+    toolbar.querySelectorAll("button");
+
+  buttons[0].onclick = function() {
+    content.querySelectorAll(
+      "details.calculator"
+    ).forEach(calc => {
+      calc.open = true;
+    });
+  };
+
+  buttons[1].onclick = function() {
+    content.querySelectorAll(
+      "details.calculator"
+    ).forEach(calc => {
+      calc.open = false;
+    });
+  };
+
+  content.prepend(toolbar);
+};
+
 </script>
 
 </body>
