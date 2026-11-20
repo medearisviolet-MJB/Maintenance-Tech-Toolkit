@@ -1053,6 +1053,129 @@ content.insertAdjacentHTML("beforeend", `
   </p>
 </details>
 
+<!-- 4-Wire Photoelectric Sensor -->
+<details class="calculator">
+  <summary>📡 4-Wire Photoeye NO/NC</summary>
+
+  <svg viewBox="0 0 360 256"
+       width="100%"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="360" height="256"
+          rx="12" fill="#0f172a"/>
+
+    <!-- Sensor -->
+    <rect x="100" y="55" width="118"
+          height="149" rx="9"
+          fill="#1e293b" stroke="#64748b"/>
+
+    <text x="159" y="116"
+          text-anchor="middle"
+          fill="white" font-size="15">
+      PHOTOEYE
+    </text>
+
+    <text x="159" y="137"
+          text-anchor="middle"
+          fill="#94a3b8" font-size="11">
+      4-WIRE PNP
+    </text>
+
+    <!-- PLC -->
+    <rect x="278" y="63" width="72"
+          height="153" rx="7"
+          fill="#1e293b" stroke="#38bdf8"/>
+
+    <text x="314" y="88"
+          text-anchor="middle"
+          fill="#38bdf8" font-size="15">
+      PLC
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="288" y="122">I0</text>
+      <text x="288" y="164">I1</text>
+      <text x="288" y="198">COM</text>
+    </g>
+
+    <!-- Brown +24V -->
+    <path d="M15 81 H100"
+          stroke="#b9783a" stroke-width="4"/>
+    <text x="15" y="68"
+          fill="#fbbf24" font-size="11">
+      BN +24V
+    </text>
+
+    <!-- Blue 0V -->
+    <path d="M15 181 H100"
+          stroke="#38bdf8" stroke-width="4"/>
+    <text x="15" y="168"
+          fill="#7dd3fc" font-size="11">
+      BU 0V
+    </text>
+
+    <!-- Black Normally Open -->
+    <path d="M218 117 H278"
+          stroke="#a3a3a3" stroke-width="4"/>
+    <text x="230" y="107"
+          fill="#cbd5e1" font-size="11">
+      BK NO
+    </text>
+
+    <!-- White Normally Closed -->
+    <path d="M218 159 H278"
+          stroke="white" stroke-width="4"/>
+    <text x="230" y="149"
+          fill="white" font-size="11">
+      WH NC
+    </text>
+
+    <!-- PLC Input Common -->
+    <path d="M278 194 H254 V232 H43 V181"
+          stroke="#38bdf8"
+          stroke-width="3" fill="none"/>
+    <circle cx="43" cy="181" r="4"
+            fill="#38bdf8"/>
+
+    <text x="124" y="247"
+          fill="#7dd3fc" font-size="11">
+      0V Common
+    </text>
+  </svg>
+
+  <h3>Wire Connections</h3>
+
+  <p>🟤 Brown: +24V DC</p>
+  <p>🔵 Blue: 0V DC</p>
+  <p>⚫ Black: Normally Open to PLC I0</p>
+  <p>⚪ White: Normally Closed to PLC I1</p>
+
+  <h3>How It Works</h3>
+
+  <p>
+    When the sensor's switching condition
+    is active, the NO output turns ON
+    and the complementary NC output
+    turns OFF.
+  </p>
+
+  <p>
+    Both outputs connect to separate
+    PLC digital inputs. The PLC input
+    common connects to 0V.
+  </p>
+
+  <p>
+    Note: This example applies to a
+    PNP photoeye specifically equipped
+    with complementary NO/NC outputs.
+    Verify the wire assignments and
+    light-on/dark-on configuration
+    in the manufacturer's datasheet.
+  </p>
+
+</details>
+
     </div>
   </details>
 `);
