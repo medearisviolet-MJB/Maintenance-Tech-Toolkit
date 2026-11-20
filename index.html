@@ -588,6 +588,118 @@ if (group) {
   });
 }
 
+content.insertAdjacentHTML("beforeend", `
+  <details class="electrical-group">
+    <summary>📐 Electrical Diagrams</summary>
+    <div class="group-content">
+
+      <details class="calculator">
+        <summary>⚡ 3-Wire Motor Starter</summary>
+        <div class="calculator-body">
+
+          <h3>Start / Stop Control Circuit</h3>
+          <p>Standard contactor seal-in circuit.</p>
+
+          <div style="overflow-x:auto;">
+            <svg width="600" height="240"
+                 viewBox="0 0 600 240"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Three-wire motor starter ladder diagram"
+                 style="background:#0f172a;
+                 border:1px solid #334155;
+                 border-radius:10px;">
+
+              <g stroke="#e2e8f0"
+                 stroke-width="2.3"
+                 fill="none">
+
+                <!-- Supply rails -->
+                <path d="M35 40 V205 M565 40 V205"/>
+
+                <!-- Main control rung -->
+                <path d="M35 100 H98
+                         M118 100 H238
+                         M258 100 H390
+                         M410 100 H470
+                         M510 100 H565"/>
+
+                <!-- STOP normally closed -->
+                <path d="M98 88 V112
+                         M118 88 V112
+                         M95 114 L121 86"/>
+
+                <!-- START normally open -->
+                <path d="M238 88 V112
+                         M258 88 V112"/>
+
+                <!-- Seal-in branch -->
+                <path d="M180 100 V165 H238
+                         M258 165 H330 V100"/>
+
+                <!-- Auxiliary NO contact -->
+                <path d="M238 153 V177
+                         M258 153 V177"/>
+
+                <!-- Overload NC -->
+                <path d="M390 88 V112
+                         M410 88 V112
+                         M387 114 L413 86"/>
+
+                <!-- Contactor coil -->
+                <circle cx="490" cy="100" r="20"/>
+
+              </g>
+
+              <g fill="#e2e8f0"
+                 font-size="14"
+                 text-anchor="middle">
+
+                <text x="35" y="28">L1</text>
+                <text x="565" y="28">L2</text>
+
+                <text x="108" y="65">STOP</text>
+                <text x="248" y="65">START</text>
+                <text x="400" y="65">OL</text>
+
+                <text x="490" y="105">M</text>
+
+                <text x="248" y="195">M AUX</text>
+                <text x="248" y="215">NO Seal-In</text>
+
+              </g>
+            </svg>
+          </div>
+
+          <h3>How It Works</h3>
+          <p>
+            1. Press START to energize the M coil.
+          </p>
+          <p>
+            2. M auxiliary contact closes to
+            maintain the control circuit.
+          </p>
+          <p>
+            3. Press STOP to de-energize M.
+          </p>
+          <p>
+            4. An overload trip opens the
+            OL contact and stops the motor.
+          </p>
+
+          <p style="color:#94a3b8;font-size:12px;">
+            Training schematic only.
+            Actual wiring requires appropriate
+            control protection and safety devices.
+          </p>
+
+        </div>
+      </details>
+
+    </div>
+  </details>
+`);
+
   }
 
   if (page === "plc") {
