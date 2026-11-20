@@ -1953,6 +1953,35 @@ show = function(page) {
   content.prepend(toolbar);
 };
 
+/* VFD RPM Calculator */
+
+document.addEventListener("click", function(event) {
+
+  if (!event.target.closest("#vfdRpmButton")) {
+    return;
+  }
+
+  const hzInput = document.getElementById("vfdHz");
+  const polesInput = document.getElementById("vfdPoles");
+  const result = document.getElementById("vfdRpmResult");
+
+  if (!hzInput || !polesInput || !result) return;
+
+  const hz = Number(hzInput.value);
+  const poles = Number(polesInput.value);
+
+  if (hzInput.value.trim() === "" ||
+      !Number.isFinite(hz) || hz < 0) {
+    result.textContent = "Enter a valid frequency.";
+    return;
+  }
+
+  const rpm = (120 * hz) / poles;
+
+  result.textContent =
+    "Synchronous RPM: " + rpm.toFixed(1);
+});
+
 </script>
 
 </body>
