@@ -797,6 +797,97 @@ content.insertAdjacentHTML("beforeend", `
   </div>
 </details>
 
+<details class="calculator">
+  <summary>⚙️ 3-Phase Motor Power Circuit</summary>
+  <div class="calculator-body">
+
+    <h3>Across-the-Line Motor Starter</h3>
+    <p>Three-phase motor power path with protection and switching.</p>
+
+    <div style="overflow-x:auto;">
+      <svg width="760" height="285"
+        viewBox="0 0 760 285"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Three-phase motor power block diagram"
+        style="background:#0f172a;border:1px solid #334155;border-radius:10px;">
+
+        <g stroke="#e2e8f0" stroke-width="2"
+          fill="none">
+
+          <!-- Three phase conductors -->
+          <path d="M30 75 H120 M200 75 H250 M330 75 H380 M460 75 H565
+                   M30 145 H120 M200 145 H250 M330 145 H380 M460 145 H565
+                   M30 215 H120 M200 215 H250 M330 215 H380 M460 215 H565"/>
+
+          <!-- Disconnect protection blocks -->
+          <rect x="120" y="57" width="80" height="36"/>
+          <rect x="120" y="127" width="80" height="36"/>
+          <rect x="120" y="197" width="80" height="36"/>
+
+          <!-- Contactor poles -->
+          <rect x="250" y="57" width="80" height="36"/>
+          <rect x="250" y="127" width="80" height="36"/>
+          <rect x="250" y="197" width="80" height="36"/>
+
+          <!-- Overload elements -->
+          <rect x="380" y="57" width="80" height="36"/>
+          <rect x="380" y="127" width="80" height="36"/>
+          <rect x="380" y="197" width="80" height="36"/>
+
+          <!-- Motor block -->
+          <rect x="565" y="35" width="170" height="220" rx="10"/>
+
+        </g>
+
+        <g fill="#e2e8f0" font-size="15"
+          text-anchor="middle">
+          <text x="160" y="30">QF</text>
+          <text x="290" y="30">KM</text>
+          <text x="420" y="30">OL</text>
+
+          <text x="30" y="64">L1</text>
+          <text x="30" y="134">L2</text>
+          <text x="30" y="204">L3</text>
+
+          <text x="160" y="81">QF1</text>
+          <text x="160" y="151">QF2</text>
+          <text x="160" y="221">QF3</text>
+
+          <text x="290" y="81">KM1</text>
+          <text x="290" y="151">KM2</text>
+          <text x="290" y="221">KM3</text>
+
+          <text x="420" y="81">OL1</text>
+          <text x="420" y="151">OL2</text>
+          <text x="420" y="221">OL3</text>
+
+          <text x="592" y="80">U</text>
+          <text x="592" y="150">V</text>
+          <text x="592" y="220">W</text>
+
+          <text x="664" y="145">M 3~</text>
+          <text x="664" y="172" font-size="12">MOTOR</text>
+        </g>
+      </svg>
+    </div>
+
+    <h3>Component Identification</h3>
+    <p><b>QF:</b> Protective disconnect or circuit breaker.</p>
+    <p><b>KM:</b> Three-pole motor contactor.</p>
+    <p><b>OL:</b> Motor overload protection.</p>
+    <p><b>M:</b> Three-phase AC motor.</p>
+
+    <p style="font-size:12px;color:#94a3b8;">
+      Simplified power-path diagram. Actual equipment
+      requires appropriate short-circuit protection,
+      grounding, motor connections and wiring
+      sized for the installation.
+    </p>
+
+  </div>
+</details>
+
     </div>
   </details>
 `);
