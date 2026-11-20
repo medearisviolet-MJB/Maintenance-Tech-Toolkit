@@ -696,6 +696,107 @@ content.insertAdjacentHTML("beforeend", `
         </div>
       </details>
 
+<details class="calculator">
+  <summary>🔄 Forward/Reverse Motor Control</summary>
+  <div class="calculator-body">
+
+    <h3>Forward / Reverse Starter</h3>
+    <p>Control circuit with electrical interlocks and seal-in contacts.</p>
+
+    <div style="overflow-x:auto;">
+      <svg width="750" height="345"
+        viewBox="0 0 750 345"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Forward reverse contactor ladder control"
+        style="background:#0f172a;border:1px solid #334155;border-radius:10px;">
+
+        <g stroke="#e2e8f0" stroke-width="2"
+          fill="none" stroke-linecap="round">
+
+          <!-- Common STOP and overload -->
+          <path d="M30 25 V60 H95
+                   M115 60 H170
+                   M190 60 H240 V255
+                   M720 25 V320"/>
+
+          <!-- Forward rung -->
+          <path d="M240 125 H350
+                   M370 125 H485
+                   M505 125 H615
+                   M653 125 H720"/>
+
+          <!-- Reverse rung -->
+          <path d="M240 255 H350
+                   M370 255 H485
+                   M505 255 H615
+                   M653 255 H720"/>
+
+          <!-- Forward seal-in branch -->
+          <path d="M295 125 V177 H350
+                   M370 177 H420 V125"/>
+
+          <!-- Reverse seal-in branch -->
+          <path d="M295 255 V307 H350
+                   M370 307 H420 V255"/>
+
+          <!-- Normally closed contacts -->
+          <path d="M95 48 V72 M115 48 V72
+                   M92 75 L118 45
+                   M170 48 V72 M190 48 V72
+                   M167 75 L193 45
+                   M485 113 V137 M505 113 V137
+                   M482 140 L508 110
+                   M485 243 V267 M505 243 V267
+                   M482 270 L508 240"/>
+
+          <!-- Normally open contacts -->
+          <path d="M350 113 V137 M370 113 V137
+                   M350 165 V189 M370 165 V189
+                   M350 243 V267 M370 243 V267
+                   M350 295 V319 M370 295 V319"/>
+
+          <!-- Contactor coils -->
+          <circle cx="635" cy="125" r="18"/>
+          <circle cx="635" cy="255" r="18"/>
+        </g>
+
+        <g fill="#e2e8f0" font-size="12"
+          text-anchor="middle">
+          <text x="30" y="17">L1</text>
+          <text x="720" y="17">L2</text>
+          <text x="105" y="35">STOP NC</text>
+          <text x="180" y="35">OL NC</text>
+
+          <text x="360" y="103">FWD START</text>
+          <text x="495" y="103">REV NC</text>
+          <text x="635" y="129">F</text>
+          <text x="360" y="202">F AUX NO</text>
+
+          <text x="360" y="233">REV START</text>
+          <text x="495" y="233">FWD NC</text>
+          <text x="635" y="259">R</text>
+          <text x="360" y="336">R AUX NO</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <h3>How It Works</h3>
+    <p>FORWARD START energizes F and closes its seal-in contact.</p>
+    <p>The normally closed REV auxiliary contact prevents F from energizing while R is active.</p>
+    <p>REVERSE START energizes R when F is de-energized.</p>
+    <p>STOP or an overload trip opens the common control circuit.</p>
+
+    <p style="font-size:12px;color:#94a3b8;">
+      Training schematic. A reversing starter also requires
+      a mechanical interlock and correctly wired power contacts.
+      Do not use this illustration as an installation drawing.
+    </p>
+
+  </div>
+</details>
+
     </div>
   </details>
 `);
