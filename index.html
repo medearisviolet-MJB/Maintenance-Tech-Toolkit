@@ -1349,13 +1349,101 @@ content.insertAdjacentHTML("beforeend", `
     `;
   }
 
-  if (page === "vfd") {
-    content.innerHTML = `
-      <h2>⚙️ VFD Fault Codes</h2>
-      <p>Drive faults, diagnostics, and troubleshooting.</p>
-      <p>Fault reference library coming soon.</p>
-    `;
-  }
+  
+
+if (page === "vfd") {
+  content.innerHTML = `
+
+    <h2>⚙️ VFD Tools</h2>
+    <p>Variable Frequency Drive Toolkit</p>
+
+    <!-- VFD CALCULATORS -->
+    <details class="calculator">
+      <summary>🧮 VFD Calculators</summary>
+      <div class="calculator-body">
+
+        <details class="calculator">
+          <summary>⚙️ Frequency & RPM Calculator</summary>
+          <div class="calculator-body">
+
+            <label>Output Frequency (Hz)</label>
+            <input id="vfdHz" type="number"
+                   value="60" min="0" step="any">
+
+            <label>Motor Poles</label>
+            <select id="vfdPoles">
+              <option value="2">2 Poles</option>
+              <option value="4" selected>4 Poles</option>
+              <option value="6">6 Poles</option>
+              <option value="8">8 Poles</option>
+            </select>
+
+            <button type="button"
+                    class="action"
+                    id="vfdRpmButton">
+              Calculate RPM
+            </button>
+
+            <h3 id="vfdRpmResult">
+              Synchronous RPM: --
+            </h3>
+
+            <p>Actual induction motor RPM
+               may be lower due to slip.</p>
+
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <!-- VFD DIAGRAMS -->
+    <details class="calculator">
+      <summary>🔌 VFD Wiring Diagrams</summary>
+      <div class="calculator-body">
+        <p>Power, control, PLC and
+           analog wiring diagrams.</p>
+      </div>
+    </details>
+
+    <!-- VFD PARAMETERS -->
+    <details class="calculator">
+      <summary>⚙️ VFD Parameters</summary>
+      <div class="calculator-body">
+        <p>Motor nameplate settings</p>
+        <p>Acceleration and deceleration</p>
+        <p>Minimum and maximum frequency</p>
+        <p>Run command source</p>
+        <p>Speed reference source</p>
+      </div>
+    </details>
+
+    <!-- VFD FAULTS -->
+    <details class="calculator">
+      <summary>🚨 VFD Fault Codes</summary>
+      <div class="calculator-body">
+        <p>Allen-Bradley</p>
+        <p>Siemens</p>
+        <p>Yaskawa</p>
+        <p>AutomationDirect GS20</p>
+        <p>Schneider Electric</p>
+      </div>
+    </details>
+
+    <!-- TROUBLESHOOTING -->
+    <details class="calculator">
+      <summary>🔧 VFD Troubleshooting</summary>
+      <div class="calculator-body">
+        <p>Drive will not start</p>
+        <p>Overcurrent faults</p>
+        <p>Overvoltage faults</p>
+        <p>Motor speed problems</p>
+        <p>Drive communication faults</p>
+      </div>
+    </details>
+
+  `;
+}
 
   if (page === "maintenance") {
     content.innerHTML = `
