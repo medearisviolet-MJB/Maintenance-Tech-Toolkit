@@ -1,0 +1,4337 @@
+function show(page) {
+  const content = document.getElementById("content");
+
+  if (page === "electrical") {
+    content.innerHTML = `
+    
+<details class="electrical-group">
+  <summary>🧮 Electrical Calculators</summary>
+  <div class="group-content">
+
+      <h2>⚡ Ohm's Law Calculator</h2>
+      <p>Calculate current using voltage and resistance.</p>
+      <label for="voltage">Voltage (V)</label>
+      <input id="voltage" type="number" step="any"
+             placeholder="Enter voltage">
+      <label for="resistance">Resistance (Ω)</label>
+      <input id="resistance" type="number" step="any"
+             placeholder="Enter resistance">
+      <button class="action" onclick="calculate()">
+        Calculate Current
+      </button>
+      <div id="result" aria-live="polite"></div> 
+      
+<hr style="border:1px solid #334155;margin:25px 0">
+<h2>⚙️ Three-Phase Motor Current</h2>
+<p>Estimate three-phase motor full-load current.</p>
+<label for="motorHP">Motor Horsepower (HP)</label>
+<input id="motorHP" type="number" step="any" value="10">
+<label for="motorVoltage">Voltage (V)</label>
+<input id="motorVoltage" type="number" step="any" value="480">
+<label for="motorEfficiency">Efficiency (%)</label>
+<input id="motorEfficiency" type="number" step="any" value="90">
+<label for="motorPF">Power Factor</label>
+<input id="motorPF" type="number"
+step="any" value="0.85">
+<button class="action" onclick="calculateMotorCurrent()">
+  Calculate Motor Current
+</button>
+
+<p id="motorResult"></p>
+    
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Voltage Drop Calculator</h2>
+<p>Calculate voltage loss across electrical conductors.</p>
+
+<label for="vdPhase">Circuit Type</label>
+<select id="vdPhase" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="3">Three-Phase</option>
+  <option value="1">Single-Phase</option>
+</select>
+
+<label for="vdVoltage">Supply Voltage (V)</label>
+<input id="vdVoltage" type="number" step="any" value="480">
+
+<label for="vdAmps">Load Current (Amps)</label>
+<input id="vdAmps" type="number" step="any" value="30">
+
+<label for="vdLength">One-Way Wire Length (Feet)</label>
+<input id="vdLength" type="number" step="any" value="100">
+
+<label for="vdMaterial">Conductor Material</label>
+<select id="vdMaterial" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="copper">Copper</option>
+  <option value="aluminum">Aluminum</option>
+</select>
+
+<label for="vdWire">Conductor Size</label>
+<select id="vdWire" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="14">14 AWG</option>
+  <option value="12">12 AWG</option>
+  <option value="10">10 AWG</option>
+  <option value="8" selected>8 AWG</option>
+  <option value="6">6 AWG</option>
+  <option value="4">4 AWG</option>
+  <option value="2">2 AWG</option>
+  <option value="1/0">1/0 AWG</option>
+  <option value="2/0">2/0 AWG</option>
+  <option value="3/0">3/0 AWG</option>
+  <option value="4/0">4/0 AWG</option>
+  <option value="250">250 kcmil</option>
+  <option value="300">300 kcmil</option>
+  <option value="350">350 kcmil</option>
+</select>
+
+<button class="action" onclick="calculateVoltageDrop()">
+  Calculate Voltage Drop
+</button>
+
+<div id="vdResult" aria-live="polite" style="margin-top:18px"></div>
+
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Transformer Calculator</h2>
+<p>Calculate transformer currents and voltage ratios.</p>
+
+<label for="trPhase">Transformer Phase</label>
+<select id="trPhase" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="3">Three-Phase</option>
+  <option value="1">Single-Phase</option>
+</select>
+
+<label for="trKVA">Transformer Rating (kVA)</label>
+<input id="trKVA" type="number" step="any" value="45">
+
+<label for="trPrimary">Primary Voltage (V)</label>
+<input id="trPrimary" type="number" step="any" value="480">
+
+<label for="trSecondary">Secondary Voltage (V)</label>
+<input id="trSecondary" type="number" step="any" value="208">
+
+<button class="action" onclick="calculateTransformer()">
+  Calculate Transformer
+</button>
+
+<div id="trResult" aria-live="polite" style="margin-top:18px"></div>
+
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>📊 4-20 mA Signal Calculator</h2>
+<p>Scale analog signals into engineering units.</p>
+
+<label for="maSignal">Input Signal (mA)</label>
+<input id="maSignal" type="number" step="any" value="12">
+
+<label for="maMin">Minimum Engineering Value</label>
+<input id="maMin" type="number" step="any" value="0">
+
+<label for="maMax">Maximum Engineering Value</label>
+<input id="maMax" type="number" step="any" value="100">
+
+<label for="maUnit">Engineering Unit</label>
+<select id="maUnit" style="width:100%;padding:14px;font-size:18px;border-radius:10px">
+  <option value="PSI">PSI</option>
+  <option value="°F">Degrees F</option>
+  <option value="°C">Degrees C</option>
+  <option value="%">Percent</option>
+  <option value="GPM">GPM</option>
+  <option value="in">Inches</option>
+  <option value="ft">Feet</option>
+</select>
+
+<button class="action" onclick="calculateMASignal()">
+  Calculate Analog Signal
+</button>
+
+<div id="maResult" aria-live="polite" style="margin-top:18px;white-space:pre-line"></div>
+
+<hr>
+
+<h2>⚡ Motor Overload Calculator</h2>
+
+<label>Motor Nameplate FLA (Amps)</label>
+<input type="number" id="olFLA"
+  placeholder="Enter motor FLA"
+  min="0" step="any">
+
+<label>Motor Service Factor / Temperature Rise</label>
+<select id="olFactor">
+  <option value="1.25">
+    SF 1.15+ or Temperature Rise 40°C or Less
+  </option>
+  <option value="1.15">
+    All Other Motors
+  </option>
+</select>
+
+<button class="action"
+  onclick="calculateMotorOverload()">
+  Calculate Motor Overload
+</button>
+
+<div id="olResult"
+  aria-live="polite"
+  style="margin-top:18px;white-space:pre-line">
+</div>
+
+<p style="font-size:12px;">
+  Maximum overload trip-current calculation.
+  Verify manufacturer relay settings.
+</p>
+
+<hr>
+
+<h2>⚡ Motor Horsepower Calculator</h2>
+
+<label>Calculation Type</label>
+<select id="hpMode">
+  <option value="ampsToHp">Amps to Horsepower</option>
+  <option value="hpToAmps">Horsepower to Amps</option>
+</select>
+
+<label>Motor Phase</label>
+<select id="hpPhase">
+  <option value="3">Three Phase</option>
+  <option value="1">Single Phase</option>
+</select>
+
+<label>Motor Voltage (V)</label>
+<input type="number" id="hpVoltage"
+  placeholder="Example: 480"
+  min="0" step="any">
+
+<label>Motor Current (Amps) or Horsepower (HP)</label>
+<input type="number" id="hpInput"
+  placeholder="Enter Amps or HP"
+  min="0" step="any">
+
+<label>Power Factor (0.01 - 1.00)</label>
+<input type="number" id="hpPF"
+  value="0.85" min="0.01" max="1" step="0.01">
+
+<label>Motor Efficiency (%)</label>
+<input type="number" id="hpEfficiency"
+  value="90" min="1" max="100" step="any">
+
+<button class="action"
+  onclick="calculateMotorHorsepower()">
+  Calculate Horsepower
+</button>
+
+<div id="hpResult"
+  aria-live="polite"
+  style="margin-top:18px;white-space:pre-line">
+</div>
+
+<p style="font-size:12px;">
+  Estimates motor horsepower, current and
+  electrical input power using voltage,
+  power factor and efficiency.
+</p>
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚙️ VFD & Motor RPM Calculator</h2>
+<p>Calculate motor speed, slip, and estimated RPM.</p>
+
+<label for="vfdHz">VFD Frequency (Hz)</label>
+<input id="vfdHz" type="number" step="any" value="60">
+
+<label for="motorPoles">Motor Poles</label>
+<select id="motorPoles"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+<option value="2">2 Poles</option>
+<option value="4" selected>4 Poles</option>
+<option value="6">6 Poles</option>
+<option value="8">8 Poles</option>
+</select>
+
+<label for="ratedHz">Nameplate Frequency (Hz)</label>
+<input id="ratedHz" type="number" step="any" value="60">
+
+<label for="ratedRPM">Nameplate RPM</label>
+<input id="ratedRPM" type="number" step="any" value="1750">
+
+<button class="action" onclick="calculateVFDRPM()">
+Calculate Motor RPM
+</button>
+
+<div id="vfdRPMResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;font-size:18px">
+</div>
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>⚡ Power Factor Calculator</h2>
+<p>Calculate kW, kVA, kVAR, and power factor.</p>
+
+<label for="pfMode">Select Known Values</label>
+<select id="pfMode" onchange="setPFMode()"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+  <option value="kw_kva">kW and kVA</option>
+  <option value="kw_pf">kW and Power Factor</option>
+  <option value="kva_pf">kVA and Power Factor</option>
+  <option value="kw_kvar">kW and kVAR</option>
+</select>
+
+<label id="pfLabel1" for="pfInput1">Real Power (kW)</label>
+<input id="pfInput1" type="number" step="any" value="10">
+
+<label id="pfLabel2" for="pfInput2">Apparent Power (kVA)</label>
+<input id="pfInput2" type="number" step="any" value="12.5">
+
+<button class="action" onclick="calculatePowerFactor()">
+  Calculate Power Factor
+</button>
+
+<div id="pfResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;font-size:18px">
+</div>
+
+<p style="font-size:12px;color:#94a3b8">
+Results use power triangle relationships.
+Leading or lagging power factor is not determined.
+</p>
+<hr style="border:1px solid #334155;margin:25px 0">
+
+<h2>🔥 Three-Phase Heater Calculator</h2>
+<p>Delta and Wye heating element connections.</p>
+
+<label for="heaterConnection">Connection Type</label>
+<select id="heaterConnection"
+style="width:100%;padding:13px;margin:8px 0;
+border-radius:8px;font-size:16px">
+<option value="delta">Delta (Δ)</option>
+<option value="wye">Wye (Y)</option>
+</select>
+
+<label for="heaterVoltage">Line Voltage (V)</label>
+<input id="heaterVoltage" type="number"
+step="any" value="480">
+
+<label for="heaterResistance">
+Resistance Per Element (Ohms)
+</label>
+<input id="heaterResistance" type="number"
+step="any" value="24">
+
+<button class="action" onclick="calculateHeater()">
+Calculate Heater
+</button>
+
+<div id="heaterResult" aria-live="polite"
+style="margin-top:18px;color:#4ade80;
+font-size:18px"></div>
+
+<p style="font-size:12px;color:#94a3b8">
+Assumes three equal resistive elements.
+Delta: elements connect line-to-line.
+Wye: elements connect to a common star point.
+Verify element voltage ratings before wiring.
+</p>
+`;
+    
+const group = document.querySelector(
+  ".electrical-group .group-content"
+);
+
+if (group) {
+  let currentBody = null;
+
+  [...group.children].forEach(element => {
+    if (element.tagName === "H2") {
+      const calculator = document.createElement("details");
+      calculator.className = "calculator";
+
+      const summary = document.createElement("summary");
+      summary.textContent = element.textContent;
+
+      const body = document.createElement("div");
+      body.className = "calculator-body";
+
+      calculator.append(summary, body);
+      group.insertBefore(calculator, element);
+
+      element.remove();
+      currentBody = body;
+    } else if (currentBody) {
+      currentBody.appendChild(element);
+    }
+  });
+}
+
+content.insertAdjacentHTML("beforeend", `
+  <details class="electrical-group">
+    <summary>📐 Electrical Diagrams</summary>
+    <div class="group-content">
+
+      <details class="calculator">
+        <summary>⚡ 3-Wire Motor Starter</summary>
+        <div class="calculator-body">
+
+          <h3>Start / Stop Control Circuit</h3>
+          <p>Standard contactor seal-in circuit.</p>
+
+          <div style="overflow-x:auto;">
+            <svg width="600" height="240"
+                 viewBox="0 0 600 240"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Three-wire motor starter ladder diagram"
+                 style="background:#0f172a;
+                 border:1px solid #334155;
+                 border-radius:10px;">
+
+              <g stroke="#e2e8f0"
+                 stroke-width="2.3"
+                 fill="none">
+
+                <!-- Supply rails -->
+                <path d="M35 40 V205 M565 40 V205"/>
+
+                <!-- Main control rung -->
+                <path d="M35 100 H98
+                         M118 100 H238
+                         M258 100 H390
+                         M410 100 H470
+                         M510 100 H565"/>
+
+                <!-- STOP normally closed -->
+                <path d="M98 88 V112
+                         M118 88 V112
+                         M95 114 L121 86"/>
+
+                <!-- START normally open -->
+                <path d="M238 88 V112
+                         M258 88 V112"/>
+
+                <!-- Seal-in branch -->
+                <path d="M180 100 V165 H238
+                         M258 165 H330 V100"/>
+
+                <!-- Auxiliary NO contact -->
+                <path d="M238 153 V177
+                         M258 153 V177"/>
+
+                <!-- Overload NC -->
+                <path d="M390 88 V112
+                         M410 88 V112
+                         M387 114 L413 86"/>
+
+                <!-- Contactor coil -->
+                <circle cx="490" cy="100" r="20"/>
+
+              </g>
+
+              <g fill="#e2e8f0"
+                 font-size="14"
+                 text-anchor="middle">
+
+                <text x="35" y="28">L1</text>
+                <text x="565" y="28">L2</text>
+
+                <text x="108" y="65">STOP</text>
+                <text x="248" y="65">START</text>
+                <text x="400" y="65">OL</text>
+
+                <text x="490" y="105">M</text>
+
+                <text x="248" y="195">M AUX</text>
+                <text x="248" y="215">NO Seal-In</text>
+
+              </g>
+            </svg>
+          </div>
+
+          <h3>How It Works</h3>
+          <p>
+            1. Press START to energize the M coil.
+          </p>
+          <p>
+            2. M auxiliary contact closes to
+            maintain the control circuit.
+          </p>
+          <p>
+            3. Press STOP to de-energize M.
+          </p>
+          <p>
+            4. An overload trip opens the
+            OL contact and stops the motor.
+          </p>
+
+          <p style="color:#94a3b8;font-size:12px;">
+            Training schematic only.
+            Actual wiring requires appropriate
+            control protection and safety devices.
+          </p>
+
+        </div>
+      </details>
+
+<details class="calculator">
+  <summary>🔄 Forward/Reverse Motor Control</summary>
+  <div class="calculator-body">
+
+    <h3>Forward / Reverse Starter</h3>
+    <p>Control circuit with electrical interlocks and seal-in contacts.</p>
+
+    <div style="overflow-x:auto;">
+      <svg width="750" height="345"
+        viewBox="0 0 750 345"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Forward reverse contactor ladder control"
+        style="background:#0f172a;border:1px solid #334155;border-radius:10px;">
+
+        <g stroke="#e2e8f0" stroke-width="2"
+          fill="none" stroke-linecap="round">
+
+          <!-- Common STOP and overload -->
+          <path d="M30 25 V60 H95
+                   M115 60 H170
+                   M190 60 H240 V255
+                   M720 25 V320"/>
+
+          <!-- Forward rung -->
+          <path d="M240 125 H350
+                   M370 125 H485
+                   M505 125 H615
+                   M653 125 H720"/>
+
+          <!-- Reverse rung -->
+          <path d="M240 255 H350
+                   M370 255 H485
+                   M505 255 H615
+                   M653 255 H720"/>
+
+          <!-- Forward seal-in branch -->
+          <path d="M295 125 V177 H350
+                   M370 177 H420 V125"/>
+
+          <!-- Reverse seal-in branch -->
+          <path d="M295 255 V307 H350
+                   M370 307 H420 V255"/>
+
+          <!-- Normally closed contacts -->
+          <path d="M95 48 V72 M115 48 V72
+                   M92 75 L118 45
+                   M170 48 V72 M190 48 V72
+                   M167 75 L193 45
+                   M485 113 V137 M505 113 V137
+                   M482 140 L508 110
+                   M485 243 V267 M505 243 V267
+                   M482 270 L508 240"/>
+
+          <!-- Normally open contacts -->
+          <path d="M350 113 V137 M370 113 V137
+                   M350 165 V189 M370 165 V189
+                   M350 243 V267 M370 243 V267
+                   M350 295 V319 M370 295 V319"/>
+
+          <!-- Contactor coils -->
+          <circle cx="635" cy="125" r="18"/>
+          <circle cx="635" cy="255" r="18"/>
+        </g>
+
+        <g fill="#e2e8f0" font-size="12"
+          text-anchor="middle">
+          <text x="30" y="17">L1</text>
+          <text x="720" y="17">L2</text>
+          <text x="105" y="35">STOP NC</text>
+          <text x="180" y="35">OL NC</text>
+
+          <text x="360" y="103">FWD START</text>
+          <text x="495" y="103">REV NC</text>
+          <text x="635" y="129">F</text>
+          <text x="360" y="202">F AUX NO</text>
+
+          <text x="360" y="233">REV START</text>
+          <text x="495" y="233">FWD NC</text>
+          <text x="635" y="259">R</text>
+          <text x="360" y="336">R AUX NO</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <h3>How It Works</h3>
+    <p>FORWARD START energizes F and closes its seal-in contact.</p>
+    <p>The normally closed REV auxiliary contact prevents F from energizing while R is active.</p>
+    <p>REVERSE START energizes R when F is de-energized.</p>
+    <p>STOP or an overload trip opens the common control circuit.</p>
+
+    <p style="font-size:12px;color:#94a3b8;">
+      Training schematic. A reversing starter also requires
+      a mechanical interlock and correctly wired power contacts.
+      Do not use this illustration as an installation drawing.
+    </p>
+
+  </div>
+</details>
+
+<details class="calculator">
+  <summary>⚙️ 3-Phase Motor Power Circuit</summary>
+  <div class="calculator-body">
+
+    <h3>Across-the-Line Motor Starter</h3>
+    <p>Three-phase motor power path with protection and switching.</p>
+
+    <div style="overflow-x:auto;">
+      <svg width="760" height="285"
+        viewBox="0 0 760 285"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Three-phase motor power block diagram"
+        style="background:#0f172a;border:1px solid #334155;border-radius:10px;">
+
+        <g stroke="#e2e8f0" stroke-width="2"
+          fill="none">
+
+          <!-- Three phase conductors -->
+          <path d="M30 75 H120 M200 75 H250 M330 75 H380 M460 75 H565
+                   M30 145 H120 M200 145 H250 M330 145 H380 M460 145 H565
+                   M30 215 H120 M200 215 H250 M330 215 H380 M460 215 H565"/>
+
+          <!-- Disconnect protection blocks -->
+          <rect x="120" y="57" width="80" height="36"/>
+          <rect x="120" y="127" width="80" height="36"/>
+          <rect x="120" y="197" width="80" height="36"/>
+
+          <!-- Contactor poles -->
+          <rect x="250" y="57" width="80" height="36"/>
+          <rect x="250" y="127" width="80" height="36"/>
+          <rect x="250" y="197" width="80" height="36"/>
+
+          <!-- Overload elements -->
+          <rect x="380" y="57" width="80" height="36"/>
+          <rect x="380" y="127" width="80" height="36"/>
+          <rect x="380" y="197" width="80" height="36"/>
+
+          <!-- Motor block -->
+          <rect x="565" y="35" width="170" height="220" rx="10"/>
+
+        </g>
+
+        <g fill="#e2e8f0" font-size="15"
+          text-anchor="middle">
+          <text x="160" y="30">QF</text>
+          <text x="290" y="30">KM</text>
+          <text x="420" y="30">OL</text>
+
+          <text x="30" y="64">L1</text>
+          <text x="30" y="134">L2</text>
+          <text x="30" y="204">L3</text>
+
+          <text x="160" y="81">QF1</text>
+          <text x="160" y="151">QF2</text>
+          <text x="160" y="221">QF3</text>
+
+          <text x="290" y="81">KM1</text>
+          <text x="290" y="151">KM2</text>
+          <text x="290" y="221">KM3</text>
+
+          <text x="420" y="81">OL1</text>
+          <text x="420" y="151">OL2</text>
+          <text x="420" y="221">OL3</text>
+
+          <text x="592" y="80">U</text>
+          <text x="592" y="150">V</text>
+          <text x="592" y="220">W</text>
+
+          <text x="664" y="145">M 3~</text>
+          <text x="664" y="172" font-size="12">MOTOR</text>
+        </g>
+      </svg>
+    </div>
+
+    <h3>Component Identification</h3>
+    <p><b>QF:</b> Protective disconnect or circuit breaker.</p>
+    <p><b>KM:</b> Three-pole motor contactor.</p>
+    <p><b>OL:</b> Motor overload protection.</p>
+    <p><b>M:</b> Three-phase AC motor.</p>
+
+    <p style="font-size:12px;color:#94a3b8;">
+      Simplified power-path diagram. Actual equipment
+      requires appropriate short-circuit protection,
+      grounding, motor connections and wiring
+      sized for the installation.
+    </p>
+
+  </div>
+</details>
+
+<details class="calculator">
+  <summary>📡 3-Wire PNP Sensor</summary>
+
+  <svg viewBox="0 0 370 235" width="100%"
+       role="img" aria-label="PNP sensor wiring to PLC">
+    <rect width="370" height="235" rx="10"
+          fill="#0b1220"/>
+
+    <rect x="103" y="50" width="125" height="135"
+          rx="9" fill="#1e293b" stroke="#64748b"/>
+    <text x="165" y="108" fill="white"
+          font-size="17" text-anchor="middle">PNP</text>
+    <text x="165" y="128" fill="#94a3b8"
+          font-size="13" text-anchor="middle">SENSOR</text>
+
+    <rect x="280" y="64" width="80" height="125"
+          rx="8" fill="#1e293b" stroke="#38bdf8"/>
+    <text x="320" y="89" fill="#38bdf8"
+          font-size="15" text-anchor="middle">PLC</text>
+    <text x="287" y="117" fill="white"
+          font-size="12">INPUT</text>
+    <text x="287" y="159" fill="white"
+          font-size="12">COM</text>
+
+    <path d="M18 75 H103" stroke="#d97736"
+          stroke-width="4" fill="none"/>
+    <text x="18" y="61" fill="#fbbf24"
+          font-size="12">+24V BN</text>
+
+    <path d="M18 165 H103" stroke="#38bdf8"
+          stroke-width="4" fill="none"/>
+    <text x="18" y="151" fill="#38bdf8"
+          font-size="12">0V BU</text>
+
+    <path d="M228 122 H280" stroke="#e2e8f0"
+          stroke-width="4" fill="none"/>
+    <text x="236" y="109" fill="white"
+          font-size="12">BK</text>
+
+    <path d="M280 165 H260 V214 H45 V165"
+          stroke="#38bdf8" stroke-width="3"
+          fill="none"/>
+    <circle cx="45" cy="165" r="4"
+            fill="#38bdf8"/>
+    <text x="133" y="206" fill="#38bdf8"
+          font-size="12">PLC COM to 0V</text>
+  </svg>
+
+  <p><b>PNP sourcing output:</b>
+    Brown = +24V, Blue = 0V,
+    Black = PLC input. PLC input common
+    connects to 0V.
+  </p>
+</details>
+
+<details class="calculator">
+  <summary>📡 3-Wire NPN Sensor</summary>
+
+  <svg viewBox="0 0 370 235" width="100%"
+       role="img" aria-label="NPN sensor wiring to PLC">
+    <rect width="370" height="235" rx="10"
+          fill="#0b1220"/>
+
+    <rect x="103" y="50" width="125" height="135"
+          rx="9" fill="#1e293b" stroke="#64748b"/>
+    <text x="165" y="108" fill="white"
+          font-size="17" text-anchor="middle">NPN</text>
+    <text x="165" y="128" fill="#94a3b8"
+          font-size="13" text-anchor="middle">SENSOR</text>
+
+    <rect x="280" y="64" width="70" height="125"
+          rx="8" fill="#1e293b" stroke="#38bdf8"/>
+    <text x="315" y="89" fill="#38bdf8"
+          font-size="15" text-anchor="middle">PLC</text>
+    <text x="286" y="117" fill="white"
+          font-size="12">INPUT</text>
+    <text x="286" y="159" fill="white"
+          font-size="12">COM</text>
+
+    <path d="M18 75 H103" stroke="#d97736"
+          stroke-width="4" fill="none"/>
+    <text x="18" y="61" fill="#fbbf24"
+          font-size="12">+24V BN</text>
+
+    <path d="M18 165 H103" stroke="#38bdf8"
+          stroke-width="4" fill="none"/>
+    <text x="18" y="151" fill="#38bdf8"
+          font-size="12">0V BU</text>
+
+    <path d="M228 122 H280" stroke="#e2e8f0"
+          stroke-width="4" fill="none"/>
+    <text x="236" y="109" fill="white"
+          font-size="12">BK</text>
+
+    <path d="M350 165 H361 V26 H50 V75"
+          stroke="#d97736" stroke-width="3"
+          fill="none"/>
+    <circle cx="50" cy="75" r="4"
+            fill="#d97736"/>
+    <text x="145" y="20" fill="#fbbf24"
+          font-size="12">PLC COM to +24V</text>
+  </svg>
+
+  <p><b>NPN sinking output:</b>
+    Brown = +24V, Blue = 0V,
+    Black = PLC input. PLC input common
+    connects to +24V.
+  </p>
+</details>
+
+<details class="calculator">
+  <summary>📈 4–20 mA Sensor Wiring</summary>
+
+  <svg viewBox="0 0 370 235" width="100%"
+       role="img"
+       aria-label="Two-wire loop-powered transmitter">
+    <rect width="370" height="235" rx="10"
+          fill="#0b1220"/>
+
+    <rect x="105" y="50" width="115" height="110"
+          rx="8" fill="#1e293b" stroke="#64748b"/>
+    <text x="162" y="91" fill="white"
+          font-size="15" text-anchor="middle">4–20 mA</text>
+    <text x="162" y="111" fill="#94a3b8"
+          font-size="12" text-anchor="middle">2-WIRE</text>
+    <text x="162" y="128" fill="#94a3b8"
+          font-size="12" text-anchor="middle">TRANSMITTER</text>
+
+    <rect x="270" y="65" width="88" height="125"
+          rx="8" fill="#1e293b" stroke="#38bdf8"/>
+    <text x="314" y="90" fill="#38bdf8"
+          font-size="14" text-anchor="middle">PLC AI</text>
+    <text x="277" y="119" fill="white"
+          font-size="12">I+</text>
+    <text x="277" y="164" fill="white"
+          font-size="12">I−</text>
+
+    <path d="M18 75 H105" stroke="#d97736"
+          stroke-width="4" fill="none"/>
+    <text x="18" y="60" fill="#fbbf24"
+          font-size="12">+24V DC</text>
+
+    <path d="M220 125 H270" stroke="#e2e8f0"
+          stroke-width="4" fill="none"/>
+    <text x="228" y="112" fill="white"
+          font-size="12">4–20mA</text>
+
+    <path d="M270 170 H247 V214 H55 V170 H18"
+          stroke="#38bdf8" stroke-width="3"
+          fill="none"/>
+    <text x="18" y="160" fill="#38bdf8"
+          font-size="12">0V DC</text>
+    <text x="107" y="205" fill="#38bdf8"
+          font-size="12">Loop return</text>
+  </svg>
+
+  <p><b>2-wire loop-powered transmitter:</b>
+    +24V to transmitter positive,
+    transmitter negative to PLC current
+    input I+, and PLC I− back to 0V.
+    This example assumes a passive PLC
+    current input.
+  </p>
+</details>
+
+<!-- 4-Wire Photoelectric Sensor -->
+<details class="calculator">
+  <summary>📡 4-Wire Photoeye NO/NC</summary>
+
+  <svg viewBox="0 0 360 256"
+       width="100%"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="360" height="256"
+          rx="12" fill="#0f172a"/>
+
+    <!-- Sensor -->
+    <rect x="100" y="55" width="118"
+          height="149" rx="9"
+          fill="#1e293b" stroke="#64748b"/>
+
+    <text x="159" y="116"
+          text-anchor="middle"
+          fill="white" font-size="15">
+      PHOTOEYE
+    </text>
+
+    <text x="159" y="137"
+          text-anchor="middle"
+          fill="#94a3b8" font-size="11">
+      4-WIRE PNP
+    </text>
+
+    <!-- PLC -->
+    <rect x="278" y="63" width="72"
+          height="153" rx="7"
+          fill="#1e293b" stroke="#38bdf8"/>
+
+    <text x="314" y="88"
+          text-anchor="middle"
+          fill="#38bdf8" font-size="15">
+      PLC
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="288" y="122">I0</text>
+      <text x="288" y="164">I1</text>
+      <text x="288" y="198">COM</text>
+    </g>
+
+    <!-- Brown +24V -->
+    <path d="M15 81 H100"
+          stroke="#b9783a" stroke-width="4"/>
+    <text x="15" y="68"
+          fill="#fbbf24" font-size="11">
+      BN +24V
+    </text>
+
+    <!-- Blue 0V -->
+    <path d="M15 181 H100"
+          stroke="#38bdf8" stroke-width="4"/>
+    <text x="15" y="168"
+          fill="#7dd3fc" font-size="11">
+      BU 0V
+    </text>
+
+    <!-- Black Normally Open -->
+    <path d="M218 117 H278"
+          stroke="#a3a3a3" stroke-width="4"/>
+    <text x="230" y="107"
+          fill="#cbd5e1" font-size="11">
+      BK NO
+    </text>
+
+    <!-- White Normally Closed -->
+    <path d="M218 159 H278"
+          stroke="white" stroke-width="4"/>
+    <text x="230" y="149"
+          fill="white" font-size="11">
+      WH NC
+    </text>
+
+    <!-- PLC Input Common -->
+    <path d="M278 194 H254 V232 H43 V181"
+          stroke="#38bdf8"
+          stroke-width="3" fill="none"/>
+    <circle cx="43" cy="181" r="4"
+            fill="#38bdf8"/>
+
+    <text x="124" y="247"
+          fill="#7dd3fc" font-size="11">
+      0V Common
+    </text>
+  </svg>
+
+  <h3>Wire Connections</h3>
+
+  <p>🟤 Brown: +24V DC</p>
+  <p>🔵 Blue: 0V DC</p>
+  <p>⚫ Black: Normally Open to PLC I0</p>
+  <p>⚪ White: Normally Closed to PLC I1</p>
+
+  <h3>How It Works</h3>
+
+  <p>
+    When the sensor's switching condition
+    is active, the NO output turns ON
+    and the complementary NC output
+    turns OFF.
+  </p>
+
+  <p>
+    Both outputs connect to separate
+    PLC digital inputs. The PLC input
+    common connects to 0V.
+  </p>
+
+  <p>
+    Note: This example applies to a
+    PNP photoeye specifically equipped
+    with complementary NO/NC outputs.
+    Verify the wire assignments and
+    light-on/dark-on configuration
+    in the manufacturer's datasheet.
+  </p>
+
+</details>
+
+<!-- Laser Distance Sensor -->
+<details class="calculator">
+  <summary>📏 Laser Distance Sensor</summary>
+
+  <svg viewBox="0 0 390 290"
+       width="100%"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="390" height="290"
+          rx="12" fill="#0f172a"/>
+
+    <!-- Sensor body -->
+    <rect x="92" y="55" width="128" height="170"
+          rx="10" fill="#1e293b" stroke="#64748b"/>
+
+    <text x="156" y="110"
+          text-anchor="middle"
+          fill="white" font-size="16">
+      DISTANCE
+    </text>
+
+    <text x="156" y="132"
+          text-anchor="middle"
+          fill="white" font-size="16">
+      SENSOR
+    </text>
+
+    <text x="156" y="155"
+          text-anchor="middle"
+          fill="#94a3b8" font-size="11">
+      Q1 / Q2 / ANALOG
+    </text>
+
+    <!-- Little laser beam -->
+    <polygon points="220,118 255,108 255,128"
+             fill="#ef4444"/>
+
+    <!-- PLC Digital Inputs -->
+    <rect x="285" y="45" width="82" height="115"
+          rx="8" fill="#1e293b" stroke="#38bdf8"/>
+
+    <text x="326" y="68"
+          text-anchor="middle"
+          fill="#38bdf8" font-size="14">
+      PLC DI
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="294" y="95">I0 = Q1</text>
+      <text x="294" y="120">I1 = Q2</text>
+      <text x="294" y="145">COM</text>
+    </g>
+
+    <!-- PLC Analog Input -->
+    <rect x="285" y="180" width="82" height="70"
+          rx="8" fill="#1e293b" stroke="#22c55e"/>
+
+    <text x="326" y="203"
+          text-anchor="middle"
+          fill="#22c55e" font-size="14">
+      PLC AI
+    </text>
+
+    <g fill="white" font-size="11">
+      <text x="294" y="225">AI0</text>
+      <text x="294" y="245">COM</text>
+    </g>
+
+    <!-- Brown +24V -->
+    <path d="M15 82 H92"
+          stroke="#b9783a" stroke-width="4" fill="none"/>
+    <text x="15" y="68"
+          fill="#fbbf24" font-size="11">
+      BN +24V
+    </text>
+
+    <!-- Blue 0V -->
+    <path d="M15 206 H92"
+          stroke="#38bdf8" stroke-width="4" fill="none"/>
+    <text x="15" y="193"
+          fill="#7dd3fc" font-size="11">
+      BU 0V
+    </text>
+
+    <!-- Black Q1 -->
+    <path d="M220 102 H285"
+          stroke="#d1d5db" stroke-width="4" fill="none"/>
+    <text x="228" y="91"
+          fill="#e5e7eb" font-size="11">
+      BK Q1
+    </text>
+
+    <!-- White Q2 -->
+    <path d="M220 128 H285"
+          stroke="#ffffff" stroke-width="4" fill="none"/>
+    <text x="228" y="145"
+          fill="white" font-size="11">
+      WH Q2
+    </text>
+
+    <!-- Gray Analog -->
+    <path d="M220 176 H285"
+          stroke="#9ca3af" stroke-width="4" fill="none"/>
+    <text x="228" y="166"
+          fill="#d1d5db" font-size="11">
+      GY Analog
+    </text>
+
+    <!-- Digital common tied to 0V -->
+    <path d="M285 145 H260 V270 H42 V206"
+          stroke="#38bdf8" stroke-width="3" fill="none"/>
+    <circle cx="42" cy="206" r="4" fill="#38bdf8"/>
+
+    <!-- Analog common tied to 0V -->
+    <path d="M285 245 H272 V270"
+          stroke="#38bdf8" stroke-width="3" fill="none"/>
+
+    <text x="120" y="282"
+          fill="#7dd3fc" font-size="11">
+      0V common return
+    </text>
+  </svg>
+
+  <h3>Wire Connections</h3>
+
+  <p>🟤 Brown: +24V DC power</p>
+  <p>🔵 Blue: 0V DC common</p>
+  <p>⚫ Black: Q1 digital output to PLC input I0</p>
+  <p>⚪ White: Q2 digital output to PLC input I1</p>
+  <p>⚙️ Gray: Analog output to PLC analog input AI0</p>
+
+  <h3>How It Works</h3>
+
+  <p>
+    Q1 and Q2 are switching outputs.
+    These can be set up as independent
+    switching points or windows depending
+    on the sensor model.
+  </p>
+
+  <p>
+    The analog output provides a distance
+    value, commonly 4–20 mA or 0–10 V,
+    to the PLC analog input.
+  </p>
+
+  <p>
+    In this example, the PLC digital input
+    common is tied to 0V, which matches a
+    typical PNP output arrangement.
+  </p>
+
+  <p>
+    Always verify the actual pinout and
+    whether the sensor analog output is
+    4–20 mA or 0–10 V before wiring.
+  </p>
+
+</details>
+    </div>
+  </details>
+`);
+
+  }
+
+  if (page === "plc") {
+    content.innerHTML = `
+      <h2>🧠 PLC Troubleshooting</h2>
+      <p>Allen-Bradley, Siemens, and PLC diagnostics.</p>
+      <p>More troubleshooting tools coming soon.</p>
+    `;
+  }
+
+  
+
+if (page === "vfd") {
+  content.innerHTML = `
+
+    <h2>⚙️ VFD Tools</h2>
+    <p>Variable Frequency Drive Toolkit</p>
+
+    <!-- VFD CALCULATORS -->
+    <details class="calculator">
+      <summary>🧮 VFD Calculators</summary>
+      <div class="calculator-body">
+
+        <details class="calculator">
+          <summary>⚙️ Frequency & RPM Calculator</summary>
+          <div class="calculator-body">
+
+            <label>Output Frequency (Hz)</label>
+            <input id="vfdHz" type="number"
+                   value="60" min="0" step="any">
+
+            <label>Motor Poles</label>
+            <select id="vfdPoles">
+              <option value="2">2 Poles</option>
+              <option value="4" selected>4 Poles</option>
+              <option value="6">6 Poles</option>
+              <option value="8">8 Poles</option>
+            </select>
+
+            <button type="button"
+                    class="action"
+                    id="vfdRpmButton">
+              Calculate RPM
+            </button>
+
+            <h3 id="vfdRpmResult">
+              Synchronous RPM: --
+            </h3>
+
+            <p>Actual induction motor RPM
+               may be lower due to slip.</p>
+
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+
+<!-- VFD DIAGRAMS -->
+<details class="calculator">
+  <summary>🔌 VFD Wiring Diagrams</summary>
+  <div class="calculator-body">
+
+    <details class="calculator">
+      <summary>⚡ 2-Wire Start/Stop Control</summary>
+      <div class="calculator-body">
+
+        <h3>Maintained Run Switch</h3>
+        <p>Click the switch button to simulate a VFD run command.</p>
+
+        <svg viewBox="0 0 360 220"
+             width="100%"
+             role="img"
+             aria-label="Two-wire VFD start stop control diagram">
+
+          <rect width="360" height="220"
+                rx="10" fill="#0f172a"/>
+
+          <!-- VFD -->
+          <rect x="230" y="30" width="115"
+                height="170" rx="10"
+                fill="#1e293b" stroke="#38bdf8"
+                stroke-width="2"/>
+
+          <text x="287" y="58" fill="#38bdf8"
+                text-anchor="middle" font-size="18">
+            VFD
+          </text>
+
+          <text x="242" y="103"
+                fill="white" font-size="13">DI1</text>
+          <text x="242" y="176"
+                fill="white" font-size="13">DCM</text>
+
+          <!-- Run switch -->
+          <text x="125" y="48" fill="white"
+                text-anchor="middle" font-size="13">
+            RUN SWITCH
+          </text>
+
+          <circle cx="105" cy="95" r="5"
+                  fill="#fbbf24"/>
+          <circle cx="145" cy="95" r="5"
+                  fill="#fbbf24"/>
+
+          <line class="vfd-switch-blade"
+                x1="105" y1="95"
+                x2="138" y2="75"
+                stroke="#fbbf24"
+                stroke-width="4"
+                stroke-linecap="round"/>
+
+          <!-- Digital input circuit -->
+          <path d="M15 95 H105 M145 95 H230"
+                stroke="#fbbf24" stroke-width="3"
+                fill="none"/>
+
+          <text x="15" y="78" fill="#fbbf24"
+                font-size="12">+24V</text>
+
+          <!-- Common -->
+          <path d="M230 170 H90 V205 H15"
+                stroke="#38bdf8" stroke-width="3"
+                fill="none"/>
+
+          <text x="15" y="195"
+                fill="#38bdf8" font-size="12">0V</text>
+        </svg>
+
+        <button type="button" class="action"
+                onclick="toggleVfd2Wire(this)">
+          Close RUN Switch
+        </button>
+
+        <h3 class="vfd-switch-status"
+            aria-live="polite"
+            style="color:#f87171">
+          DRIVE COMMAND: STOP
+        </h3>
+
+        <h3>How It Works</h3>
+        <p>1. Closing the maintained switch applies the run signal to DI1.</p>
+        <p>2. The VFD receives a RUN request if properly configured.</p>
+        <p>3. Opening the switch removes the RUN request.</p>
+
+        <p style="font-size:12px;color:#94a3b8">
+          Training diagram only. This assumes a
+          compatible 24V sourcing input arrangement.
+          Verify VFD terminal designations, internal
+          versus external supply, input configuration
+          and safety requirements before wiring.
+          Removing RUN is not a safety-rated stop.
+        </p>
+
+      </div>
+    </details>
+
+<!-- 3-WIRE VFD CONTROL -->
+<details class="calculator">
+  <summary>🟢 3-Wire VFD Start/Stop</summary>
+  <div class="calculator-body">
+
+    <h3>Momentary START / STOP Control</h3>
+    <p>Press START or STOP to simulate a VFD
+       configured for three-wire control.</p>
+
+    <svg viewBox="0 0 380 245"
+         width="100%"
+         role="img"
+         aria-label="Conceptual three-wire VFD control diagram">
+
+      <rect width="380" height="245"
+            rx="10" fill="#0f172a"/>
+
+      <rect x="245" y="30" width="120"
+            height="185" rx="10"
+            fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="305" y="57" text-anchor="middle"
+            fill="#38bdf8" font-size="18">VFD</text>
+
+      <g fill="white" font-size="13">
+        <text x="255" y="97">DI1 START</text>
+        <text x="255" y="148">DI2 STOP</text>
+        <text x="255" y="197">DCM</text>
+      </g>
+
+      <!-- START NO contact -->
+      <path d="M20 91 H95 M115 91 H245"
+            stroke="#22c55e" stroke-width="3"
+            fill="none"/>
+      <path d="M95 80 V102 M115 80 V102"
+            stroke="#22c55e" stroke-width="3"/>
+      <text x="105" y="70" text-anchor="middle"
+            fill="#22c55e" font-size="12">START NO</text>
+
+      <!-- STOP NC contact -->
+      <path d="M20 142 H95 M115 142 H245"
+            stroke="#f87171" stroke-width="3"
+            fill="none"/>
+      <path d="M95 131 V153 M115 131 V153
+               M91 155 L119 129"
+            stroke="#f87171" stroke-width="3"
+            fill="none"/>
+      <text x="105" y="120" text-anchor="middle"
+            fill="#f87171" font-size="12">STOP NC</text>
+
+      <!-- Common return -->
+      <path d="M245 193 H185 V225 H20"
+            stroke="#38bdf8" stroke-width="3"
+            fill="none"/>
+
+      <text x="20" y="81" fill="#fbbf24"
+            font-size="11">+24V</text>
+      <text x="20" y="132" fill="#fbbf24"
+            font-size="11">+24V</text>
+      <text x="20" y="219" fill="#38bdf8"
+            font-size="11">0V</text>
+    </svg>
+
+    <button type="button"
+            class="action"
+            onclick="startVfd3Wire(this)"
+            style="background:#16a34a">
+      🟢 Press START
+    </button>
+
+    <button type="button"
+            class="action"
+            onclick="stopVfd3Wire(this)"
+            style="background:#dc2626">
+      🔴 Press STOP
+    </button>
+
+    <h3 class="vfd3-status"
+        aria-live="polite"
+        style="color:#f87171">
+      DRIVE COMMAND: STOP
+    </h3>
+
+    <h3>How It Works</h3>
+    <p>1. The START pushbutton is normally open.</p>
+    <p>2. Pressing START sends a momentary run request.</p>
+    <p>3. The VFD maintains the run state internally.</p>
+    <p>4. Pressing the normally closed STOP
+       button interrupts its stop input circuit.</p>
+    <p>5. The VFD stops according to its programmed
+       stopping method.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Educational control diagram. Terminal names,
+      input polarity, internal 24V supply and
+      three-wire parameter configuration vary by
+      manufacturer. This does not represent a
+      safety-rated stop circuit.
+    </p>
+
+  </div>
+</details>
+
+<!-- FORWARD / REVERSE VFD CONTROL -->
+<details class="calculator">
+  <summary>🔄 Forward / Reverse VFD Control</summary>
+  <div class="calculator-body">
+
+    <h3>VFD Direction Control</h3>
+    <p>
+      Simulate forward and reverse commands
+      using two maintained digital inputs.
+    </p>
+
+    <svg viewBox="0 0 390 255"
+         width="100%"
+         role="img"
+         aria-label="VFD forward reverse digital input diagram">
+
+      <rect width="390" height="255"
+            rx="10" fill="#0f172a"/>
+
+      <!-- VFD -->
+      <rect x="255" y="30" width="120"
+            height="195" rx="10"
+            fill="#1e293b"
+            stroke="#38bdf8"
+            stroke-width="2"/>
+
+      <text x="315" y="55"
+            text-anchor="middle"
+            font-size="18"
+            fill="#38bdf8">VFD</text>
+
+      <g fill="white" font-size="12">
+        <text x="265" y="100">DI1 FWD</text>
+        <text x="265" y="155">DI2 REV</text>
+        <text x="265" y="205">DCM</text>
+      </g>
+
+      <!-- Forward NO contact -->
+      <path d="M20 95 H100 M125 95 H255"
+            stroke="#22c55e"
+            stroke-width="3" fill="none"/>
+
+      <path class="vfd-fwd-contact"
+            d="M100 82 V108 M125 82 V108"
+            stroke="#22c55e"
+            stroke-width="3"/>
+
+      <text x="112" y="72"
+            fill="#22c55e"
+            text-anchor="middle"
+            font-size="12">FWD NO</text>
+
+      <!-- Reverse NO contact -->
+      <path d="M20 150 H100 M125 150 H255"
+            stroke="#f59e0b"
+            stroke-width="3" fill="none"/>
+
+      <path class="vfd-rev-contact"
+            d="M100 137 V163 M125 137 V163"
+            stroke="#f59e0b"
+            stroke-width="3"/>
+
+      <text x="112" y="129"
+            fill="#f59e0b"
+            text-anchor="middle"
+            font-size="12">REV NO</text>
+
+      <!-- Common return -->
+      <path d="M255 200 H190 V239 H20"
+            stroke="#38bdf8"
+            stroke-width="3" fill="none"/>
+
+      <text x="20" y="84"
+            fill="#fbbf24"
+            font-size="12">+24V</text>
+
+      <text x="20" y="139"
+            fill="#fbbf24"
+            font-size="12">+24V</text>
+
+      <text x="20" y="232"
+            fill="#38bdf8"
+            font-size="12">0V</text>
+
+      <!-- Direction display -->
+      <text class="vfd-direction-arrow"
+            x="175" y="195"
+            text-anchor="middle"
+            font-size="31"
+            fill="#94a3b8">■</text>
+
+      <text x="175" y="220"
+            text-anchor="middle"
+            font-size="11"
+            fill="#94a3b8">MOTOR DIRECTION</text>
+
+    </svg>
+
+    <button type="button"
+            class="action"
+            style="background:#16a34a"
+            onclick="setVfdDirection(this,'forward')">
+      ▶ FORWARD
+    </button>
+
+    <button type="button"
+            class="action"
+            style="background:#d97706"
+            onclick="setVfdDirection(this,'reverse')">
+      ◀ REVERSE
+    </button>
+
+    <button type="button"
+            class="action"
+            style="background:#dc2626"
+            onclick="setVfdDirection(this,'stop')">
+      ■ STOP
+    </button>
+
+    <h3 class="vfd-direction-status"
+        aria-live="polite"
+        style="color:#94a3b8">
+      MOTOR: STOPPED
+    </h3>
+
+    <p class="vfd-interlock-message"
+       aria-live="polite"></p>
+
+    <h3>How It Works</h3>
+
+    <p>
+      1. FORWARD closes the simulated
+      DI1 contact and requests forward rotation.
+    </p>
+
+    <p>
+      2. STOP removes the direction/run request.
+    </p>
+
+    <p>
+      3. REVERSE closes the simulated
+      DI2 contact and requests reverse rotation.
+    </p>
+
+    <p>
+      4. The training interlock requires
+      STOP before changing direction.
+    </p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Training simulation only. Assumes a VFD
+      configured for two-wire forward/reverse
+      command inputs using compatible 24V
+      sourcing control. Check actual terminal
+      functions, input polarity, drive parameters,
+      and machine safety requirements. A RUN/STOP
+      command is not a safety-rated stop.
+    </p>
+
+  </div>
+</details>
+
+<!-- COMPACTLOGIX PLC TO VFD - DIGITAL -->
+<details class="calculator">
+  <summary>🧠 CompactLogix PLC to VFD - Digital</summary>
+  <div class="calculator-body">
+
+    <h3>5069-OB16 Digital VFD Control</h3>
+    <p>Simulate PLC RUN and REVERSE commands,
+       along with VFD status feedback.</p>
+
+    <svg viewBox="0 0 390 245" width="100%"
+         role="img"
+         aria-label="CompactLogix digital VFD control">
+
+      <rect width="390" height="245" rx="10"
+            fill="#0f172a"/>
+
+      <rect x="12" y="30" width="145" height="175"
+            rx="8" fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="84" y="53" fill="#38bdf8"
+            text-anchor="middle" font-size="15">
+        CompactLogix
+      </text>
+      <text x="84" y="72" fill="white"
+            text-anchor="middle" font-size="12">
+        5069-OB16
+      </text>
+
+      <rect x="247" y="30" width="130" height="175"
+            rx="8" fill="#1e293b"
+            stroke="#4ade80" stroke-width="2"/>
+
+      <text x="312" y="55" fill="#4ade80"
+            text-anchor="middle" font-size="17">
+        VFD
+      </text>
+
+      <!-- RUN output -->
+      <path class="plc-run-wire"
+            d="M157 102 H247"
+            stroke="#64748b" stroke-width="4"/>
+
+      <text x="18" y="105" fill="white"
+            font-size="11">OUT 0 RUN</text>
+      <text x="255" y="105" fill="white"
+            font-size="11">DI1 RUN</text>
+
+      <!-- REVERSE output -->
+      <path class="plc-rev-wire"
+            d="M157 151 H247"
+            stroke="#64748b" stroke-width="4"/>
+
+      <text x="18" y="154" fill="white"
+            font-size="11">OUT 1 REV</text>
+      <text x="255" y="154" fill="white"
+            font-size="11">DI2 REV</text>
+
+      <!-- Simplified common reference -->
+      <path d="M247 185 H201 V220 H157"
+            fill="none" stroke="#38bdf8"
+            stroke-width="3"/>
+
+      <text x="255" y="190" fill="white"
+            font-size="11">DI COM</text>
+      <text x="75" y="223" fill="#7dd3fc"
+            font-size="10">0V reference*</text>
+
+      <circle class="plc-run-led"
+              cx="141" cy="102" r="6"
+              fill="#475569"/>
+
+      <circle class="plc-rev-led"
+              cx="141" cy="151" r="6"
+              fill="#475569"/>
+
+    </svg>
+
+    <button type="button" class="action"
+            style="background:#16a34a"
+            onclick="plcVfdCommand(this,'run')">
+      START FORWARD
+    </button>
+
+    <button type="button" class="action"
+            style="background:#d97706"
+            onclick="plcVfdCommand(this,'reverse')">
+      START REVERSE
+    </button>
+
+    <button type="button" class="action"
+            style="background:#dc2626"
+            onclick="plcVfdCommand(this,'stop')">
+      STOP
+    </button>
+
+    <h3 class="plc-vfd-status"
+        aria-live="polite" style="color:#94a3b8">
+      PLC COMMAND: STOPPED
+    </h3>
+
+    <p class="plc-vfd-interlock"
+       aria-live="polite"></p>
+
+    <h3>Simulated VFD Feedback</h3>
+
+    <label>
+      <input type="checkbox" class="plc-vfd-running"
+             style="width:auto"
+             onchange="plcVfdFeedback(this)">
+      VFD Running Feedback - 5069-IB16 IN 0
+    </label>
+
+    <label>
+      <input type="checkbox" class="plc-vfd-fault"
+             style="width:auto"
+             onchange="plcVfdFeedback(this)">
+      VFD Fault Feedback - 5069-IB16 IN 1
+    </label>
+
+    <p class="plc-vfd-feedback"
+       aria-live="polite">Feedback: Not running</p>
+
+    <h3>How It Works</h3>
+    <p>OUT 0 requests forward operation through DI1.</p>
+    <p>OUT 1 requests reverse operation through DI2.</p>
+    <p>STOP removes both simulated run commands.</p>
+    <p>Feedback contacts are simulated independently
+       to demonstrate command versus actual status.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Training schematic, not installation wiring.
+      The 5069-OB16 sourcing outputs require
+      correctly supplied field power. Use matching
+      VFD sourcing-compatible input configuration.
+      DI common wiring, external 24V supply,
+      feedback contact power, and field protection
+      must be verified for the selected equipment.
+      The 0V line above is conceptual, not a
+      connection from an OB16 output terminal.
+    </p>
+
+  </div>
+</details>
+
+
+<!-- COMPACTLOGIX PLC TO VFD - ANALOG -->
+<details class="calculator">
+  <summary>📈 CompactLogix PLC to VFD - Analog</summary>
+  <div class="calculator-body">
+
+    <h3>5069-OF4 Analog Speed Control</h3>
+
+    <p>Adjust the simulated PLC speed command
+       sent to the VFD analog reference input.</p>
+
+    <svg viewBox="0 0 390 200" width="100%"
+         role="img"
+         aria-label="CompactLogix analog speed reference">
+
+      <rect width="390" height="200" rx="10"
+            fill="#0f172a"/>
+
+      <rect x="12" y="26" width="148" height="145"
+            rx="9" fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="86" y="51" fill="#38bdf8"
+            text-anchor="middle" font-size="15">
+        CompactLogix
+      </text>
+
+      <text x="86" y="72" fill="white"
+            text-anchor="middle" font-size="12">
+        5069-OF4
+      </text>
+
+      <rect x="245" y="26" width="132" height="145"
+            rx="9" fill="#1e293b"
+            stroke="#4ade80" stroke-width="2"/>
+
+      <text x="311" y="51" fill="#4ade80"
+            text-anchor="middle" font-size="16">
+        VFD
+      </text>
+
+      <path d="M160 100 H245"
+            stroke="#fbbf24" stroke-width="4"/>
+
+      <path d="M160 147 H245"
+            stroke="#38bdf8" stroke-width="3"/>
+
+      <text x="18" y="95" fill="white"
+            font-size="11">AO CH0 +</text>
+
+      <text x="18" y="142" fill="white"
+            font-size="11">AO return</text>
+
+      <text x="253" y="95" fill="white"
+            font-size="11">AI SPEED</text>
+
+      <text x="253" y="142" fill="white"
+            font-size="11">AI COM</text>
+
+      <text x="203" y="88" fill="#fbbf24"
+            text-anchor="middle" font-size="11">
+        SIGNAL
+      </text>
+
+      <text x="203" y="135" fill="#7dd3fc"
+            text-anchor="middle" font-size="11">
+        RETURN
+      </text>
+
+      <text x="195" y="190" fill="#94a3b8"
+            text-anchor="middle" font-size="10">
+        Select matching voltage/current mode
+      </text>
+
+    </svg>
+
+    <label>Analog Output Type</label>
+    <select class="plc-analog-mode"
+            onchange="updatePlcAnalog(this)"
+            style="width:100%;padding:13px">
+      <option value="voltage">0-10V DC</option>
+      <option value="current">4-20mA</option>
+    </select>
+
+    <label>Motor Maximum Frequency (Hz)</label>
+    <input type="number" class="plc-analog-max"
+           value="60" min="0.1" max="400"
+           step="any" oninput="updatePlcAnalog(this)">
+
+    <label>Speed Command (%)</label>
+    <input type="range" class="plc-analog-slider"
+           min="0" max="100" value="50"
+           step="1" oninput="updatePlcAnalog(this)"
+           style="width:100%">
+
+    <h3 class="plc-analog-percent"
+        style="color:#38bdf8">
+      Speed Command: 50%
+    </h3>
+
+    <h3 class="plc-analog-signal"
+        style="color:#4ade80">
+      Analog Output: 5.00 V
+    </h3>
+
+    <h3 class="plc-analog-frequency"
+        style="color:#fbbf24">
+      Frequency Reference: 30.00 Hz
+    </h3>
+
+    <p class="plc-analog-note"
+       style="color:#94a3b8;font-size:12px">
+      Frequency reference only. This does not
+      issue a RUN command.
+    </p>
+
+    <h3>How It Works</h3>
+    <p>The PLC scales a speed setpoint into
+       the configured analog output range.</p>
+    <p>The VFD converts that reference into
+       a commanded output frequency.</p>
+    <p>Actual motor speed depends on motor poles,
+       slip, load and drive configuration.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Educational block diagram. Confirm the
+      5069-OF4 channel-specific voltage/current
+      terminals and returns in Rockwell wiring
+      documentation. Configure the VFD analog input
+      to match the signal. Verify grounding,
+      shielding, isolation and input compatibility.
+      Actual drive scaling, limits and fault
+      handling may differ.
+    </p>
+
+  </div>
+</details>
+
+  </div>
+</details>
+
+
+    <!-- VFD PARAMETERS -->
+    <details class="calculator">
+      <summary>⚙️ VFD Parameters</summary>
+      <div class="calculator-body">
+        <p>Motor nameplate settings</p>
+        <p>Acceleration and deceleration</p>
+        <p>Minimum and maximum frequency</p>
+        <p>Run command source</p>
+        <p>Speed reference source</p>
+      </div>
+    </details>
+
+
+<!-- VFD FAULT LIBRARY -->
+<details class="calculator">
+  <summary>🚨 VFD Fault Codes</summary>
+  <div class="calculator-body">
+
+<details class="calculator">
+  <summary>⚡ PowerFlex 525 Fault Codes</summary>
+  <div class="calculator-body">
+
+    <h3>Allen-Bradley PowerFlex 525</h3>
+    <p>
+      Search drive faults and view
+      troubleshooting recommendations.
+    </p>
+
+    <label for="pf525Search">Search Fault Codes</label>
+    <input
+      type="search"
+      id="pf525Search"
+      placeholder="Example: F059, overload, network"
+      oninput="searchPF525Faults()"
+      autocomplete="off"
+    >
+
+    <button type="button"
+            class="action"
+            onclick="clearPF525Search()">
+      Clear Search
+    </button>
+
+    <p id="pf525Count" aria-live="polite"></p>
+
+    <div id="pf525FaultResults"></div>
+
+  <p style="font-size:12px;color:#94a3b8">
+      Troubleshooting reference only.
+      Verify the drive model, firmware,
+      and official Rockwell documentation.
+      Follow lockout/tagout and electrical
+      safety procedures before servicing.
+      Never bypass a safety circuit.
+    </p>
+
+    <a href="https://literature.rockwellautomation.com/idc/groups/literature/documents/um/520-um001_-en-e.pdf"
+       target="_blank"
+       rel="noopener noreferrer"
+       style="color:#38bdf8">
+      Official PowerFlex 520-Series User Manual
+    </a>
+
+  </div>
+</details>
+
+<!-- POWERFLEX 753 FAULT LIBRARY -->
+<details class="calculator">
+  <summary>⚙️ PowerFlex 753 Fault Codes</summary>
+  <div class="calculator-body">
+
+    <h3>Allen-Bradley PowerFlex 753</h3>
+    <p>Search by fault number, name or symptom.</p>
+
+    <label for="pf753Search">Search Fault Codes</label>
+    <input
+      type="search"
+      id="pf753Search"
+      placeholder="Example: 12, overcurrent, network"
+      oninput="searchPF753Faults()"
+      autocomplete="off"
+    >
+
+    <button type="button"
+            class="action"
+            onclick="clearPF753Search()">
+      Clear Search
+    </button>
+
+    <p id="pf753Count" aria-live="polite">
+      Enter a fault code or keyword to search.
+    </p>
+
+    <div id="pf753FaultResults"></div>
+
+    <p style="font-size:12px;color:#94a3b8">
+      PowerFlex 753 training reference.
+      Verify the actual fault number, port,
+      firmware and installed options.
+      Follow electrical safety and
+      lockout/tagout procedures.
+    </p>
+
+    <a
+      href="https://literature.rockwellautomation.com/idc/groups/literature/documents/pm/750-pm001_-en-p.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="color:#38bdf8">
+      Official PowerFlex 750-Series Programming Manual
+    </a>
+  
+    </div>
+</details>
+
+
+  </div>
+</details>
+
+
+
+<!-- INTERACTIVE VFD TROUBLESHOOTING -->
+<details class="calculator">
+  <summary>🔧 VFD Troubleshooting</summary>
+  <div class="calculator-body">
+
+    
+<details class="calculator">
+  <summary>⚙️ Interactive VFD Diagnostics</summary>
+  <div class="calculator-body">
+
+    <h3>Guided Troubleshooting Checklist</h3>
+
+
+    <p>
+      Select the problem you're experiencing
+      to view a step-by-step troubleshooting guide.
+    </p>
+
+    <label for="vfdTroubleSymptom">
+      Select VFD Problem
+    </label>
+
+    <select id="vfdTroubleSymptom"
+            onchange="loadVfdTroubleshooting()"
+            style="width:100%;padding:13px;
+                   margin:10px 0;border-radius:8px;
+                   font-size:16px;">
+
+      <option value="">-- Select a Problem --</option>
+      <option value="blank">Drive Display Is Blank</option>
+      <option value="noStart">Drive Will Not Start</option>
+      <option value="overcurrent">Overcurrent Fault</option>
+      <option value="overvoltage">Overvoltage Fault</option>
+      <option value="undervoltage">Undervoltage Fault</option>
+      <option value="speed">Motor Speed Problem</option>
+      <option value="network">Communication Fault</option>
+      <option value="overheat">Drive Overheating</option>
+
+    </select>
+
+    <div id="vfdTroubleProgressBox"
+         style="display:none;margin:15px 0;">
+
+      <p id="vfdTroubleProgress"
+         aria-live="polite"></p>
+
+      <div style="background:#334155;
+                  height:10px;border-radius:8px;
+                  overflow:hidden;">
+
+        <div id="vfdTroubleBar"
+             style="background:#38bdf8;
+                    width:0%;height:100%;
+                    transition:width .2s;">
+        </div>
+      </div>
+    </div>
+
+    <div id="vfdTroubleResults">
+      <p style="color:#94a3b8">
+        Select a problem above to begin.
+      </p>
+    </div>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Training and diagnostic reference only.
+      Follow site safety procedures, LOTO
+      requirements, and the specific drive manual.
+      Isolate hazardous energy and verify DC bus
+      discharge before servicing. Never bypass
+      an interlock or safety circuit.
+      Checking an item does not certify the
+      equipment safe to operate.
+    </p>
+
+  </div>
+</details>
+
+  </div>
+</details>
+
+
+  `;
+  searchPF525Faults();
+  addVfdDiagnosticAssistant();
+}
+
+  if (page === "maintenance") {
+    content.innerHTML = `
+      <h2>🔧 Maintenance Guides</h2>
+      <p>Motors, sensors, relays, and industrial equipment.</p>
+      <p>Maintenance guides coming soon.</p>
+    `;
+  }
+}
+
+function calculate() {
+  const vText = document.getElementById("voltage").value;
+  const rText = document.getElementById("resistance").value;
+  const result = document.getElementById("result");
+
+  if (vText === "" || rText === "") {
+    result.textContent = "Enter voltage and resistance.";
+    return;
+  }
+
+  const voltage = Number(vText);
+  const resistance = Number(rText);
+
+  if (!Number.isFinite(voltage) ||
+      !Number.isFinite(resistance) ||
+      resistance <= 0) {
+    result.textContent = "Enter a resistance greater than zero.";
+    return;
+  }
+
+  const current = voltage / resistance;
+  result.textContent = "Current: " +
+    Number(current.toFixed(4)) + " Amps";
+}
+function calculateMotorCurrent() {
+  const hpText = document.getElementById("motorHP").value;
+  const voltageText = document.getElementById("motorVoltage").value;
+  const efficiencyText =
+    document.getElementById("motorEfficiency").value;
+  const pfText = document.getElementById("motorPF").value;
+  const result = document.getElementById("motorResult");
+
+  if ([hpText, voltageText, efficiencyText, pfText]
+      .some(value => value.trim() === "")) {
+    result.textContent = "Enter all motor values.";
+    return;
+  }
+
+  const hp = Number(hpText);
+  const voltage = Number(voltageText);
+  const efficiency = Number(efficiencyText) / 100;
+  const pf = Number(pfText);
+
+  if (
+    ![hp, voltage, efficiency, pf].every(Number.isFinite) ||
+    hp <= 0 ||
+    voltage <= 0 ||
+    efficiency <= 0 ||
+    efficiency > 1 ||
+    pf <= 0 ||
+    pf > 1
+  ) {
+    result.textContent = "Check your motor values.";
+    return;
+  }
+
+  const amps = (hp * 746) /
+    (Math.sqrt(3) * voltage * efficiency * pf);
+
+  result.textContent =
+    "Estimated Motor Current: " +
+    amps.toFixed(2) + " Amps";
+
+
+}
+  
+function calculateVoltageDrop() {
+  const result = document.getElementById("vdResult");
+
+  const phase = document.getElementById("vdPhase").value;
+  const vText = document.getElementById("vdVoltage").value;
+  const aText = document.getElementById("vdAmps").value;
+  const lText = document.getElementById("vdLength").value;
+  const material = document.getElementById("vdMaterial").value;
+  const wire = document.getElementById("vdWire").value;
+
+  if ([vText, aText, lText].some(x => x.trim() === "")) {
+    result.textContent = "Enter all required values.";
+    return;
+  }
+
+  const voltage = Number(vText);
+  const amps = Number(aText);
+  const length = Number(lText);
+
+  if (![voltage, amps, length].every(Number.isFinite) ||
+      voltage <= 0 || amps <= 0 || length < 0) {
+    result.textContent = "Check voltage, current, and length.";
+    return;
+  }
+
+  // Approximate conductor DC resistance at 75 C,
+  // in ohms per 1,000 feet.
+  const resistance = {
+    copper: {
+      "14": 3.07, "12": 1.93, "10": 1.21,
+      "8": 0.778, "6": 0.491, "4": 0.308,
+      "2": 0.194, "1/0": 0.122,
+      "2/0": 0.0967, "3/0": 0.0766,
+      "4/0": 0.0608, "250": 0.0515,
+      "300": 0.0435, "350": 0.0378
+    },
+    aluminum: {
+      "14": 5.04, "12": 3.17, "10": 1.99,
+      "8": 1.28, "6": 0.808, "4": 0.508,
+      "2": 0.319, "1/0": 0.201,
+      "2/0": 0.159, "3/0": 0.126,
+      "4/0": 0.100, "250": 0.0847,
+      "300": 0.0715, "350": 0.0620
+    }
+  };
+
+  const ohms = resistance[material][wire];
+  const multiplier = phase === "3" ? Math.sqrt(3) : 2;
+
+  const drop = multiplier * amps * length * ohms / 1000;
+  const percent = (drop / voltage) * 100;
+  const loadVoltage = voltage - drop;
+
+  const message = percent > 3
+    ? "Above the common 3% voltage-drop design target."
+    : "At or below the common 3% design target.";
+
+  result.innerHTML =
+    "<strong>Voltage Drop:</strong> " + drop.toFixed(2) + " V<br>" +
+    "<strong>Percentage Drop:</strong> " + percent.toFixed(2) + "%<br>" +
+    "<strong>Estimated Load Voltage:</strong> " +
+    loadVoltage.toFixed(2) + " V<br>" +
+    "<small>" + message + "</small>";
+}
+
+function calculateTransformer() {
+  const result = document.getElementById("trResult");
+
+  const phase = document.getElementById("trPhase").value;
+  const kvaText = document.getElementById("trKVA").value.trim();
+  const primaryText = document.getElementById("trPrimary").value.trim();
+  const secondaryText = document.getElementById("trSecondary").value.trim();
+
+  if ([kvaText, primaryText, secondaryText].some(x => x === "")) {
+    result.textContent = "Enter all transformer values.";
+    return;
+  }
+
+  const kva = Number(kvaText);
+  const primaryV = Number(primaryText);
+  const secondaryV = Number(secondaryText);
+
+  if (![kva, primaryV, secondaryV].every(Number.isFinite) ||
+      kva <= 0 || primaryV <= 0 || secondaryV <= 0) {
+    result.textContent = "All values must be greater than zero.";
+    return;
+  }
+
+  const phaseFactor = phase === "3" ? Math.sqrt(3) : 1;
+
+  const primaryAmps = (kva * 1000) / (phaseFactor * primaryV);
+  const secondaryAmps = (kva * 1000) / (phaseFactor * secondaryV);
+
+  const ratio = primaryV / secondaryV;
+
+  const transformerType = primaryV > secondaryV ? "Step-down" :
+                          primaryV < secondaryV ? "Step-up" :
+                          "Equal-voltage";
+
+  result.innerHTML =
+    "<strong>Transformer Type:</strong> " + transformerType + "<br>" +
+    "<strong>Primary Current:</strong> " + primaryAmps.toFixed(2) + " A<br>" +
+    "<strong>Secondary Current:</strong> " + secondaryAmps.toFixed(2) + " A<br>" +
+    "<strong>Voltage Ratio:</strong> " + ratio.toFixed(2) + ":1<br>" +
+    "<strong>Transformer Rating:</strong> " + kva.toFixed(2) + " kVA";
+}
+
+function calculateMASignal() {
+  const result = document.getElementById("maResult");
+
+  const signalText = document.getElementById("maSignal").value;
+  const minText = document.getElementById("maMin").value;
+  const maxText = document.getElementById("maMax").value;
+  const unit = document.getElementById("maUnit").value;
+
+  if ([signalText, minText, maxText].some(x => x.trim() === "")) {
+    result.textContent = "Enter all signal values.";
+    return;
+  }
+
+  const signal = Number(signalText);
+  const min = Number(minText);
+  const max = Number(maxText);
+
+  if (![signal, min, max].every(Number.isFinite) ||
+      signal < 0 || max <= min) {
+    result.textContent = "Check your signal and range values.";
+    return;
+  }
+
+  const percent = ((signal - 4) / 16) * 100;
+
+  const scaledValue =
+    min + ((signal - 4) / 16) * (max - min);
+
+  let status = "Within normal 4-20 mA span.";
+
+  if (signal < 4) {
+    status = "Below 4 mA: Check for under-range or loop fault.";
+  } else if (signal > 20) {
+    status = "Above 20 mA: Check for over-range.";
+  }
+
+  result.textContent =
+    "Scaled Value: " + scaledValue.toFixed(2) + " " + unit + "\n" +
+    "Signal Percentage: " + percent.toFixed(2) + "%\n" +
+    "Input Current: " + signal.toFixed(2) + " mA\n" +
+    status;
+}
+
+function calculateMotorOverload() {
+  const flaText = document.getElementById("olFLA").value;
+  const fla = Number(flaText);
+  const factor = Number(
+    document.getElementById("olFactor").value
+  );
+  const result = document.getElementById("olResult");
+
+  if (
+    flaText.trim() === "" ||
+    !Number.isFinite(fla) ||
+    fla <= 0
+  ) {
+    result.textContent = "Please enter a valid motor FLA.";
+    return;
+  }
+
+  const overload = fla * factor;
+  const percentage = factor * 100;
+
+  result.textContent =
+    "Motor FLA: " + fla.toFixed(2) + " A\n" +
+    "Overload Percentage: " + percentage.toFixed(0) + "%\n" +
+    "Maximum Trip Current: " + overload.toFixed(2) + " A\n\n" +
+    "Formula: FLA × Overload Percentage\n\n" +
+    "Note: Actual overload relay settings depend on manufacturer instructions.";
+}
+
+
+function calculateMotorHorsepower() {
+  const mode = document.getElementById("hpMode").value;
+  const phase = Number(document.getElementById("hpPhase").value);
+  const voltageText = document.getElementById("hpVoltage").value;
+  const inputText = document.getElementById("hpInput").value;
+  const voltage = Number(voltageText);
+  const input = Number(inputText);
+  const pf = Number(document.getElementById("hpPF").value);
+  const efficiency = Number(document.getElementById("hpEfficiency").value) / 100;
+  const result = document.getElementById("hpResult");
+
+  if (
+    voltageText.trim() === "" ||
+    inputText.trim() === "" ||
+    !Number.isFinite(voltage) ||
+    !Number.isFinite(input) ||
+    voltage <= 0 ||
+    input <= 0 ||
+    !Number.isFinite(pf) ||
+    pf <= 0 ||
+    pf > 1 ||
+    !Number.isFinite(efficiency) ||
+    efficiency <= 0 ||
+    efficiency > 1
+  ) {
+    result.textContent =
+      "Please enter valid positive values.\n" +
+      "Power factor must be 0.01 to 1.\n" +
+      "Efficiency must be greater than 0% and at most 100%.";
+    return;
+  }
+
+  const multiplier = phase === 3 ? Math.sqrt(3) : 1;
+
+  let amps;
+  let hp;
+  let kw;
+
+  if (mode === "ampsToHp") {
+    amps = input;
+
+    const inputWatts = multiplier * voltage * amps * pf;
+    const outputWatts = inputWatts * efficiency;
+
+    hp = outputWatts / 746;
+    kw = inputWatts / 1000;
+  } else {
+    hp = input;
+
+    const outputWatts = hp * 746;
+    const inputWatts = outputWatts / efficiency;
+
+    amps = inputWatts / (multiplier * voltage * pf);
+    kw = inputWatts / 1000;
+  }
+
+  result.textContent =
+    "Motor Phase: " + phase + "-Phase\n" +
+    "Voltage: " + voltage.toFixed(2) + " V\n" +
+    "Power Factor: " + pf.toFixed(2) + "\n" +
+    "Efficiency: " + (efficiency * 100).toFixed(1) + "%\n\n" +
+    "Motor Current: " + amps.toFixed(2) + " A\n" +
+    "Estimated Output: " + hp.toFixed(2) + " HP\n" +
+    "Electrical Input: " + kw.toFixed(2) + " kW\n\n" +
+    "Calculations use nominal 746 watts per HP.";
+}
+  function calculateVFDRPM() {
+  const ids = ["vfdHz", "ratedHz", "ratedRPM"];
+  const result = document.getElementById("vfdRPMResult");
+
+  if (ids.some(id =>
+    document.getElementById(id).value.trim() === ""
+  )) {
+    result.textContent = "Enter all motor values.";
+    return;
+  }
+
+  const hz = Number(document.getElementById("vfdHz").value);
+  const poles = Number(document.getElementById("motorPoles").value);
+  const ratedHz = Number(document.getElementById("ratedHz").value);
+  const ratedRPM = Number(document.getElementById("ratedRPM").value);
+
+  const ratedSyncRPM = (120 * ratedHz) / poles;
+
+  if (
+    ![hz, poles, ratedHz, ratedRPM].every(Number.isFinite) ||
+    hz < 0 || ratedHz <= 0 ||
+    ratedRPM <= 0 || ratedRPM > ratedSyncRPM
+  ) {
+    result.textContent = "Check motor values and nameplate RPM.";
+    return;
+  }
+
+  const synchronousRPM = (120 * hz) / poles;
+  const slipPercent =
+    ((ratedSyncRPM - ratedRPM) / ratedSyncRPM) * 100;
+  const estimatedRPM =
+    synchronousRPM * (1 - slipPercent / 100);
+
+  result.innerHTML =
+    "Synchronous RPM: " + synchronousRPM.toFixed(0) +
+    "<br><br>Rated Slip: " + slipPercent.toFixed(2) + "%" +
+    "<br><br>Estimated Running RPM: " +
+    estimatedRPM.toFixed(0) + " RPM";
+  }
+  function setPFMode() {
+  const modes = {
+    kw_kva: ["Real Power (kW)", "Apparent Power (kVA)", 10, 12.5],
+    kw_pf: ["Real Power (kW)", "Power Factor (0-1)", 10, 0.8],
+    kva_pf: ["Apparent Power (kVA)", "Power Factor (0-1)", 12.5, 0.8],
+    kw_kvar: ["Real Power (kW)", "Reactive Power (kVAR)", 10, 7.5]
+  };
+  const m = document.getElementById("pfMode").value;
+  const v = modes[m];
+  document.getElementById("pfLabel1").textContent = v[0];
+  document.getElementById("pfLabel2").textContent = v[1];
+  document.getElementById("pfInput1").value = v[2];
+  document.getElementById("pfInput2").value = v[3];
+  document.getElementById("pfResult").textContent = "";
+}
+
+function calculatePowerFactor() {
+  const get = id => document.getElementById(id).value;
+  const mode = get("pfMode");
+  const out = document.getElementById("pfResult");
+  const rawA = get("pfInput1");
+  const rawB = get("pfInput2");
+  const error = msg => {
+    out.style.color = "#f87171";
+    out.textContent = msg;
+  };
+
+  if (rawA.trim() === "" || rawB.trim() === "") {
+    error("Enter both values.");
+    return;
+  }
+
+  const a = Number(rawA), b = Number(rawB);
+  if (!Number.isFinite(a) || !Number.isFinite(b) ||
+      a <= 0 || b < 0) {
+    error("Enter valid positive power values.");
+    return;
+  }
+
+  let kw, kva, kvar;
+
+  if (mode === "kw_kva") {
+    if (b < a) {
+      error("kVA must be at least kW.");
+      return;
+    }
+    kw = a;
+    kva = b;
+    kvar = Math.sqrt(kva * kva - kw * kw);
+  } else if (mode === "kw_pf") {
+    if (b <= 0 || b > 1) {
+      error("PF must be greater than 0 and at most 1.");
+      return;
+    }
+    kw = a;
+    kva = kw / b;
+    kvar = Math.sqrt(Math.max(0, kva * kva - kw * kw));
+  } else if (mode === "kva_pf") {
+    if (b > 1) {
+      error("PF must be between 0 and 1.");
+      return;
+    }
+    kva = a;
+    kw = kva * b;
+    kvar = Math.sqrt(Math.max(0, kva * kva - kw * kw));
+  } else if (mode === "kw_kvar") {
+    kw = a;
+    kvar = b;
+    kva = Math.hypot(kw, kvar);
+  } else {
+    error("Invalid calculation mode.");
+    return;
+  }
+
+  out.style.color = "#4ade80";
+  out.innerHTML =
+    "Real Power: " + kw.toFixed(2) + " kW" +
+    "<br><br>Apparent Power: " + kva.toFixed(2) + " kVA" +
+    "<br><br>Reactive Power: " + kvar.toFixed(2) + " kVAR" +
+    "<br><br>Power Factor: " + (kw / kva).toFixed(3);
+}
+  function calculateHeater() {
+  const connection =
+    document.getElementById("heaterConnection").value;
+  const vText =
+    document.getElementById("heaterVoltage").value;
+  const rText =
+    document.getElementById("heaterResistance").value;
+  const result =
+    document.getElementById("heaterResult");
+
+  if (vText.trim() === "" || rText.trim() === "") {
+    result.textContent = "Enter voltage and resistance.";
+    return;
+  }
+
+  const voltage = Number(vText);
+  const resistance = Number(rText);
+
+  if (!Number.isFinite(voltage) ||
+      !Number.isFinite(resistance) ||
+      voltage <= 0 || resistance <= 0) {
+    result.textContent = "Enter valid positive values.";
+    return;
+  }
+
+  if (connection !== "delta" && connection !== "wye") {
+    result.textContent = "Select Delta or Wye.";
+    return;
+  }
+
+  const elementVoltage = connection === "delta"
+    ? voltage : voltage / Math.sqrt(3);
+
+  const elementCurrent = elementVoltage / resistance;
+
+  const lineCurrent = connection === "delta"
+    ? elementCurrent * Math.sqrt(3)
+    : elementCurrent;
+
+  const totalWatts =
+    3 * elementVoltage * elementCurrent;
+
+  const totalKW = totalWatts / 1000;
+
+  result.innerHTML =
+    "Connection: " + connection.toUpperCase() +
+    "<br><br>Element Voltage: " +
+    elementVoltage.toFixed(2) + " V" +
+    "<br><br>Element Current: " +
+    elementCurrent.toFixed(2) + " A" +
+    "<br><br>Line Current: " +
+    lineCurrent.toFixed(2) + " A" +
+    "<br><br>Total Power: " +
+    totalKW.toFixed(2) + " kW";
+  }
+  
+// AUTOMATIC COLLAPSIBLE CALCULATORS
+
+const originalShow = show;
+
+show = function(page) {
+  originalShow(page);
+
+  if (page !== "electrical") return;
+
+  const content =
+    document.getElementById("content");
+
+  const headings = [...content.children]
+    .filter(el => el.tagName === "H2");
+
+  headings.forEach(heading => {
+
+    const details =
+      document.createElement("details");
+
+    details.className = "calculator";
+
+    const summary =
+      document.createElement("summary");
+
+    summary.textContent =
+      heading.textContent.trim();
+
+    const body =
+      document.createElement("div");
+
+    body.className = "calculator-body";
+
+    let node = heading.nextSibling;
+
+    heading.replaceWith(details);
+
+    while (
+      node &&
+      !(node.nodeType === 1 &&
+        node.tagName === "H2")
+    ) {
+      const next = node.nextSibling;
+
+      if (
+        node.nodeType === 1 &&
+        node.tagName === "HR"
+      ) {
+        node.remove();
+      } else {
+        body.appendChild(node);
+      }
+
+      node = next;
+    }
+
+    details.append(summary, body);
+  });
+
+  // Expand / Collapse All Buttons
+
+  const toolbar =
+    document.createElement("div");
+
+  toolbar.className =
+    "calculator-toolbar";
+
+  toolbar.innerHTML = `
+    <button type="button"
+      class="calculator-control">
+      Expand All
+    </button>
+    <button type="button"
+      class="calculator-control">
+      Collapse All
+    </button>
+  `;
+
+  const buttons =
+    toolbar.querySelectorAll("button");
+
+  buttons[0].onclick = function() {
+    content.querySelectorAll(
+      "details.calculator"
+    ).forEach(calc => {
+      calc.open = true;
+    });
+  };
+
+  buttons[1].onclick = function() {
+    content.querySelectorAll(
+      "details.calculator"
+    ).forEach(calc => {
+      calc.open = false;
+    });
+  };
+
+  content.prepend(toolbar);
+};
+
+/* VFD RPM Calculator */
+
+document.addEventListener("click", function(event) {
+
+  if (!event.target.closest("#vfdRpmButton")) {
+    return;
+  }
+
+  const hzInput = document.getElementById("vfdHz");
+  const polesInput = document.getElementById("vfdPoles");
+  const result = document.getElementById("vfdRpmResult");
+
+  if (!hzInput || !polesInput || !result) return;
+
+  const hz = Number(hzInput.value);
+  const poles = Number(polesInput.value);
+
+  if (hzInput.value.trim() === "" ||
+      !Number.isFinite(hz) || hz < 0) {
+    result.textContent = "Enter a valid frequency.";
+    return;
+  }
+
+  const rpm = (120 * hz) / poles;
+
+  result.textContent =
+    "Synchronous RPM: " + rpm.toFixed(1);
+});
+
+function toggleVfd2Wire(button) {
+  const diagram = button.closest(".calculator");
+  const blade = diagram.querySelector(".vfd-switch-blade");
+  const status = diagram.querySelector(".vfd-switch-status");
+
+  const running = button.dataset.running === "true";
+
+  if (running) {
+    blade.setAttribute("x2", "138");
+    blade.setAttribute("y2", "75");
+    status.textContent = "DRIVE COMMAND: STOP";
+    status.style.color = "#f87171";
+    button.textContent = "Close RUN Switch";
+    button.dataset.running = "false";
+  } else {
+    blade.setAttribute("x2", "145");
+    blade.setAttribute("y2", "95");
+    status.textContent = "DRIVE COMMAND: RUN";
+    status.style.color = "#4ade80";
+    button.textContent = "Open RUN Switch";
+    button.dataset.running = "true";
+  }
+}
+
+function startVfd3Wire(button) {
+  const diagram = button.closest(".calculator");
+  const status = diagram.querySelector(".vfd3-status");
+
+  status.textContent = "DRIVE COMMAND: RUN";
+  status.style.color = "#4ade80";
+}
+
+function stopVfd3Wire(button) {
+  const diagram = button.closest(".calculator");
+  const status = diagram.querySelector(".vfd3-status");
+
+  status.textContent = "DRIVE COMMAND: STOP";
+  status.style.color = "#f87171";
+}
+
+function setVfdDirection(button, direction) {
+
+  const diagram = button.closest(".calculator");
+
+  const status = diagram.querySelector(
+    ".vfd-direction-status"
+  );
+
+  const arrow = diagram.querySelector(
+    ".vfd-direction-arrow"
+  );
+
+  const message = diagram.querySelector(
+    ".vfd-interlock-message"
+  );
+
+  const fwd = diagram.querySelector(
+    ".vfd-fwd-contact"
+  );
+
+  const rev = diagram.querySelector(
+    ".vfd-rev-contact"
+  );
+
+  const current = diagram.dataset.direction || "stop";
+
+  // Require STOP before reversing direction.
+  if (direction !== "stop" &&
+      current !== "stop" &&
+      direction !== current) {
+
+    message.textContent =
+      "INTERLOCK ACTIVE: Press STOP before reversing.";
+
+    message.style.color = "#facc15";
+    return;
+  }
+
+  diagram.dataset.direction = direction;
+  message.textContent = "";
+
+  // Open both contacts by default.
+  fwd.setAttribute(
+    "d", "M100 82 V108 M125 82 V108"
+  );
+
+  rev.setAttribute(
+    "d", "M100 137 V163 M125 137 V163"
+  );
+
+  if (direction === "forward") {
+
+    fwd.setAttribute(
+      "d", "M100 95 H125"
+    );
+
+    status.textContent = "MOTOR: FORWARD";
+    status.style.color = "#4ade80";
+
+    arrow.textContent = "↻";
+    arrow.setAttribute("fill", "#4ade80");
+
+  } else if (direction === "reverse") {
+
+    rev.setAttribute(
+      "d", "M100 150 H125"
+    );
+
+    status.textContent = "MOTOR: REVERSE";
+    status.style.color = "#fbbf24";
+
+    arrow.textContent = "↺";
+    arrow.setAttribute("fill", "#fbbf24");
+
+  } else {
+
+    status.textContent = "MOTOR: STOPPED";
+    status.style.color = "#94a3b8";
+
+    arrow.textContent = "■";
+    arrow.setAttribute("fill", "#94a3b8");
+  }
+}
+
+function plcVfdCommand(button, command) {
+  const panel = button.closest(".calculator");
+  const current = panel.dataset.command || "stop";
+  const status = panel.querySelector(".plc-vfd-status");
+  const warning = panel.querySelector(".plc-vfd-interlock");
+  const runWire = panel.querySelector(".plc-run-wire");
+  const revWire = panel.querySelector(".plc-rev-wire");
+  const runLed = panel.querySelector(".plc-run-led");
+  const revLed = panel.querySelector(".plc-rev-led");
+  const fault = panel.querySelector(".plc-vfd-fault");
+
+  if (fault.checked && command !== "stop") {
+    warning.textContent =
+      "FAULT ACTIVE: Clear fault before a new command.";
+    warning.style.color = "#facc15";
+    return;
+  }
+
+  if (current !== "stop" && command !== "stop"
+      && current !== command) {
+    warning.textContent =
+      "INTERLOCK: Press STOP before changing direction.";
+    warning.style.color = "#facc15";
+    return;
+  }
+
+  panel.dataset.command = command;
+  warning.textContent = "";
+
+  const forward = command === "run";
+  const reverse = command === "reverse";
+
+  runWire.setAttribute("stroke",
+    forward ? "#4ade80" : "#64748b");
+  revWire.setAttribute("stroke",
+    reverse ? "#fbbf24" : "#64748b");
+
+  runLed.setAttribute("fill",
+    forward ? "#4ade80" : "#475569");
+  revLed.setAttribute("fill",
+    reverse ? "#fbbf24" : "#475569");
+
+  if (forward) {
+    status.textContent = "PLC COMMAND: FORWARD";
+    status.style.color = "#4ade80";
+  } else if (reverse) {
+    status.textContent = "PLC COMMAND: REVERSE";
+    status.style.color = "#fbbf24";
+  } else {
+    status.textContent = "PLC COMMAND: STOPPED";
+    status.style.color = "#94a3b8";
+  }
+}
+
+function plcVfdFeedback(input) {
+  const panel = input.closest(".calculator");
+  const running =
+    panel.querySelector(".plc-vfd-running").checked;
+  const fault =
+    panel.querySelector(".plc-vfd-fault").checked;
+  const display =
+    panel.querySelector(".plc-vfd-feedback");
+
+  if (fault) {
+    display.textContent =
+      "FEEDBACK: VFD FAULT ACTIVE";
+    display.style.color = "#f87171";
+  } else if (running) {
+    display.textContent =
+      "FEEDBACK: VFD RUNNING";
+    display.style.color = "#4ade80";
+  } else {
+    display.textContent =
+      "FEEDBACK: VFD NOT RUNNING";
+    display.style.color = "#94a3b8";
+  }
+}
+
+function updatePlcAnalog(input) {
+  const panel = input.closest(".calculator");
+  const mode =
+    panel.querySelector(".plc-analog-mode").value;
+  const percent =
+    Number(panel.querySelector(".plc-analog-slider").value);
+  const max =
+    Number(panel.querySelector(".plc-analog-max").value);
+
+  const percentDisplay =
+    panel.querySelector(".plc-analog-percent");
+  const signalDisplay =
+    panel.querySelector(".plc-analog-signal");
+  const frequencyDisplay =
+    panel.querySelector(".plc-analog-frequency");
+
+  percentDisplay.textContent =
+    "Speed Command: " + percent + "%";
+
+  if (mode === "voltage") {
+    const volts = percent / 100 * 10;
+    signalDisplay.textContent =
+      "Analog Output: " + volts.toFixed(2) + " V";
+  } else {
+    const ma = 4 + percent / 100 * 16;
+    signalDisplay.textContent =
+      "Analog Output: " + ma.toFixed(2) + " mA";
+  }
+
+  if (!Number.isFinite(max) || max <= 0) {
+    frequencyDisplay.textContent =
+      "Enter a valid maximum frequency.";
+    return;
+  }
+
+  const hz = percent / 100 * max;
+  frequencyDisplay.textContent =
+    "Frequency Reference: " + hz.toFixed(2) + " Hz";
+}
+
+/* POWERFLEX 525 FAULT CODE LIBRARY */
+
+const pf525Faults = [
+  {
+    code: "F002",
+    name: "Auxiliary Input",
+    cause: "External auxiliary fault input activated.",
+    checks: "Inspect remote fault contacts, field wiring and programmed input functions."
+  },
+  {
+    code: "F003",
+    name: "Power Loss",
+    cause: "Incoming power interruption or low supply voltage.",
+    checks: "Check incoming line voltage, supply stability and upstream fuses."
+  },
+  {
+    code: "F004",
+    name: "UnderVoltage",
+    cause: "DC bus voltage dropped below the drive limit.",
+    checks: "Investigate low incoming voltage, supply interruptions and power quality."
+  },
+  {
+    code: "F005",
+    name: "OverVoltage",
+    cause: "DC bus voltage exceeded the drive limit.",
+    checks: "Check high incoming voltage, transients and regenerative energy during deceleration. Review decel time and braking requirements."
+  },
+  {
+    code: "F006",
+    name: "Motor Stalled",
+    cause: "Motor load prevented normal acceleration or operation.",
+    checks: "Inspect mechanical loading, acceleration settings and current limit configuration."
+  },
+  {
+    code: "F007",
+    name: "Motor Overload",
+    cause: "Electronic motor overload protection operated.",
+    checks: "Check motor loading, nameplate current, P033 Motor OL Current and boost settings."
+  },
+  {
+    code: "F008",
+    name: "Heatsink OvrTmp",
+    cause: "Drive heatsink temperature exceeded its limit.",
+    checks: "Inspect cooling fan, heatsink blockage and ambient temperature."
+  },
+  {
+    code: "F009",
+    name: "CC OvrTmp",
+    cause: "Control circuitry temperature exceeded its limit.",
+    checks: "Check ambient temperature, airflow, dirt buildup and fan operation."
+  },
+  {
+    code: "F012",
+    name: "HW OverCurrent",
+    cause: "Hardware overcurrent protection operated.",
+    checks: "Investigate excessive load, motor conditions, boost settings and DC braking configuration."
+  },
+  {
+    code: "F013",
+    name: "Ground Fault",
+    cause: "Drive detected a ground fault on the output.",
+    checks: "After safe isolation and discharge verification, inspect motor leads and motor insulation using approved test procedures. Disconnect the drive before insulation testing."
+  },
+  {
+    code: "F015",
+    name: "Load Loss",
+    cause: "Drive detected a load-loss condition.",
+    checks: "Inspect the motor-to-load connection and configured load-loss detection settings."
+  },
+  {
+    code: "F021",
+    name: "Output Ph Loss",
+    cause: "Loss of a motor output phase.",
+    checks: "Inspect motor connections, wiring continuity and the motor after isolation."
+  },
+  {
+    code: "F029",
+    name: "Analog In Loss",
+    cause: "Configured analog reference signal was lost.",
+    checks: "Inspect 0-10V or 4-20mA signal wiring, source device, input configuration and signal-loss parameters."
+  },
+  {
+    code: "F033",
+    name: "Auto Rstrt Tries",
+    cause: "Automatic restart attempts were exhausted.",
+    checks: "Identify and correct the original fault before considering a manual reset."
+  },
+  {
+    code: "F038",
+    name: "Phase U to Gnd",
+    cause: "Ground fault involving motor output phase U.",
+    checks: "Inspect phase U motor lead and motor insulation after safe isolation."
+  },
+  {
+    code: "F039",
+    name: "Phase V to Gnd",
+    cause: "Ground fault involving motor output phase V.",
+    checks: "Inspect phase V motor lead and motor insulation after safe isolation."
+  },
+  {
+    code: "F040",
+    name: "Phase W to Gnd",
+    cause: "Ground fault involving motor output phase W.",
+    checks: "Inspect phase W motor lead and motor insulation after safe isolation."
+  },
+  {
+    code: "F041",
+    name: "Phase UV Short",
+    cause: "Short-circuit condition involving U and V outputs.",
+    checks: "Inspect output cables and motor windings after safe isolation."
+  },
+  {
+    code: "F042",
+    name: "Phase UW Short",
+    cause: "Short-circuit condition involving U and W outputs.",
+    checks: "Inspect output cables and motor windings after safe isolation."
+  },
+  {
+    code: "F043",
+    name: "Phase VW Short",
+    cause: "Short-circuit condition involving V and W outputs.",
+    checks: "Inspect output cables and motor windings after safe isolation."
+  },
+  {
+    code: "F048",
+    name: "Params Defaulted",
+    cause: "Drive parameters were reset to defaults.",
+    checks: "Review and restore the approved application parameter configuration before returning to service."
+  },
+  {
+    code: "F059",
+    name: "Safety Open",
+    cause: "Required drive safety input conditions are not satisfied.",
+    checks: "Check the safety relay, E-stop/guard circuit, safety input status and approved safety design. Never jumper around an active safety function."
+  },
+  {
+    code: "F063",
+    name: "SW OverCurrent",
+    cause: "Software current protection operated.",
+    checks: "Inspect mechanical loading, motor-to-load connection and current-related settings."
+  },
+  {
+    code: "F064",
+    name: "Drive Overload",
+    cause: "Drive overload protection operated.",
+    checks: "Check drive sizing, motor loading, acceleration time and operating duty."
+  },
+  {
+    code: "F070",
+    name: "Power Unit",
+    cause: "Drive power section fault detected.",
+    checks: "Inspect ambient temperature and cooling conditions. Follow manufacturer diagnostics before determining whether drive replacement is required."
+  },
+  {
+    code: "F071",
+    name: "DSI Net Loss",
+    cause: "DSI or Modbus network control was interrupted.",
+    checks: "Inspect communication wiring, network master and communication settings."
+  },
+  {
+    code: "F072",
+    name: "Opt Net Loss",
+    cause: "Network connection through an option adapter was interrupted.",
+    checks: "Inspect adapter configuration, communication cabling and network status."
+  },
+  {
+    code: "F073",
+    name: "EN Net Loss",
+    cause: "Embedded EtherNet/IP network control was interrupted.",
+    checks: "Check Ethernet cabling, switches, PLC communication and drive network configuration."
+  },
+  {
+    code: "F080",
+    name: "Autotune Failure",
+    cause: "Motor autotune was canceled or unsuccessful.",
+    checks: "Verify motor data, autotune prerequisites and drive configuration before repeating the procedure."
+  },
+  {
+    code: "F081",
+    name: "DSI Comm Loss",
+    cause: "DSI communication fault detected.",
+    checks: "Inspect DSI/Modbus communication wiring, master status and communication-loss settings."
+  },
+  {
+    code: "F083",
+    name: "EN Comm Loss",
+    cause: "EtherNet/IP communication fault detected.",
+    checks: "Inspect the Ethernet connection, drive IP configuration, switches and controller communication."
+  },
+  {
+    code: "F091",
+    name: "Encoder Loss",
+    cause: "Configured encoder feedback was lost.",
+    checks: "Inspect encoder supply, feedback wiring, signal integrity and feedback configuration."
+  },
+  {
+    code: "F094",
+    name: "Function Loss",
+    cause: "Configured function-loss input became inactive.",
+    checks: "Inspect the function-loss input circuit and determine why the input opened."
+  },
+  {
+    code: "F111",
+    name: "Safety Hardware",
+    cause: "Safety input hardware or enable discrepancy detected.",
+    checks: "Inspect safety input status and the approved safety circuit. Follow Rockwell safety diagnostics and do not defeat safety devices."
+  },
+  {
+    code: "F114",
+    name: "uC Failure",
+    cause: "Control module processor fault.",
+    checks: "Follow Rockwell fault recovery procedures. Control module service or replacement may be required."
+  },
+  {
+    code: "F122",
+    name: "I/O Board Fail",
+    cause: "Internal I/O board failure detected.",
+    checks: "Follow manufacturer diagnostics. Drive or control module replacement may be required."
+  }
+];
+
+/* SEARCH AND DISPLAY FAULTS */
+
+function searchPF525Faults() {
+  const input = document.getElementById("pf525Search");
+  const results = document.getElementById("pf525FaultResults");
+  const counter = document.getElementById("pf525Count");
+
+  if (!input || !results || !counter) return;
+
+  const query = input.value.trim().toLowerCase();
+
+  // Keep fault codes hidden until a search is entered.
+  if (query === "") {
+    results.replaceChildren();
+    counter.textContent =
+      "Enter a fault code or keyword to search.";
+    return;
+  }
+
+  const matches = pf525Faults.filter(fault => {
+    const searchable = [
+      fault.code,
+      fault.name,
+      fault.cause,
+      fault.checks
+    ].join(" ").toLowerCase();
+
+    return searchable.includes(query);
+  });
+
+  results.replaceChildren();
+
+  counter.textContent =
+    matches.length + " of " +
+    pf525Faults.length + " faults displayed";
+
+  if (!matches.length) {
+    const empty = document.createElement("p");
+    empty.textContent =
+      "No matching fault found in this library.";
+    results.appendChild(empty);
+    return;
+  }
+
+  matches.forEach(fault => {
+    const details = document.createElement("details");
+    details.className = "calculator";
+
+    const summary = document.createElement("summary");
+    summary.textContent =
+      fault.code + " - " + fault.name;
+
+    const body = document.createElement("div");
+    body.className = "calculator-body";
+
+    const causeTitle = document.createElement("h4");
+    causeTitle.textContent = "Possible Cause";
+
+    const cause = document.createElement("p");
+    cause.textContent = fault.cause;
+
+    const checkTitle = document.createElement("h4");
+    checkTitle.textContent = "Troubleshooting Checks";
+
+    const checks = document.createElement("p");
+    checks.textContent = fault.checks;
+
+    body.append(
+      causeTitle,
+      cause,
+      checkTitle,
+      checks
+    );
+
+    details.append(summary, body);
+    results.appendChild(details);
+  });
+}
+
+function clearPF525Search() {
+  const input = document.getElementById("pf525Search");
+  if (!input) return;
+
+  input.value = "";
+  searchPF525Faults();
+  input.focus();
+}
+
+/* POWERFLEX 753 FAULT LIBRARY */
+
+const pf753Faults = [
+  {
+    code: "2",
+    name: "Auxiliary Input",
+    cause: "An auxiliary fault or interlock input is open.",
+    checks: "Inspect the configured auxiliary input, external permissives and field wiring."
+  },
+  {
+    code: "3",
+    name: "Power Loss",
+    cause: "The drive detected an incoming power-loss condition.",
+    checks: "Investigate supply interruptions, incoming voltage and upstream protection."
+  },
+  {
+    code: "4",
+    name: "UnderVoltage",
+    cause: "DC bus voltage dropped below the permitted level.",
+    checks: "Check incoming voltage, supply stability and power interruptions."
+  },
+  {
+    code: "5",
+    name: "OverVoltage",
+    cause: "DC bus voltage exceeded the drive limit.",
+    checks: "Check input voltage, regenerative loads, braking arrangements and deceleration settings."
+  },
+  {
+    code: "7",
+    name: "Motor Overload",
+    cause: "Motor thermal overload protection operated.",
+    checks: "Check mechanical load, motor nameplate current and motor overload configuration."
+  },
+  {
+    code: "8",
+    name: "Heatsink OvrTemp",
+    cause: "Drive heatsink temperature exceeded its limit.",
+    checks: "Inspect airflow, fans, cooling passages and ambient temperature."
+  },
+  {
+    code: "10",
+    name: "DynBrake OvrTemp",
+    cause: "Dynamic braking thermal protection was activated.",
+    checks: "Review braking duty, deceleration demands and brake resistor configuration."
+  },
+  {
+    code: "12",
+    name: "HW OverCurrent",
+    cause: "Hardware overcurrent protection activated.",
+    checks: "Investigate mechanical loading, acceleration, motor wiring and drive configuration."
+  },
+  {
+    code: "13",
+    name: "Ground Fault",
+    cause: "The drive detected an output ground fault.",
+    checks: "After isolation and discharge verification, inspect output wiring and motor insulation. Disconnect the drive before insulation testing."
+  },
+  {
+    code: "17",
+    name: "Input Phase Loss",
+    cause: "The drive detected an input phase-loss condition.",
+    checks: "Check incoming three-phase supply, fuses and connection integrity using approved procedures."
+  },
+  {
+    code: "21",
+    name: "Output PhaseLoss",
+    cause: "A motor output phase-loss condition was detected.",
+    checks: "Inspect motor connections, output wiring and the motor after safe isolation."
+  },
+  {
+    code: "24",
+    name: "Decel Inhibit",
+    cause: "The drive inhibited deceleration under its configured conditions.",
+    checks: "Review deceleration settings, DC bus conditions and regenerative loading."
+  },
+  {
+    code: "29",
+    name: "Analog In Loss",
+    cause: "A configured analog input signal was lost.",
+    checks: "Verify the configured analog channel, signal source, wiring and loss-action settings."
+  },
+  {
+    code: "33",
+    name: "AuRsts Exhausted",
+    cause: "Automatic restart attempts were exhausted.",
+    checks: "Identify the underlying fault before considering another reset or restart."
+  },
+  {
+    code: "64",
+    name: "Drive OverLoad",
+    cause: "Drive overload protection operated.",
+    checks: "Review load current, drive sizing, acceleration and duty cycle."
+  },
+  {
+    code: "80",
+    name: "AutoTune Aborted",
+    cause: "The motor autotune procedure was interrupted.",
+    checks: "Check motor data, autotune prerequisites and conditions that caused the procedure to stop."
+  },
+  {
+    code: "84",
+    name: "Port 4 DPI Loss",
+    cause: "Communication with the device at Port 4 was lost.",
+    checks: "Check the installed port device, connections, module power and related communication settings."
+  },
+  {
+    code: "93",
+    name: "Hw Enable Check",
+    cause: "The hardware-enable configuration requires investigation.",
+    checks: "Review hardware enable circuitry and drive configuration against the approved design."
+  },
+  {
+    code: "211",
+    name: "Safety Brd Fault",
+    cause: "A fault was reported by the safety board.",
+    checks: "Follow Rockwell safety-board diagnostics. Do not bypass or defeat the safety system."
+  },
+  {
+    code: "224",
+    name: "Port 4 Comm Loss",
+    cause: "Communication loss involving Port 4 was detected.",
+    checks: "Inspect the Port 4 adapter, connections, module status and network configuration."
+  }
+];
+
+
+/* POWERFLEX 753 SEARCH */
+
+function searchPF753Faults() {
+  const input = document.getElementById("pf753Search");
+  const results = document.getElementById("pf753FaultResults");
+  const counter = document.getElementById("pf753Count");
+
+  if (!input || !results || !counter) return;
+
+  const query = input.value.trim().toLowerCase();
+  results.replaceChildren();
+
+  // Keep results hidden until searched.
+  if (query === "") {
+    counter.textContent =
+      "Enter a fault code or keyword to search.";
+    return;
+  }
+
+  const matches = pf753Faults.filter(fault => {
+    const searchable = [
+      fault.code,
+      fault.name,
+      fault.cause,
+      fault.checks
+    ].join(" ").toLowerCase();
+
+    return searchable.includes(query);
+  });
+
+  counter.textContent =
+    matches.length + " matching fault(s)";
+
+  if (matches.length === 0) {
+    const empty = document.createElement("p");
+    empty.textContent =
+      "No matching fault found in this starter library.";
+    results.appendChild(empty);
+    return;
+  }
+
+  matches.forEach(fault => {
+    const details = document.createElement("details");
+    details.className = "calculator";
+
+    const summary = document.createElement("summary");
+    summary.textContent =
+      fault.code + " - " + fault.name;
+
+    const body = document.createElement("div");
+    body.className = "calculator-body";
+
+    const causeTitle = document.createElement("h4");
+    causeTitle.textContent = "Possible Cause";
+
+    const causeText = document.createElement("p");
+    causeText.textContent = fault.cause;
+
+    const checkTitle = document.createElement("h4");
+    checkTitle.textContent = "Troubleshooting Checks";
+
+    const checkText = document.createElement("p");
+    checkText.textContent = fault.checks;
+
+    body.append(
+      causeTitle,
+      causeText,
+      checkTitle,
+      checkText
+    );
+
+    details.append(summary, body);
+    results.appendChild(details);
+  });
+}
+
+function clearPF753Search() {
+  const input = document.getElementById("pf753Search");
+  if (!input) return;
+
+  input.value = "";
+  searchPF753Faults();
+  input.focus();
+}
+
+/* INTERACTIVE VFD TROUBLESHOOTING */
+
+const vfdTroubleGuides = {
+
+  blank: {
+    title: "Drive Display Is Blank",
+    intro: "The drive keypad or display has no indication.",
+    steps: [
+      {
+        title: "Check upstream power status",
+        detail: "Review the disconnect, breaker, fuses and upstream supply status. Qualified personnel must use approved procedures for any voltage testing."
+      },
+      {
+        title: "Check the incoming supply",
+        detail: "Determine whether the correct input power is available for the drive rating. Investigate an open fuse, missing phase or supply interruption."
+      },
+      {
+        title: "Check external control power",
+        detail: "Some drives and control arrangements use separate control power. Verify the configuration and applicable supply."
+      },
+      {
+        title: "Inspect the display connection",
+        detail: "After safe isolation and DC bus discharge verification, inspect a removable keypad and its connections if permitted by the manual."
+      },
+      {
+        title: "Review internal power faults",
+        detail: "If correct supplies are confirmed but the display remains blank, follow the manufacturer's power-supply or control-board diagnostics."
+      }
+    ]
+  },
+
+  noStart: {
+    title: "Drive Will Not Start",
+    intro: "The VFD has a start request but does not run.",
+    steps: [
+      {
+        title: "Read the drive status",
+        detail: "Record any displayed fault, alarm, inhibit or Not Ready status before resetting anything."
+      },
+      {
+        title: "Verify the command source",
+        detail: "Determine whether the drive expects a run command from its keypad, digital input, PLC or industrial network."
+      },
+      {
+        title: "Check the run request",
+        detail: "Use drive diagnostics and PLC I/O monitoring to determine whether the expected start command is being received."
+      },
+      {
+        title: "Check permissives and safety status",
+        detail: "Inspect the approved stop, enable, interlock and STO status indications. Never jumper or defeat protective devices."
+      },
+      {
+        title: "Verify the speed reference",
+        detail: "Check whether the selected reference is zero or below the configured minimum running speed."
+      },
+      {
+        title: "Review active faults",
+        detail: "Identify the fault's root cause and the drive's reset or restart behavior before considering a reset."
+      }
+    ]
+  },
+
+  overcurrent: {
+    title: "Overcurrent Fault",
+    intro: "The drive detected excessive output current.",
+    steps: [
+      {
+        title: "Record when the fault occurs",
+        detail: "Determine whether it trips during starting, acceleration, steady running or a load change."
+      },
+      {
+        title: "Inspect the mechanical load",
+        detail: "After approved isolation, inspect for seized bearings, jams, binding conveyors, fan obstruction or excessive mechanical loading."
+      },
+      {
+        title: "Review acceleration settings",
+        detail: "Compare acceleration time and torque demand with the application requirements."
+      },
+      {
+        title: "Verify motor parameters",
+        detail: "Compare the programmed nameplate current, voltage, frequency and motor configuration with the installed motor."
+      },
+      {
+        title: "Investigate motor and output wiring",
+        detail: "After isolation and DC bus discharge verification, follow approved motor cable and insulation tests. Disconnect sensitive drive electronics before insulation testing."
+      },
+      {
+        title: "Review drive sizing",
+        detail: "Compare motor load current, overload duty and the VFD's applicable current rating."
+      }
+    ]
+  },
+
+  overvoltage: {
+    title: "Overvoltage Fault",
+    intro: "The DC bus voltage exceeded the drive limit.",
+    steps: [
+      {
+        title: "Identify when the trip happens",
+        detail: "Determine whether the fault occurs during deceleration, stopping or normal operation."
+      },
+      {
+        title: "Review deceleration time",
+        detail: "Rapid deceleration of a high-inertia load can regenerate energy into the DC bus. Review the programmed ramp against the application."
+      },
+      {
+        title: "Investigate incoming supply",
+        detail: "Review high line voltage or power transients using authorized diagnostic procedures."
+      },
+      {
+        title: "Review braking equipment",
+        detail: "Where fitted, inspect braking configuration and the condition of braking hardware under approved isolated procedures."
+      },
+      {
+        title: "Evaluate load inertia",
+        detail: "Determine whether the motor drives a high-inertia fan, centrifuge or other regenerative load."
+      }
+    ]
+  },
+
+  undervoltage: {
+    title: "Undervoltage Fault",
+    intro: "The DC bus voltage dropped below its allowed level.",
+    steps: [
+      {
+        title: "Check incoming power",
+        detail: "Investigate utility dips, supply interruptions and upstream switching events."
+      },
+      {
+        title: "Check phase-loss indications",
+        detail: "Review any evidence of a missing phase, open fuse or upstream protection operation."
+      },
+      {
+        title: "Review supply loading",
+        detail: "Determine whether large loads starting elsewhere cause voltage dips."
+      },
+      {
+        title: "Review drive history",
+        detail: "Compare the fault time with power events, machine operations and recorded supply alarms."
+      },
+      {
+        title: "Check drive configuration",
+        detail: "Review the manufacturer's low-voltage response and restart settings without bypassing protection."
+      }
+    ]
+  },
+
+  speed: {
+    title: "Motor Speed Problem",
+    intro: "The motor runs at an incorrect speed or does not respond to a speed command.",
+    steps: [
+      {
+        title: "Check the actual frequency display",
+        detail: "Compare the VFD output frequency with the commanded frequency reference."
+      },
+      {
+        title: "Check the reference source",
+        detail: "Verify whether speed comes from the keypad, HMI, PLC, analog input, preset speed or network."
+      },
+      {
+        title: "Check analog signal configuration",
+        detail: "Review 0-10V versus 4-20mA input selection, scaling and signal-loss status."
+      },
+      {
+        title: "Check speed limits",
+        detail: "Review minimum and maximum frequency, acceleration/deceleration limits and active preset-speed selections."
+      },
+      {
+        title: "Review motor and load conditions",
+        detail: "Check load current, current limiting, torque demand and motor nameplate configuration."
+      }
+    ]
+  },
+
+  network: {
+    title: "VFD Communication Fault",
+    intro: "The VFD has lost or cannot establish communication with its controller.",
+    steps: [
+      {
+        title: "Record the communication alarm",
+        detail: "Capture the complete fault code and the drive or adapter port involved."
+      },
+      {
+        title: "Check physical connection status",
+        detail: "Inspect cable and connector condition under approved procedures. Review link and activity indicators."
+      },
+      {
+        title: "Review addressing and configuration",
+        detail: "For Ethernet networks, compare IP addressing, subnet configuration and device identity with the design."
+      },
+      {
+        title: "Check the PLC connection",
+        detail: "Review the configured drive connection, controller status and associated Studio 5000 diagnostics where applicable."
+      },
+      {
+        title: "Review adapter and timeout settings",
+        detail: "Check communication adapter status and configured communication-loss actions."
+      },
+      {
+        title: "Check network infrastructure",
+        detail: "Review switch status, managed network diagnostics, damaged cables and relevant network events."
+      }
+    ]
+  },
+
+  overheat: {
+    title: "Drive Overheating",
+    intro: "The VFD reports a temperature or cooling fault.",
+    steps: [
+      {
+        title: "Inspect cooling indications",
+        detail: "Review drive temperature values, cooling alarms and fan status."
+      },
+      {
+        title: "Inspect ventilation",
+        detail: "After safe isolation, check for blocked airflow, clogged filters and dust accumulation."
+      },
+      {
+        title: "Review ambient temperature",
+        detail: "Compare enclosure temperature and drive installation conditions with manufacturer limits."
+      },
+      {
+        title: "Check motor load current",
+        detail: "Investigate continuous overload, excessive duty or operation beyond the drive's applicable rating."
+      },
+      {
+        title: "Review drive cooling hardware",
+        detail: "Follow manufacturer procedures for evaluating a failed fan or other cooling components."
+      }
+    ]
+  }
+};
+
+
+/* LOAD THE SELECTED TROUBLESHOOTING GUIDE */
+
+function loadVfdTroubleshooting() {
+
+  const select = document.getElementById(
+    "vfdTroubleSymptom"
+  );
+
+  const results = document.getElementById(
+    "vfdTroubleResults"
+  );
+
+  const progressBox = document.getElementById(
+    "vfdTroubleProgressBox"
+  );
+
+  if (!select || !results || !progressBox) return;
+
+  results.replaceChildren();
+
+  const guide = vfdTroubleGuides[select.value];
+
+  if (!guide) {
+    progressBox.style.display = "none";
+    results.textContent =
+      "Select a problem above to begin.";
+    return;
+  }
+
+  progressBox.style.display = "block";
+
+  const heading = document.createElement("h3");
+  heading.textContent = guide.title;
+  heading.style.color = "#38bdf8";
+
+  const intro = document.createElement("p");
+  intro.textContent = guide.intro;
+
+  const stepHeading = document.createElement("h4");
+  stepHeading.textContent = "Diagnostic Checklist";
+
+  results.append(heading, intro, stepHeading);
+
+  guide.steps.forEach((step, index) => {
+
+    const row = document.createElement("label");
+
+    row.style.display = "flex";
+    row.style.alignItems = "flex-start";
+    row.style.gap = "12px";
+    row.style.padding = "14px";
+    row.style.margin = "10px 0";
+    row.style.borderRadius = "9px";
+    row.style.border = "1px solid #475569";
+    row.style.background = "#172338";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "vfd-trouble-check";
+    checkbox.style.width = "20px";
+    checkbox.style.height = "20px";
+    checkbox.style.flexShrink = "0";
+    checkbox.style.margin = "2px 0";
+
+    checkbox.addEventListener(
+      "change",
+      updateVfdTroubleProgress
+    );
+
+    const textBox = document.createElement("div");
+
+    const title = document.createElement("strong");
+    title.textContent =
+      "Step " + (index + 1) + ": " + step.title;
+
+    const description = document.createElement("p");
+    description.textContent = step.detail;
+    description.style.color = "#cbd5e1";
+    description.style.fontSize = "14px";
+    description.style.marginBottom = "0";
+
+    textBox.append(title, description);
+    row.append(checkbox, textBox);
+    results.appendChild(row);
+  });
+
+  const note = document.createElement("p");
+  note.textContent =
+    "After reviewing the checks, document findings, " +
+    "identify the root cause and follow the approved " +
+    "repair and return-to-service procedure.";
+
+  note.style.color = "#94a3b8";
+  results.appendChild(note);
+
+  updateVfdTroubleProgress();
+}
+
+
+/* UPDATE CHECKLIST PROGRESS */
+
+function updateVfdTroubleProgress() {
+
+  const results = document.getElementById(
+    "vfdTroubleResults"
+  );
+
+  const progress = document.getElementById(
+    "vfdTroubleProgress"
+  );
+
+  const bar = document.getElementById(
+    "vfdTroubleBar"
+  );
+
+  if (!results || !progress || !bar) return;
+
+  const boxes = results.querySelectorAll(
+    ".vfd-trouble-check"
+  );
+
+  const checked = results.querySelectorAll(
+    ".vfd-trouble-check:checked"
+  );
+
+  const total = boxes.length;
+  const complete = checked.length;
+
+  const percent = total
+    ? Math.round((complete / total) * 100)
+    : 0;
+
+  progress.textContent =
+    complete + " of " + total +
+    " diagnostic checks reviewed (" + percent + "%)";
+
+  bar.style.width = percent + "%";
+}
+
+/* ADVANCED VFD DIAGNOSTIC ASSISTANT */
+
+function addVfdDiagnosticAssistant() {
+
+  // Find our existing troubleshooting section.
+  const symptomSelect =
+    document.getElementById("vfdTroubleSymptom");
+
+  if (!symptomSelect) return;
+
+  
+const diagnosticTab =
+  symptomSelect.closest("details.calculator");
+
+const troubleshooting =
+  diagnosticTab?.parentElement?.closest("details.calculator");
+
+
+  const body = troubleshooting?.querySelector(
+    ":scope > .calculator-body"
+  );
+
+  if (!body || document.getElementById("vfdWizard")) {
+    return;
+  }
+
+  // Create a separate collapsible assistant.
+  const wizard = document.createElement("details");
+  wizard.className = "calculator";
+  wizard.id = "vfdWizard";
+
+  wizard.innerHTML = `
+    <summary>🧠 Advanced VFD Diagnostic Assistant</summary>
+    <div class="calculator-body">
+
+      <h3>Interactive Drive Diagnosis</h3>
+      <p>
+        Answer questions about the drive's
+        actual status to narrow down
+        possible problem areas.
+      </p>
+
+      <label for="vfdWizardModel">VFD Model</label>
+      <select id="vfdWizardModel"
+              style="width:100%;padding:13px;
+                     border-radius:8px;margin:8px 0;">
+        <option>PowerFlex 525</option>
+        <option>PowerFlex 753</option>
+        <option>Other VFD</option>
+      </select>
+
+      <label for="vfdWizardFault">
+        Fault Code (optional)
+      </label>
+      <input id="vfdWizardFault"
+             placeholder="Enter displayed fault code">
+
+      <p id="vfdWizardTrail"
+         style="color:#94a3b8;font-size:13px"></p>
+
+      <div id="vfdWizardScreen"
+           aria-live="polite"></div>
+
+      <div style="display:flex;gap:10px">
+        <button type="button" class="action"
+                id="vfdWizardBack">
+          Back
+        </button>
+        <button type="button" class="action"
+                id="vfdWizardRestart">
+          Restart
+        </button>
+      </div>
+
+      <h3>Technician Notes</h3>
+      <textarea id="vfdWizardNotes"
+                rows="3"
+                placeholder="Record findings, readings and observations..."
+                style="width:100%;padding:12px;
+                       border-radius:8px;
+                       background:#0f172a;
+                       border:1px solid #64748b;
+                       color:white"></textarea>
+
+      <button type="button" class="action"
+              id="vfdWizardCopy">
+        Copy Diagnostic Report
+      </button>
+
+      <p id="vfdWizardCopyStatus"
+         aria-live="polite"></p>
+
+      <p style="font-size:12px;color:#94a3b8">
+        Diagnostic aid only, not a definitive
+        diagnosis. Observe drive status using
+        approved methods. Do not force outputs,
+        bypass safety circuits or restart equipment
+        without authorization. Isolate hazardous
+        energy and verify DC bus discharge before
+        servicing electrical components.
+      </p>
+
+    </div>
+  `;
+
+  body.appendChild(wizard);
+
+  const screen = wizard.querySelector("#vfdWizardScreen");
+  const trail = wizard.querySelector("#vfdWizardTrail");
+  const back = wizard.querySelector("#vfdWizardBack");
+  const restart = wizard.querySelector("#vfdWizardRestart");
+  const copy = wizard.querySelector("#vfdWizardCopy");
+  const copyStatus =
+    wizard.querySelector("#vfdWizardCopyStatus");
+
+  // Each answer leads to another question
+  // or a recommended diagnostic area.
+  const questions = {
+
+    power: {
+      text: "Is the VFD display powered and responsive?",
+      answers: [
+        ["Yes", "fault"],
+        ["No", "noPower"],
+        ["Not sure", "verifyPower"]
+      ]
+    },
+
+    fault: {
+      text: "Does the drive show an active fault or trip?",
+      answers: [
+        ["Yes", "activeFault"],
+        ["No", "run"],
+        ["Not sure", "verifyFault"]
+      ]
+    },
+
+    run: {
+      text: "When motion is requested, does the drive indicate RUN?",
+      answers: [
+        ["Yes", "frequency"],
+        ["No", "command"],
+        ["Not sure", "verifyRun"]
+      ]
+    },
+
+    command: {
+      text: "Does the VFD show the expected start command in its input or network diagnostics?",
+      answers: [
+        ["Yes", "permissives"],
+        ["No", "missingCommand"],
+        ["Not sure", "verifyCommand"]
+      ]
+    },
+
+    permissives: {
+      text: "Do the drive diagnostics show the required stop, enable and safety conditions are satisfied?",
+      answers: [
+        ["Yes", "driveInhibit"],
+        ["No", "interlockIssue"],
+        ["Not sure", "verifyPermissives"]
+      ]
+    },
+
+    frequency: {
+      text: "With RUN indicated, is actual drive output frequency above 0 Hz?",
+      answers: [
+        ["Yes", "motor"],
+        ["No", "zeroFrequency"],
+        ["Not sure", "verifyFrequency"]
+      ]
+    },
+
+    motor: {
+      text: "Is the motor physically rotating?",
+      answers: [
+        ["Yes", "speed"],
+        ["No", "noMotorMotion"],
+        ["Not sure", "verifyMotor"]
+      ]
+    },
+
+    speed: {
+      text: "Is motor speed approximately correct for the application?",
+      answers: [
+        ["Yes", "normalOperation"],
+        ["No", "speedProblem"],
+        ["Not sure", "verifySpeed"]
+      ]
+    }
+  };
+
+
+  /* DIAGNOSTIC RESULTS */
+
+  const outcomes = {
+
+    noPower: {
+      title: "Drive Supply / Control Power",
+      reason: "The keypad is not displaying an operating status.",
+      checks: [
+        "Review upstream disconnect and protection status.",
+        "Check incoming supply conditions using approved procedures.",
+        "Check external control-power requirements, if applicable.",
+        "Follow the manufacturer power-supply diagnostics."
+      ]
+    },
+
+    verifyPower: {
+      title: "Confirm Drive Power Status",
+      reason: "The drive power state is not yet known.",
+      checks: [
+        "Observe the keypad and status indicators.",
+        "Review HMI and upstream power indications.",
+        "Identify the installed drive's normal power-up indications."
+      ]
+    },
+
+    activeFault: {
+      title: "Active VFD Fault",
+      reason: "A drive trip is present.",
+      checks: [
+        "Record the complete fault code and description.",
+        "Open the matching drive's Fault Code Library.",
+        "Review fault history and operating conditions.",
+        "Identify and correct the cause before considering a reset.",
+        "Check for automatic restart behavior before servicing."
+      ]
+    },
+
+    verifyFault: {
+      title: "Confirm Fault / Inhibit Status",
+      reason: "The drive trip state is uncertain.",
+      checks: [
+        "Review the keypad fault and alarm displays.",
+        "Check active fault and inhibit indications.",
+        "Record any displayed status before changing settings."
+      ]
+    },
+
+    verifyRun: {
+      title: "Confirm Drive RUN Status",
+      reason: "It is unclear whether the drive accepted a run request.",
+      checks: [
+        "Review the drive RUN and READY indications.",
+        "Compare the machine run request with the drive's actual state.",
+        "Review the configured start source."
+      ]
+    },
+
+    missingCommand: {
+      title: "Missing Start Command",
+      reason: "The expected start signal is not visible at the drive.",
+      checks: [
+        "Check the selected local, terminal or network start source.",
+        "Review PLC output and machine sequence status.",
+        "Inspect configured digital-input status in drive diagnostics.",
+        "For network control, review communication and command status."
+      ]
+    },
+
+    verifyCommand: {
+      title: "Trace the Start Signal",
+      reason: "The start-command path has not been confirmed.",
+      checks: [
+        "Identify the configured start source.",
+        "Review drive input or communication diagnostics.",
+        "Compare PLC logic status with the drive's received command."
+      ]
+    },
+
+    interlockIssue: {
+      title: "Stop / Enable / Safety Inhibit",
+      reason: "One or more required conditions are not satisfied.",
+      checks: [
+        "Review the active drive inhibit or stop indication.",
+        "Check the status of required permissives.",
+        "Inspect the approved STO and safety-system diagnostics.",
+        "Investigate the cause without bypassing a safety function."
+      ]
+    },
+
+    verifyPermissives: {
+      title: "Confirm Permissive Status",
+      reason: "Required enable conditions have not been established.",
+      checks: [
+        "Review the drive's enable, stop and inhibit status.",
+        "Check the approved safety-system status.",
+        "Compare configured digital-input functions with the design."
+      ]
+    },
+
+    driveInhibit: {
+      title: "Drive Configuration / Inhibit Logic",
+      reason: "A start signal appears present but RUN is not established.",
+      checks: [
+        "Review the configured command source and drive control mode.",
+        "Check start-inhibit and stop-mode diagnostics.",
+        "Review sequencing and command transitions.",
+        "Check the drive manual for model-specific permissives."
+      ]
+    },
+
+    zeroFrequency: {
+      title: "Zero Output Frequency",
+      reason: "The drive indicates RUN but output frequency is zero.",
+      checks: [
+        "Check the selected speed reference source.",
+        "Review the active frequency setpoint.",
+        "Inspect analog input or network reference status.",
+        "Review preset speed selections and frequency limits.",
+        "Check for active current limits or other operating restrictions."
+      ]
+    },
+
+    verifyFrequency: {
+      title: "Confirm Actual Output Frequency",
+      reason: "The drive's output frequency has not been confirmed.",
+      checks: [
+        "Read actual output frequency from drive diagnostics.",
+        "Compare output frequency with the frequency reference.",
+        "Check acceleration and operating status."
+      ]
+    },
+
+    noMotorMotion: {
+      title: "Motor / Output / Mechanical Path",
+      reason: "The drive indicates output frequency but no motor motion was observed.",
+      checks: [
+        "Review output current and any phase-loss indications.",
+        "Review the motor command and drive status.",
+        "After safe isolation, inspect motor cables and connections.",
+        "Inspect the motor and mechanical load for binding.",
+        "Follow manufacturer testing procedures before restarting."
+      ]
+    },
+
+    verifyMotor: {
+      title: "Confirm Motor Response",
+      reason: "Physical motor operation has not been established.",
+      checks: [
+        "Observe motor and load movement from a safe, guarded location.",
+        "Review available speed or rotation feedback.",
+        "Compare drive frequency and current indications."
+      ]
+    },
+
+    speedProblem: {
+      title: "Speed Reference / Scaling Problem",
+      reason: "Motor operation does not match the requested process speed.",
+      checks: [
+        "Compare output frequency with the selected reference.",
+        "Check 0-10V or 4-20mA scaling, if used.",
+        "Review PLC and HMI speed commands.",
+        "Check preset speeds and minimum/maximum limits.",
+        "Investigate loading, motor slip and current limiting."
+      ]
+    },
+
+    verifySpeed: {
+      title: "Verify Actual Speed",
+      reason: "Motor speed has not been confirmed.",
+      checks: [
+        "Compare the commanded and output frequencies.",
+        "Review available motor or process speed feedback.",
+        "Confirm the required speed for the application."
+      ]
+    },
+
+    normalOperation: {
+      title: "No Obvious Command / Speed Mismatch",
+      reason: "The reported drive status and motor response appear consistent.",
+      checks: [
+        "Record commanded and actual frequency.",
+        "Check whether a separate machine or process fault remains.",
+        "Review intermittent alarms or historical events.",
+        "Follow the normal verification and return-to-service procedure."
+      ]
+    }
+  };
+
+
+  /* NAVIGATION AND RENDERING */
+
+  let current = "power";
+  let history = [];
+
+  function render() {
+
+    screen.replaceChildren();
+
+    back.disabled = history.length === 0;
+
+    trail.textContent = history.length
+      ? "Questions answered: " + history.length
+      : "Start of diagnostic";
+
+    const question = questions[current];
+
+    if (question) {
+
+      const heading = document.createElement("h3");
+      heading.textContent = question.text;
+      heading.style.color = "#38bdf8";
+      screen.appendChild(heading);
+
+      question.answers.forEach(([answer, next]) => {
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "action";
+        button.textContent = answer;
+
+        button.addEventListener("click", () => {
+
+          history.push({
+            node: current,
+            question: question.text,
+            answer: answer
+          });
+
+          current = next;
+          copyStatus.textContent = "";
+          render();
+        });
+
+        screen.appendChild(button);
+      });
+
+      return;
+    }
+
+    const result = outcomes[current];
+    if (!result) return;
+
+    const heading = document.createElement("h3");
+    heading.textContent =
+      "🔍 Suggested Diagnostic Area";
+    heading.style.color = "#38bdf8";
+
+    const title = document.createElement("h3");
+    title.textContent = result.title;
+    title.style.color = "#4ade80";
+
+    const reason = document.createElement("p");
+    reason.textContent = result.reason;
+
+    const listHeading = document.createElement("h4");
+    listHeading.textContent = "Recommended Checks";
+
+    const list = document.createElement("ol");
+
+    result.checks.forEach(check => {
+      const item = document.createElement("li");
+      item.textContent = check;
+      item.style.margin = "10px 0";
+      list.appendChild(item);
+    });
+
+    screen.append(
+      heading,
+      title,
+      reason,
+      listHeading,
+      list
+    );
+  }
+
+  back.addEventListener("click", () => {
+
+    if (!history.length) return;
+
+    const previous = history.pop();
+    current = previous.node;
+    copyStatus.textContent = "";
+    render();
+  });
+
+  restart.addEventListener("click", () => {
+    current = "power";
+    history = [];
+    copyStatus.textContent = "";
+    render();
+  });
+
+
+  /* COPY TECHNICIAN DIAGNOSTIC REPORT */
+
+  copy.addEventListener("click", async () => {
+
+    const model =
+      wizard.querySelector("#vfdWizardModel").value;
+
+    const fault =
+      wizard.querySelector("#vfdWizardFault").value.trim();
+
+    const notes =
+      wizard.querySelector("#vfdWizardNotes").value.trim();
+
+    const result = outcomes[current];
+
+    const report = [
+      "MAINTENANCE TECH TOOLKIT",
+      "VFD DIAGNOSTIC REPORT",
+      "",
+      "Model: " + model,
+      "Fault Code: " + (fault || "Not recorded"),
+      "",
+      "Diagnostic Answers:",
+      ...history.map((entry, index) =>
+        (index + 1) + ". " +
+        entry.question + " - " + entry.answer
+      ),
+      "",
+      "Suggested Diagnostic Area:",
+      result ? result.title : "Diagnosis in progress",
+      "",
+      "Recommended Checks:",
+      ...(result
+        ? result.checks.map((check, i) =>
+            (i + 1) + ". " + check
+          )
+        : ["Complete the diagnostic questions."]),
+      "",
+      "Technician Notes:",
+      notes || "None recorded",
+      "",
+      "Advisory: Preliminary diagnostic guidance only."
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(report);
+      copyStatus.textContent =
+        "Diagnostic report copied to clipboard.";
+      copyStatus.style.color = "#4ade80";
+    } catch (error) {
+      copyStatus.textContent =
+        "Clipboard unavailable. Check browser permissions.";
+      copyStatus.style.color = "#f87171";
+    }
+  });
+
+  render();
+}
+

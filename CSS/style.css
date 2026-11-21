@@ -1,0 +1,190 @@
+/* CHROME GRAY COLLAPSIBLE CALCULATORS */
+
+.calculator-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.calculator-control {
+  flex: 1;
+  background: #505965;
+  color: white;
+  border: 1px solid #bec6cf;
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calculator {
+  margin: 14px 0;
+  background: #172338;
+  border: 2px solid #aab3bd;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.calculator summary {
+  background: linear-gradient(
+    135deg,
+    #edf0f2 0%,
+    #9aa3ad 45%,
+    #d8dde2 75%,
+    #929ba6 100%
+  );
+  color: #17202d;
+  padding: 17px 45px 17px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+
+.calculator summary::-webkit-details-marker {
+  display: none;
+}
+
+.calculator summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 23px;
+}
+
+
+.calculator[open] > summary::after {
+  content: "−";
+}
+
+
+.calculator[open] {
+  box-shadow: 0 0 10px #8e99a644;
+}
+
+.calculator summary:focus-visible {
+  outline: 3px solid white;
+  outline-offset: -3px;
+}
+
+.calculator-body {
+  padding: 16px;
+}
+
+.calculator-body label {
+  display: block;
+  margin-top: 12px;
+}
+
+.calculator-body select {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.calculator-body .action {
+  background: linear-gradient(
+    135deg,
+    #d8dde2,
+    #919ba6
+  );
+  color: #17202d;
+  font-weight: bold;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+header {
+  background: #1e293b;
+  padding: 25px 15px;
+  text-align: center;
+}
+h1 { color: #38bdf8; font-size: 25px; }
+header p { color: #94a3b8; }
+main { padding: 18px; max-width: 700px; margin: auto; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 24px 8px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+.card span {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.card:active { background: #0369a1; }
+.panel {
+  margin-top: 22px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+}
+h2 { color: #38bdf8; font-size: 21px; }
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+.action {
+  background: #0284c7;
+  color: white;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+#result {
+  margin-top: 18px;
+  font-size: 20px;
+  color: #4ade80;
+}
+    
+/* ELECTRICAL TOOL CATEGORIES */
+
+.electrical-group {
+  background: #24313d;
+  border: 2px solid #aab3bd;
+  border-radius: 12px;
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+.electrical-group summary {
+  background: linear-gradient(135deg, #edf0f2, #929ba6);
+  color: #17202d;
+  padding: 18px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.electrical-group .group-content {
+  padding: 15px;
+}
+
+
+
