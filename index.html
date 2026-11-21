@@ -1397,14 +1397,658 @@ if (page === "vfd") {
       </div>
     </details>
 
-    <!-- VFD DIAGRAMS -->
+
+<!-- VFD DIAGRAMS -->
+<details class="calculator">
+  <summary>🔌 VFD Wiring Diagrams</summary>
+  <div class="calculator-body">
+
     <details class="calculator">
-      <summary>🔌 VFD Wiring Diagrams</summary>
+      <summary>⚡ 2-Wire Start/Stop Control</summary>
       <div class="calculator-body">
-        <p>Power, control, PLC and
-           analog wiring diagrams.</p>
+
+        <h3>Maintained Run Switch</h3>
+        <p>Click the switch button to simulate a VFD run command.</p>
+
+        <svg viewBox="0 0 360 220"
+             width="100%"
+             role="img"
+             aria-label="Two-wire VFD start stop control diagram">
+
+          <rect width="360" height="220"
+                rx="10" fill="#0f172a"/>
+
+          <!-- VFD -->
+          <rect x="230" y="30" width="115"
+                height="170" rx="10"
+                fill="#1e293b" stroke="#38bdf8"
+                stroke-width="2"/>
+
+          <text x="287" y="58" fill="#38bdf8"
+                text-anchor="middle" font-size="18">
+            VFD
+          </text>
+
+          <text x="242" y="103"
+                fill="white" font-size="13">DI1</text>
+          <text x="242" y="176"
+                fill="white" font-size="13">DCM</text>
+
+          <!-- Run switch -->
+          <text x="125" y="48" fill="white"
+                text-anchor="middle" font-size="13">
+            RUN SWITCH
+          </text>
+
+          <circle cx="105" cy="95" r="5"
+                  fill="#fbbf24"/>
+          <circle cx="145" cy="95" r="5"
+                  fill="#fbbf24"/>
+
+          <line class="vfd-switch-blade"
+                x1="105" y1="95"
+                x2="138" y2="75"
+                stroke="#fbbf24"
+                stroke-width="4"
+                stroke-linecap="round"/>
+
+          <!-- Digital input circuit -->
+          <path d="M15 95 H105 M145 95 H230"
+                stroke="#fbbf24" stroke-width="3"
+                fill="none"/>
+
+          <text x="15" y="78" fill="#fbbf24"
+                font-size="12">+24V</text>
+
+          <!-- Common -->
+          <path d="M230 170 H90 V205 H15"
+                stroke="#38bdf8" stroke-width="3"
+                fill="none"/>
+
+          <text x="15" y="195"
+                fill="#38bdf8" font-size="12">0V</text>
+        </svg>
+
+        <button type="button" class="action"
+                onclick="toggleVfd2Wire(this)">
+          Close RUN Switch
+        </button>
+
+        <h3 class="vfd-switch-status"
+            aria-live="polite"
+            style="color:#f87171">
+          DRIVE COMMAND: STOP
+        </h3>
+
+        <h3>How It Works</h3>
+        <p>1. Closing the maintained switch applies the run signal to DI1.</p>
+        <p>2. The VFD receives a RUN request if properly configured.</p>
+        <p>3. Opening the switch removes the RUN request.</p>
+
+        <p style="font-size:12px;color:#94a3b8">
+          Training diagram only. This assumes a
+          compatible 24V sourcing input arrangement.
+          Verify VFD terminal designations, internal
+          versus external supply, input configuration
+          and safety requirements before wiring.
+          Removing RUN is not a safety-rated stop.
+        </p>
+
       </div>
     </details>
+
+<!-- 3-WIRE VFD CONTROL -->
+<details class="calculator">
+  <summary>🟢 3-Wire VFD Start/Stop</summary>
+  <div class="calculator-body">
+
+    <h3>Momentary START / STOP Control</h3>
+    <p>Press START or STOP to simulate a VFD
+       configured for three-wire control.</p>
+
+    <svg viewBox="0 0 380 245"
+         width="100%"
+         role="img"
+         aria-label="Conceptual three-wire VFD control diagram">
+
+      <rect width="380" height="245"
+            rx="10" fill="#0f172a"/>
+
+      <rect x="245" y="30" width="120"
+            height="185" rx="10"
+            fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="305" y="57" text-anchor="middle"
+            fill="#38bdf8" font-size="18">VFD</text>
+
+      <g fill="white" font-size="13">
+        <text x="255" y="97">DI1 START</text>
+        <text x="255" y="148">DI2 STOP</text>
+        <text x="255" y="197">DCM</text>
+      </g>
+
+      <!-- START NO contact -->
+      <path d="M20 91 H95 M115 91 H245"
+            stroke="#22c55e" stroke-width="3"
+            fill="none"/>
+      <path d="M95 80 V102 M115 80 V102"
+            stroke="#22c55e" stroke-width="3"/>
+      <text x="105" y="70" text-anchor="middle"
+            fill="#22c55e" font-size="12">START NO</text>
+
+      <!-- STOP NC contact -->
+      <path d="M20 142 H95 M115 142 H245"
+            stroke="#f87171" stroke-width="3"
+            fill="none"/>
+      <path d="M95 131 V153 M115 131 V153
+               M91 155 L119 129"
+            stroke="#f87171" stroke-width="3"
+            fill="none"/>
+      <text x="105" y="120" text-anchor="middle"
+            fill="#f87171" font-size="12">STOP NC</text>
+
+      <!-- Common return -->
+      <path d="M245 193 H185 V225 H20"
+            stroke="#38bdf8" stroke-width="3"
+            fill="none"/>
+
+      <text x="20" y="81" fill="#fbbf24"
+            font-size="11">+24V</text>
+      <text x="20" y="132" fill="#fbbf24"
+            font-size="11">+24V</text>
+      <text x="20" y="219" fill="#38bdf8"
+            font-size="11">0V</text>
+    </svg>
+
+    <button type="button"
+            class="action"
+            onclick="startVfd3Wire(this)"
+            style="background:#16a34a">
+      🟢 Press START
+    </button>
+
+    <button type="button"
+            class="action"
+            onclick="stopVfd3Wire(this)"
+            style="background:#dc2626">
+      🔴 Press STOP
+    </button>
+
+    <h3 class="vfd3-status"
+        aria-live="polite"
+        style="color:#f87171">
+      DRIVE COMMAND: STOP
+    </h3>
+
+    <h3>How It Works</h3>
+    <p>1. The START pushbutton is normally open.</p>
+    <p>2. Pressing START sends a momentary run request.</p>
+    <p>3. The VFD maintains the run state internally.</p>
+    <p>4. Pressing the normally closed STOP
+       button interrupts its stop input circuit.</p>
+    <p>5. The VFD stops according to its programmed
+       stopping method.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Educational control diagram. Terminal names,
+      input polarity, internal 24V supply and
+      three-wire parameter configuration vary by
+      manufacturer. This does not represent a
+      safety-rated stop circuit.
+    </p>
+
+  </div>
+</details>
+
+<!-- FORWARD / REVERSE VFD CONTROL -->
+<details class="calculator">
+  <summary>🔄 Forward / Reverse VFD Control</summary>
+  <div class="calculator-body">
+
+    <h3>VFD Direction Control</h3>
+    <p>
+      Simulate forward and reverse commands
+      using two maintained digital inputs.
+    </p>
+
+    <svg viewBox="0 0 390 255"
+         width="100%"
+         role="img"
+         aria-label="VFD forward reverse digital input diagram">
+
+      <rect width="390" height="255"
+            rx="10" fill="#0f172a"/>
+
+      <!-- VFD -->
+      <rect x="255" y="30" width="120"
+            height="195" rx="10"
+            fill="#1e293b"
+            stroke="#38bdf8"
+            stroke-width="2"/>
+
+      <text x="315" y="55"
+            text-anchor="middle"
+            font-size="18"
+            fill="#38bdf8">VFD</text>
+
+      <g fill="white" font-size="12">
+        <text x="265" y="100">DI1 FWD</text>
+        <text x="265" y="155">DI2 REV</text>
+        <text x="265" y="205">DCM</text>
+      </g>
+
+      <!-- Forward NO contact -->
+      <path d="M20 95 H100 M125 95 H255"
+            stroke="#22c55e"
+            stroke-width="3" fill="none"/>
+
+      <path class="vfd-fwd-contact"
+            d="M100 82 V108 M125 82 V108"
+            stroke="#22c55e"
+            stroke-width="3"/>
+
+      <text x="112" y="72"
+            fill="#22c55e"
+            text-anchor="middle"
+            font-size="12">FWD NO</text>
+
+      <!-- Reverse NO contact -->
+      <path d="M20 150 H100 M125 150 H255"
+            stroke="#f59e0b"
+            stroke-width="3" fill="none"/>
+
+      <path class="vfd-rev-contact"
+            d="M100 137 V163 M125 137 V163"
+            stroke="#f59e0b"
+            stroke-width="3"/>
+
+      <text x="112" y="129"
+            fill="#f59e0b"
+            text-anchor="middle"
+            font-size="12">REV NO</text>
+
+      <!-- Common return -->
+      <path d="M255 200 H190 V239 H20"
+            stroke="#38bdf8"
+            stroke-width="3" fill="none"/>
+
+      <text x="20" y="84"
+            fill="#fbbf24"
+            font-size="12">+24V</text>
+
+      <text x="20" y="139"
+            fill="#fbbf24"
+            font-size="12">+24V</text>
+
+      <text x="20" y="232"
+            fill="#38bdf8"
+            font-size="12">0V</text>
+
+      <!-- Direction display -->
+      <text class="vfd-direction-arrow"
+            x="175" y="195"
+            text-anchor="middle"
+            font-size="31"
+            fill="#94a3b8">■</text>
+
+      <text x="175" y="220"
+            text-anchor="middle"
+            font-size="11"
+            fill="#94a3b8">MOTOR DIRECTION</text>
+
+    </svg>
+
+    <button type="button"
+            class="action"
+            style="background:#16a34a"
+            onclick="setVfdDirection(this,'forward')">
+      ▶ FORWARD
+    </button>
+
+    <button type="button"
+            class="action"
+            style="background:#d97706"
+            onclick="setVfdDirection(this,'reverse')">
+      ◀ REVERSE
+    </button>
+
+    <button type="button"
+            class="action"
+            style="background:#dc2626"
+            onclick="setVfdDirection(this,'stop')">
+      ■ STOP
+    </button>
+
+    <h3 class="vfd-direction-status"
+        aria-live="polite"
+        style="color:#94a3b8">
+      MOTOR: STOPPED
+    </h3>
+
+    <p class="vfd-interlock-message"
+       aria-live="polite"></p>
+
+    <h3>How It Works</h3>
+
+    <p>
+      1. FORWARD closes the simulated
+      DI1 contact and requests forward rotation.
+    </p>
+
+    <p>
+      2. STOP removes the direction/run request.
+    </p>
+
+    <p>
+      3. REVERSE closes the simulated
+      DI2 contact and requests reverse rotation.
+    </p>
+
+    <p>
+      4. The training interlock requires
+      STOP before changing direction.
+    </p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Training simulation only. Assumes a VFD
+      configured for two-wire forward/reverse
+      command inputs using compatible 24V
+      sourcing control. Check actual terminal
+      functions, input polarity, drive parameters,
+      and machine safety requirements. A RUN/STOP
+      command is not a safety-rated stop.
+    </p>
+
+  </div>
+</details>
+
+<!-- COMPACTLOGIX PLC TO VFD - DIGITAL -->
+<details class="calculator">
+  <summary>🧠 CompactLogix PLC to VFD - Digital</summary>
+  <div class="calculator-body">
+
+    <h3>5069-OB16 Digital VFD Control</h3>
+    <p>Simulate PLC RUN and REVERSE commands,
+       along with VFD status feedback.</p>
+
+    <svg viewBox="0 0 390 245" width="100%"
+         role="img"
+         aria-label="CompactLogix digital VFD control">
+
+      <rect width="390" height="245" rx="10"
+            fill="#0f172a"/>
+
+      <rect x="12" y="30" width="145" height="175"
+            rx="8" fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="84" y="53" fill="#38bdf8"
+            text-anchor="middle" font-size="15">
+        CompactLogix
+      </text>
+      <text x="84" y="72" fill="white"
+            text-anchor="middle" font-size="12">
+        5069-OB16
+      </text>
+
+      <rect x="247" y="30" width="130" height="175"
+            rx="8" fill="#1e293b"
+            stroke="#4ade80" stroke-width="2"/>
+
+      <text x="312" y="55" fill="#4ade80"
+            text-anchor="middle" font-size="17">
+        VFD
+      </text>
+
+      <!-- RUN output -->
+      <path class="plc-run-wire"
+            d="M157 102 H247"
+            stroke="#64748b" stroke-width="4"/>
+
+      <text x="18" y="105" fill="white"
+            font-size="11">OUT 0 RUN</text>
+      <text x="255" y="105" fill="white"
+            font-size="11">DI1 RUN</text>
+
+      <!-- REVERSE output -->
+      <path class="plc-rev-wire"
+            d="M157 151 H247"
+            stroke="#64748b" stroke-width="4"/>
+
+      <text x="18" y="154" fill="white"
+            font-size="11">OUT 1 REV</text>
+      <text x="255" y="154" fill="white"
+            font-size="11">DI2 REV</text>
+
+      <!-- Simplified common reference -->
+      <path d="M247 185 H201 V220 H157"
+            fill="none" stroke="#38bdf8"
+            stroke-width="3"/>
+
+      <text x="255" y="190" fill="white"
+            font-size="11">DI COM</text>
+      <text x="75" y="223" fill="#7dd3fc"
+            font-size="10">0V reference*</text>
+
+      <circle class="plc-run-led"
+              cx="141" cy="102" r="6"
+              fill="#475569"/>
+
+      <circle class="plc-rev-led"
+              cx="141" cy="151" r="6"
+              fill="#475569"/>
+
+    </svg>
+
+    <button type="button" class="action"
+            style="background:#16a34a"
+            onclick="plcVfdCommand(this,'run')">
+      START FORWARD
+    </button>
+
+    <button type="button" class="action"
+            style="background:#d97706"
+            onclick="plcVfdCommand(this,'reverse')">
+      START REVERSE
+    </button>
+
+    <button type="button" class="action"
+            style="background:#dc2626"
+            onclick="plcVfdCommand(this,'stop')">
+      STOP
+    </button>
+
+    <h3 class="plc-vfd-status"
+        aria-live="polite" style="color:#94a3b8">
+      PLC COMMAND: STOPPED
+    </h3>
+
+    <p class="plc-vfd-interlock"
+       aria-live="polite"></p>
+
+    <h3>Simulated VFD Feedback</h3>
+
+    <label>
+      <input type="checkbox" class="plc-vfd-running"
+             style="width:auto"
+             onchange="plcVfdFeedback(this)">
+      VFD Running Feedback - 5069-IB16 IN 0
+    </label>
+
+    <label>
+      <input type="checkbox" class="plc-vfd-fault"
+             style="width:auto"
+             onchange="plcVfdFeedback(this)">
+      VFD Fault Feedback - 5069-IB16 IN 1
+    </label>
+
+    <p class="plc-vfd-feedback"
+       aria-live="polite">Feedback: Not running</p>
+
+    <h3>How It Works</h3>
+    <p>OUT 0 requests forward operation through DI1.</p>
+    <p>OUT 1 requests reverse operation through DI2.</p>
+    <p>STOP removes both simulated run commands.</p>
+    <p>Feedback contacts are simulated independently
+       to demonstrate command versus actual status.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Training schematic, not installation wiring.
+      The 5069-OB16 sourcing outputs require
+      correctly supplied field power. Use matching
+      VFD sourcing-compatible input configuration.
+      DI common wiring, external 24V supply,
+      feedback contact power, and field protection
+      must be verified for the selected equipment.
+      The 0V line above is conceptual, not a
+      connection from an OB16 output terminal.
+    </p>
+
+  </div>
+</details>
+
+
+<!-- COMPACTLOGIX PLC TO VFD - ANALOG -->
+<details class="calculator">
+  <summary>📈 CompactLogix PLC to VFD - Analog</summary>
+  <div class="calculator-body">
+
+    <h3>5069-OF4 Analog Speed Control</h3>
+
+    <p>Adjust the simulated PLC speed command
+       sent to the VFD analog reference input.</p>
+
+    <svg viewBox="0 0 390 200" width="100%"
+         role="img"
+         aria-label="CompactLogix analog speed reference">
+
+      <rect width="390" height="200" rx="10"
+            fill="#0f172a"/>
+
+      <rect x="12" y="26" width="148" height="145"
+            rx="9" fill="#1e293b"
+            stroke="#38bdf8" stroke-width="2"/>
+
+      <text x="86" y="51" fill="#38bdf8"
+            text-anchor="middle" font-size="15">
+        CompactLogix
+      </text>
+
+      <text x="86" y="72" fill="white"
+            text-anchor="middle" font-size="12">
+        5069-OF4
+      </text>
+
+      <rect x="245" y="26" width="132" height="145"
+            rx="9" fill="#1e293b"
+            stroke="#4ade80" stroke-width="2"/>
+
+      <text x="311" y="51" fill="#4ade80"
+            text-anchor="middle" font-size="16">
+        VFD
+      </text>
+
+      <path d="M160 100 H245"
+            stroke="#fbbf24" stroke-width="4"/>
+
+      <path d="M160 147 H245"
+            stroke="#38bdf8" stroke-width="3"/>
+
+      <text x="18" y="95" fill="white"
+            font-size="11">AO CH0 +</text>
+
+      <text x="18" y="142" fill="white"
+            font-size="11">AO return</text>
+
+      <text x="253" y="95" fill="white"
+            font-size="11">AI SPEED</text>
+
+      <text x="253" y="142" fill="white"
+            font-size="11">AI COM</text>
+
+      <text x="203" y="88" fill="#fbbf24"
+            text-anchor="middle" font-size="11">
+        SIGNAL
+      </text>
+
+      <text x="203" y="135" fill="#7dd3fc"
+            text-anchor="middle" font-size="11">
+        RETURN
+      </text>
+
+      <text x="195" y="190" fill="#94a3b8"
+            text-anchor="middle" font-size="10">
+        Select matching voltage/current mode
+      </text>
+
+    </svg>
+
+    <label>Analog Output Type</label>
+    <select class="plc-analog-mode"
+            onchange="updatePlcAnalog(this)"
+            style="width:100%;padding:13px">
+      <option value="voltage">0-10V DC</option>
+      <option value="current">4-20mA</option>
+    </select>
+
+    <label>Motor Maximum Frequency (Hz)</label>
+    <input type="number" class="plc-analog-max"
+           value="60" min="0.1" max="400"
+           step="any" oninput="updatePlcAnalog(this)">
+
+    <label>Speed Command (%)</label>
+    <input type="range" class="plc-analog-slider"
+           min="0" max="100" value="50"
+           step="1" oninput="updatePlcAnalog(this)"
+           style="width:100%">
+
+    <h3 class="plc-analog-percent"
+        style="color:#38bdf8">
+      Speed Command: 50%
+    </h3>
+
+    <h3 class="plc-analog-signal"
+        style="color:#4ade80">
+      Analog Output: 5.00 V
+    </h3>
+
+    <h3 class="plc-analog-frequency"
+        style="color:#fbbf24">
+      Frequency Reference: 30.00 Hz
+    </h3>
+
+    <p class="plc-analog-note"
+       style="color:#94a3b8;font-size:12px">
+      Frequency reference only. This does not
+      issue a RUN command.
+    </p>
+
+    <h3>How It Works</h3>
+    <p>The PLC scales a speed setpoint into
+       the configured analog output range.</p>
+    <p>The VFD converts that reference into
+       a commanded output frequency.</p>
+    <p>Actual motor speed depends on motor poles,
+       slip, load and drive configuration.</p>
+
+    <p style="font-size:12px;color:#94a3b8">
+      Educational block diagram. Confirm the
+      5069-OF4 channel-specific voltage/current
+      terminals and returns in Rockwell wiring
+      documentation. Configure the VFD analog input
+      to match the signal. Verify grounding,
+      shielding, isolation and input compatibility.
+      Actual drive scaling, limits and fault
+      handling may differ.
+    </p>
+
+  </div>
+</details>
+
+  </div>
+</details>
+
 
     <!-- VFD PARAMETERS -->
     <details class="calculator">
@@ -2069,6 +2713,248 @@ document.addEventListener("click", function(event) {
   result.textContent =
     "Synchronous RPM: " + rpm.toFixed(1);
 });
+
+function toggleVfd2Wire(button) {
+  const diagram = button.closest(".calculator");
+  const blade = diagram.querySelector(".vfd-switch-blade");
+  const status = diagram.querySelector(".vfd-switch-status");
+
+  const running = button.dataset.running === "true";
+
+  if (running) {
+    blade.setAttribute("x2", "138");
+    blade.setAttribute("y2", "75");
+    status.textContent = "DRIVE COMMAND: STOP";
+    status.style.color = "#f87171";
+    button.textContent = "Close RUN Switch";
+    button.dataset.running = "false";
+  } else {
+    blade.setAttribute("x2", "145");
+    blade.setAttribute("y2", "95");
+    status.textContent = "DRIVE COMMAND: RUN";
+    status.style.color = "#4ade80";
+    button.textContent = "Open RUN Switch";
+    button.dataset.running = "true";
+  }
+}
+
+function startVfd3Wire(button) {
+  const diagram = button.closest(".calculator");
+  const status = diagram.querySelector(".vfd3-status");
+
+  status.textContent = "DRIVE COMMAND: RUN";
+  status.style.color = "#4ade80";
+}
+
+function stopVfd3Wire(button) {
+  const diagram = button.closest(".calculator");
+  const status = diagram.querySelector(".vfd3-status");
+
+  status.textContent = "DRIVE COMMAND: STOP";
+  status.style.color = "#f87171";
+}
+
+function setVfdDirection(button, direction) {
+
+  const diagram = button.closest(".calculator");
+
+  const status = diagram.querySelector(
+    ".vfd-direction-status"
+  );
+
+  const arrow = diagram.querySelector(
+    ".vfd-direction-arrow"
+  );
+
+  const message = diagram.querySelector(
+    ".vfd-interlock-message"
+  );
+
+  const fwd = diagram.querySelector(
+    ".vfd-fwd-contact"
+  );
+
+  const rev = diagram.querySelector(
+    ".vfd-rev-contact"
+  );
+
+  const current = diagram.dataset.direction || "stop";
+
+  // Require STOP before reversing direction.
+  if (direction !== "stop" &&
+      current !== "stop" &&
+      direction !== current) {
+
+    message.textContent =
+      "INTERLOCK ACTIVE: Press STOP before reversing.";
+
+    message.style.color = "#facc15";
+    return;
+  }
+
+  diagram.dataset.direction = direction;
+  message.textContent = "";
+
+  // Open both contacts by default.
+  fwd.setAttribute(
+    "d", "M100 82 V108 M125 82 V108"
+  );
+
+  rev.setAttribute(
+    "d", "M100 137 V163 M125 137 V163"
+  );
+
+  if (direction === "forward") {
+
+    fwd.setAttribute(
+      "d", "M100 95 H125"
+    );
+
+    status.textContent = "MOTOR: FORWARD";
+    status.style.color = "#4ade80";
+
+    arrow.textContent = "↻";
+    arrow.setAttribute("fill", "#4ade80");
+
+  } else if (direction === "reverse") {
+
+    rev.setAttribute(
+      "d", "M100 150 H125"
+    );
+
+    status.textContent = "MOTOR: REVERSE";
+    status.style.color = "#fbbf24";
+
+    arrow.textContent = "↺";
+    arrow.setAttribute("fill", "#fbbf24");
+
+  } else {
+
+    status.textContent = "MOTOR: STOPPED";
+    status.style.color = "#94a3b8";
+
+    arrow.textContent = "■";
+    arrow.setAttribute("fill", "#94a3b8");
+  }
+}
+
+function plcVfdCommand(button, command) {
+  const panel = button.closest(".calculator");
+  const current = panel.dataset.command || "stop";
+  const status = panel.querySelector(".plc-vfd-status");
+  const warning = panel.querySelector(".plc-vfd-interlock");
+  const runWire = panel.querySelector(".plc-run-wire");
+  const revWire = panel.querySelector(".plc-rev-wire");
+  const runLed = panel.querySelector(".plc-run-led");
+  const revLed = panel.querySelector(".plc-rev-led");
+  const fault = panel.querySelector(".plc-vfd-fault");
+
+  if (fault.checked && command !== "stop") {
+    warning.textContent =
+      "FAULT ACTIVE: Clear fault before a new command.";
+    warning.style.color = "#facc15";
+    return;
+  }
+
+  if (current !== "stop" && command !== "stop"
+      && current !== command) {
+    warning.textContent =
+      "INTERLOCK: Press STOP before changing direction.";
+    warning.style.color = "#facc15";
+    return;
+  }
+
+  panel.dataset.command = command;
+  warning.textContent = "";
+
+  const forward = command === "run";
+  const reverse = command === "reverse";
+
+  runWire.setAttribute("stroke",
+    forward ? "#4ade80" : "#64748b");
+  revWire.setAttribute("stroke",
+    reverse ? "#fbbf24" : "#64748b");
+
+  runLed.setAttribute("fill",
+    forward ? "#4ade80" : "#475569");
+  revLed.setAttribute("fill",
+    reverse ? "#fbbf24" : "#475569");
+
+  if (forward) {
+    status.textContent = "PLC COMMAND: FORWARD";
+    status.style.color = "#4ade80";
+  } else if (reverse) {
+    status.textContent = "PLC COMMAND: REVERSE";
+    status.style.color = "#fbbf24";
+  } else {
+    status.textContent = "PLC COMMAND: STOPPED";
+    status.style.color = "#94a3b8";
+  }
+}
+
+function plcVfdFeedback(input) {
+  const panel = input.closest(".calculator");
+  const running =
+    panel.querySelector(".plc-vfd-running").checked;
+  const fault =
+    panel.querySelector(".plc-vfd-fault").checked;
+  const display =
+    panel.querySelector(".plc-vfd-feedback");
+
+  if (fault) {
+    display.textContent =
+      "FEEDBACK: VFD FAULT ACTIVE";
+    display.style.color = "#f87171";
+  } else if (running) {
+    display.textContent =
+      "FEEDBACK: VFD RUNNING";
+    display.style.color = "#4ade80";
+  } else {
+    display.textContent =
+      "FEEDBACK: VFD NOT RUNNING";
+    display.style.color = "#94a3b8";
+  }
+}
+
+function updatePlcAnalog(input) {
+  const panel = input.closest(".calculator");
+  const mode =
+    panel.querySelector(".plc-analog-mode").value;
+  const percent =
+    Number(panel.querySelector(".plc-analog-slider").value);
+  const max =
+    Number(panel.querySelector(".plc-analog-max").value);
+
+  const percentDisplay =
+    panel.querySelector(".plc-analog-percent");
+  const signalDisplay =
+    panel.querySelector(".plc-analog-signal");
+  const frequencyDisplay =
+    panel.querySelector(".plc-analog-frequency");
+
+  percentDisplay.textContent =
+    "Speed Command: " + percent + "%";
+
+  if (mode === "voltage") {
+    const volts = percent / 100 * 10;
+    signalDisplay.textContent =
+      "Analog Output: " + volts.toFixed(2) + " V";
+  } else {
+    const ma = 4 + percent / 100 * 16;
+    signalDisplay.textContent =
+      "Analog Output: " + ma.toFixed(2) + " mA";
+  }
+
+  if (!Number.isFinite(max) || max <= 0) {
+    frequencyDisplay.textContent =
+      "Enter a valid maximum frequency.";
+    return;
+  }
+
+  const hz = percent / 100 * max;
+  frequencyDisplay.textContent =
+    "Frequency Reference: " + hz.toFixed(2) + " Hz";
+}
 
 </script>
 
