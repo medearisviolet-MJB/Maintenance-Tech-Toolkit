@@ -2039,30 +2039,7 @@ if (page === "vfd") {
   }
 }
 
-function calculate() {
-  const vText = document.getElementById("voltage").value;
-  const rText = document.getElementById("resistance").value;
-  const result = document.getElementById("result");
 
-  if (vText === "" || rText === "") {
-    result.textContent = "Enter voltage and resistance.";
-    return;
-  }
-
-  const voltage = Number(vText);
-  const resistance = Number(rText);
-
-  if (!Number.isFinite(voltage) ||
-      !Number.isFinite(resistance) ||
-      resistance <= 0) {
-    result.textContent = "Enter a resistance greater than zero.";
-    return;
-  }
-
-  const current = voltage / resistance;
-  result.textContent = "Current: " +
-    Number(current.toFixed(4)) + " Amps";
-}
 function calculateMotorCurrent() {
   const hpText = document.getElementById("motorHP").value;
   const voltageText = document.getElementById("motorVoltage").value;
