@@ -1114,13 +1114,78 @@ content.insertAdjacentHTML("beforeend", `
 
   }
 
-  if (page === "plc") {
-    content.innerHTML = `
-      <h2>🧠 PLC Troubleshooting</h2>
-      <p>Allen-Bradley, Siemens, and PLC diagnostics.</p>
-      <p>More troubleshooting tools coming soon.</p>
-    `;
-  }
+
+if (page === "plc") {
+  content.innerHTML = `
+    <h2>🧠 PLC Toolkit</h2>
+    <p>PLC programming, wiring, diagnostics, and training.</p>
+
+    <details class="calculator">
+      <summary>🪜 Ladder Logic Library</summary>
+      <div class="calculator-body">
+
+        <h3>Basic Ladder Instructions</h3>
+
+        <p><strong>XIC — Examine If Closed</strong></p>
+        <p>True when the referenced bit is 1.</p>
+
+        <p><strong>XIO — Examine If Open</strong></p>
+        <p>True when the referenced bit is 0.</p>
+
+        <p><strong>OTE — Output Energize</strong></p>
+        <p>Sets an output bit based on rung continuity.</p>
+
+        <h3>Motor Start/Stop Seal-In Circuit</h3>
+
+        <pre style="overflow-x:auto;font-size:12px;">
+|----[ STOP_OK ]----+----[ START_PB ]----+----( MOTOR_RUN )----|
+|                   |                    |
+|                   +----[ MOTOR_RUN ]---+
+        </pre>
+
+        <p>START_PB energizes MOTOR_RUN.</p>
+        <p>The MOTOR_RUN contact maintains the run command after Start is released.</p>
+        <p>STOP_OK becomes false when Stop is pressed, breaking the rung.</p>
+
+      </div>
+    </details>
+
+    <details class="calculator">
+      <summary>🔌 PLC Wiring Diagrams</summary>
+      <div class="calculator-body">
+        <h3>PLC Input and Output Wiring</h3>
+        <p>PNP and NPN sensors, digital inputs, relay outputs, and analog signals.</p>
+      </div>
+    </details>
+
+    <details class="calculator">
+      <summary>⏱️ Timers and Counters</summary>
+      <div class="calculator-body">
+        <h3>PLC Timing Instructions</h3>
+        <p>TON, TOF, RTO, CTU, and CTD examples.</p>
+      </div>
+    </details>
+
+    <details class="calculator">
+      <summary>🔍 PLC Troubleshooting</summary>
+      <div class="calculator-body">
+        <h3>Industrial PLC Diagnostics</h3>
+        <p>Input faults, output faults, communication problems, and processor status.</p>
+      </div>
+    </details>
+
+
+<details class="calculator">
+  <summary>▶️ Interactive PLC Simulator</summary>
+  <div class="calculator-body">
+    ${plcMotorSimulatorHTML()}
+  </div>
+</details>
+
+  `;
+}
+
+  
 
   
 

@@ -187,4 +187,55 @@ input {
 }
 
 
+/* =====================================
+   PLC LADDER LOGIC GRAPHICS
+   ===================================== */
+
+.plc-ladder-panel {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px 0;
+  overflow-x: auto;
+}
+
+.plc-ladder-svg {
+  width: 100%;
+  min-width: 560px;
+  height: auto;
+  display: block;
+}
+
+.plc-ladder-line {
+  stroke: #94a3b8;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease;
+}
+
+.plc-ladder-text {
+  fill: #e2e8f0;
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+}
+
+.plc-ladder-active {
+  stroke: #4ade80;
+  filter: drop-shadow(0 0 6px #22c55e);
+}
+
+.plc-ladder-lit-text {
+  fill: #4ade80;
+  font-weight: bold;
+}
+
+.plc-ladder-status {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 
