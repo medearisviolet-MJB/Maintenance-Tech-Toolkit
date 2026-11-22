@@ -1160,9 +1160,12 @@ if (page === "plc") {
 
     <details class="calculator">
       <summary>⏱️ Timers and Counters</summary>
-      <div class="calculator-body">
-        <h3>PLC Timing Instructions</h3>
-        <p>TON, TOF, RTO, CTU, and CTD examples.</p>
+       <div class="calculator-body">
+    ${plcTonSimulatorHTML()}
+    ${plcTofSimulatorHTML()}
+    ${plcRtoSimulatorHTML()}
+    ${plcCtuSimulatorHTML()}
+    ${plcCtdSimulatorHTML()}
       </div>
     </details>
 

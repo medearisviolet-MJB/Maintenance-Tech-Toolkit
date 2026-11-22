@@ -239,3 +239,36 @@ input {
 }
 
 
+/* PLC Timer Dropdowns — Match VFD Design */
+
+details.plc-timer-dropdown {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+details.plc-timer-dropdown:last-child {
+  margin-bottom: 0;
+}
+
+details.plc-timer-dropdown > summary {
+  padding: 18px 20px;
+  color: #1e293b;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+details.plc-timer-dropdown[open] > summary {
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.plc-timer-content {
+  background: #1e293b;
+  color: white;
+  padding: 16px;
+}
+
