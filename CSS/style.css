@@ -362,3 +362,30 @@ details.electrical-group[open] > summary::after {
   content: "−";
 }
 
+
+/* =====================================
+   MOBILE PLC SIMULATOR RESPONSIVE FIX
+===================================== */
+
+@media (max-width: 600px) {
+
+  /* Make ladder diagrams fit phone screens */
+  .plc-timer-content svg,
+  #plcBuilderDiagram svg {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+  }
+
+  /* Prevent simulator containers overflowing */
+  .plc-timer-content,
+  #plcBuilderDiagram {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+}
