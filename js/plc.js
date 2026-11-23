@@ -1708,3 +1708,281 @@ function plcCtdRender() {
   document.getElementById("plcCtdMessage")
     .textContent = message;
 }
+
+
+/* ==========================================
+   INTERACTIVE PLC LADDER LOGIC BUILDER
+   VERSION 1 — XIC, XIO, OTE
+========================================== */
+
+let plcBuilderContacts = [
+ { id: 0, type: "XIC", value: false, tag: "I0" } 
+];
+
+let plcBuilderNextId = 1;
+
+function plcLadderBuilderHTML() {
+  plcBuilderContacts = [
+    { id: 0, type: "XIC", value: false }
+  ];
+  plcBuilderNextId = 1;
+
+  return `
+    <details class="calculator"
+             ontoggle="if(this.open) plcBuilderRender()">
+      <summary>🧩 Interactive Ladder Logic Builder</summary>
+      <div class="calculator-body">
+
+        <h3>PLC Ladder Logic Builder</h3>
+
+        <p>
+          Add ladder contacts, toggle inputs,
+          and watch the circuit energize.
+        </p>
+
+        <div style="display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:10px;margin-bottom:15px;">
+
+          <button type="button" class="action"
+                  onclick="plcBuilderAdd('XIC')">
+            + Add XIC
+          </button>
+
+          <button type="button" class="action"
+                  onclick="plcBuilderAdd('XIO')">
+            + Add XIO
+          </button>
+
+          <button type="button" class="action"
+                  onclick="plcBuilderRemove()">
+            − Remove Last
+          </button>
+
+          <button type="button" class="action"
+                  onclick="plcBuilderReset()">
+            ↺ Reset Rung
+          </button>
+        </div>
+
+        <h4>Input Controls</h4>
+        <div id="plcBuilderInputs"></div>
+
+        <div style="background:#0f172a;
+                    border:1px solid #475569;
+                    border-radius:12px;
+                    padding:15px;
+                    margin-top:15px;">
+
+          <h4 style="color:white;">
+            Live Ladder Logic
+          </h4>
+
+          <div id="plcBuilderDiagram"
+               style="overflow-x:auto;">
+            Open the builder to load the rung.
+          </div>
+        </div>
+
+        <p id="plcBuilderStatus">
+          Waiting for input.
+        </p>
+
+        <p style="font-size:12px;opacity:0.75;">
+          Version 1 uses series contacts.
+          Parallel branches will be added later.
+        </p>
+
+      </div>
+    </details>
+  `;
+}
+
+/* ADD A CONTACT */
+
+function plcBuilderAdd(type) {
+  if (plcBuilderContacts.length >= 6) return;
+  if (type !== "XIC" && type !== "XIO") return;
+
+  plcBuilderContacts.push({
+    id: plcBuilderNextId++,
+    type: type,
+    value: false
+  });
+
+  plcBuilderRender();
+}
+
+/* REMOVE LAST CONTACT */
+
+function plcBuilderRemove() {
+  if (plcBuilderContacts.length > 1) {
+    plcBuilderContacts.pop();
+  }
+
+  plcBuilderRender();
+}
+
+/* RESET RUNG */
+
+function plcBuilderReset() {
+  plcBuilderContacts = [
+    { id: 0, type: "XIC", value: false }
+  ];
+
+  plcBuilderNextId = 1;
+  plcBuilderRender();
+}
+
+/* TOGGLE INPUT BIT */
+
+function plcBuilderToggle(id) {
+  const contact = plcBuilderContacts.find(
+    item => item.id === id
+  );
+
+  if (!contact) return;
+
+  contact.value = !contact.value;
+
+  plcBuilderRender();
+}
+
+/* EVALUATE AND DRAW THE LADDER */
+
+function plcBuilderRender() {
+  const diagram =
+    document.getElementById("plcBuilderDiagram");
+
+  const controls =
+    document.getElementById("plcBuilderInputs");
+
+  if (!diagram || !controls) return;
+
+  controls.innerHTML = plcBuilderContacts.map(c => `
+    <button type="button" class="action"
+            onclick="plcBuilderToggle(${c.id})"
+            style="margin:5px;padding:12px;
+                   background:${c.value ? "#166534" : "#334155"};
+                   color:white;">
+      I${c.id} (${c.type}): ${c.value ? "ON" : "OFF"}
+    </button>
+  `).join("");
+
+  const width = Math.max(
+    600,
+    200 + plcBuilderContacts.length * 115
+  );
+
+  const green = "#4ade80";
+  const gray = "#64748b";
+  const y = 110;
+
+  let powered = true;
+  let previousX = 20;
+  let drawing = "";
+
+  plcBuilderContacts.forEach((contact, i) => {
+    const x = 110 + i * 115;
+    const left = x - 12;
+    const right = x + 12;
+
+    const condition = contact.type === "XIC"
+      ? contact.value
+      : !contact.value;
+
+    const nextPowered = powered && condition;
+
+    drawing += `
+      <line x1="${previousX}" y1="${y}"
+            x2="${left}" y2="${y}"
+            stroke="${powered ? green : gray}"
+            stroke-width="4"/>
+
+      <g stroke="${nextPowered ? green : gray}"
+         stroke-width="4" fill="none">
+        <line x1="${left}" y1="88"
+              x2="${left}" y2="132"/>
+        <line x1="${right}" y1="88"
+              x2="${right}" y2="132"/>
+
+        ${contact.type === "XIO"
+          ? `<line x1="${left - 5}" y1="137"
+                   x2="${right + 5}" y2="83"/>`
+          : ""}
+      </g>
+
+      <g fill="white" font-size="14"
+         text-anchor="middle">
+        <text x="${x}" y="72">
+          I${contact.id} · ${contact.type}
+        </text>
+        <text x="${x}" y="155">
+          ${contact.value ? "1" : "0"}
+        </text>
+      </g>
+    `;
+
+    powered = nextPowered;
+    previousX = right;
+  });
+
+  const outputOn = powered;
+  const coilX = width - 75;
+  const coilColor = outputOn ? green : gray;
+
+  drawing += `
+    <line x1="${previousX}" y1="${y}"
+          x2="${coilX - 25}" y2="${y}"
+          stroke="${coilColor}" stroke-width="4"/>
+
+    <g stroke="${coilColor}"
+       stroke-width="4" fill="none">
+      <path d="M${coilX - 12} 87
+               Q${coilX - 33} 110
+               ${coilX - 12} 133"/>
+
+      <path d="M${coilX + 12} 87
+               Q${coilX + 33} 110
+               ${coilX + 12} 133"/>
+    </g>
+
+    <line x1="${coilX + 25}" y1="${y}"
+          x2="${width - 20}" y2="${y}"
+          stroke="${coilColor}" stroke-width="4"/>
+
+    <text x="${coilX}" y="72"
+          fill="white" font-size="14"
+          text-anchor="middle">
+      Q0 — OTE
+    </text>
+  `;
+
+  diagram.innerHTML = `
+    <svg viewBox="0 0 ${width} 190"
+         style="display:block;width:100%;
+                min-width:500px;"
+         role="img"
+         aria-label="Interactive ladder logic rung">
+
+      <g stroke="#e2e8f0" stroke-width="4">
+        <line x1="20" y1="15" x2="20" y2="180"/>
+        <line x1="${width - 20}" y1="15"
+              x2="${width - 20}" y2="180"/>
+      </g>
+
+      ${drawing}
+    </svg>
+  `;
+
+  const status =
+    document.getElementById("plcBuilderStatus");
+
+  status.textContent = outputOn
+    ? "Q0 OUTPUT ENERGIZED — Rung TRUE"
+    : "Q0 OUTPUT OFF — Rung FALSE";
+
+  status.style.color = outputOn
+    ? "#16a34a"
+    : "";
+}

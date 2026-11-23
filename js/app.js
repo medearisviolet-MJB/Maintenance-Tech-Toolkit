@@ -1107,9 +1107,334 @@ content.insertAdjacentHTML("beforeend", `
     4–20 mA or 0–10 V before wiring.
   </p>
 
-</details>
+  </details>
     </div>
   </details>
+
+<!-- CONDUIT BENDING -->
+
+<details class="calculator">
+  <summary>📐 Conduit Bending</summary>
+  <div class="calculator-body">
+
+    <h3>Conduit Bending Tools</h3>
+
+  
+<details class="calculator">
+  <summary>90° Stub-Up Bends</summary>
+  <div class="calculator-body">
+
+    <h3>90° Stub-Up Calculator</h3>
+
+    <label for="emtStubSize">EMT Conduit Size</label>
+    <select id="emtStubSize"
+      onchange="document.getElementById('emtStubTakeup').value = this.value"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+      <option value="5">1/2" EMT</option>
+      <option value="6" selected>3/4" EMT</option>
+      <option value="8">1" EMT</option>
+      <option value="11">1-1/4" EMT</option>
+    </select>
+
+    <label for="emtStubHeight">
+      Desired Stub Height (inches)
+    </label>
+    <input id="emtStubHeight" type="number"
+      value="24" min="0.125" step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="emtStubTakeup">
+      Bender Take-Up (inches)
+    </label>
+    <input id="emtStubTakeup" type="number"
+      value="6" min="0" step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <button type="button" class="action"
+      onclick="calculateEmtStub()">
+      Calculate Stub-Up
+    </button>
+
+    <div id="emtStubResult"
+      style="margin-top:15px;">
+      Enter your measurements and calculate.
+    </div>
+
+    <p style="font-size:12px;opacity:0.75;">
+      Verify take-up against your bender markings.
+      Measurements are from the free end of the conduit.
+    </p>
+
+  </div>
+</details>
+
+
+  <details class="calculator">
+  <summary>Offset Bend Calculator</summary>
+  <div class="calculator-body">
+
+    <h3>EMT Offset Calculator</h3>
+
+    <label for="emtOffsetHeight">
+      Offset Height (inches)
+    </label>
+    <input
+      id="emtOffsetHeight"
+      type="number"
+      value="4"
+      min="0.125"
+      step="any"
+    >
+
+    <label for="emtOffsetAngle">
+      Bend Angle
+    </label>
+    <select id="emtOffsetAngle">
+      <option value="10">10°</option>
+      <option value="22.5">22.5°</option>
+      <option value="30" selected>30°</option>
+      <option value="45">45°</option>
+      <option value="60">60°</option>
+    </select>
+
+    <button
+      type="button"
+      class="action"
+      onclick="calculateEmtOffset()">
+      Calculate Offset
+    </button>
+
+    <div id="emtOffsetResult"
+         style="margin-top:15px;">
+      Enter measurements and calculate.
+    </div>
+
+  </div>
+</details>
+  
+
+
+<details class="calculator">
+  <summary>3-Point Saddle Bends</summary>
+  <div class="calculator-body">
+
+    <h3>3-Point Saddle Calculator</h3>
+
+    <p>
+      Calculate the three bend marks needed
+      to clear an obstruction.
+    </p>
+
+    <label for="emtSaddleHeight">
+      Required Saddle Rise (inches)
+    </label>
+
+    <input id="emtSaddleHeight"
+      type="number"
+      value="2"
+      min="0.125"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="emtSaddleDistance">
+      Distance to Obstruction Center (inches)
+    </label>
+
+    <input id="emtSaddleDistance"
+      type="number"
+      value="20"
+      min="0"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="emtSaddleAngle">
+      Center Bend Angle
+    </label>
+
+    <select id="emtSaddleAngle"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+      <option value="45" selected>
+        45° Center / 22.5° Outer
+      </option>
+
+      <option value="60">
+        60° Center / 30° Outer
+      </option>
+
+    </select>
+
+    <button type="button" class="action"
+      onclick="calculateEmtSaddle()">
+      Calculate Saddle
+    </button>
+
+    <div id="emtSaddleResult"
+      style="margin-top:15px;">
+      Enter measurements and calculate.
+    </div>
+
+    <p style="font-size:12px;opacity:0.75;">
+      Measure all marks from the same conduit end.
+      Allow enough rise to clear the obstruction.
+      Verify with your bender instructions.
+    </p>
+
+  </div>
+</details>
+
+
+
+<details class="calculator">
+  <summary>Conduit Bending Reference</summary>
+  <div class="calculator-body">
+
+    <h3>Conduit Bending Quick Reference</h3>
+    <p>
+      EMT bending multipliers, shrink allowances,
+      stub-up deductions, and bending marks.
+    </p>
+
+    <h4>Offset Multipliers</h4>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%;text-align:left;
+                    border-collapse:collapse;">
+        <tr>
+          <th>Angle</th>
+          <th>Multiplier</th>
+          <th>Shrink / Inch</th>
+        </tr>
+        <tr><td>10°</td><td>6.0</td><td>1/16"</td></tr>
+        <tr><td>22.5°</td><td>2.6</td><td>3/16"</td></tr>
+        <tr><td>30°</td><td>2.0</td><td>1/4"</td></tr>
+        <tr><td>45°</td><td>1.4</td><td>3/8"</td></tr>
+        <tr><td>60°</td><td>1.2</td><td>1/2"</td></tr>
+      </table>
+    </div>
+
+    <hr>
+
+    <h4>Quick Bend Calculator</h4>
+
+    <label for="conduitRefHeight">
+      Offset Height (inches)
+    </label>
+    <input id="conduitRefHeight"
+      type="number" value="4"
+      min="0.125" step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="conduitRefAngle">
+      Bend Angle
+    </label>
+    <select id="conduitRefAngle"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+      <option value="10">10°</option>
+      <option value="22.5">22.5°</option>
+      <option value="30" selected>30°</option>
+      <option value="45">45°</option>
+      <option value="60">60°</option>
+    </select>
+
+    <button type="button" class="action"
+      onclick="calculateConduitReference()">
+      Calculate
+    </button>
+
+    <div id="conduitRefResult"
+      style="margin-top:15px;">
+      Enter your measurements and calculate.
+    </div>
+
+    <hr>
+
+    <h4>90° Stub-Up Take-Up Chart</h4>
+
+    <table style="width:100%;text-align:left;">
+      <tr>
+        <th>EMT Size</th>
+        <th>Typical Take-Up</th>
+      </tr>
+      <tr><td>1/2"</td><td>5"</td></tr>
+      <tr><td>3/4"</td><td>6"</td></tr>
+      <tr><td>1"</td><td>8"</td></tr>
+      <tr><td>1-1/4"</td><td>11"</td></tr>
+    </table>
+
+    <p>
+      Bend Mark = Desired Stub Height - Take-Up
+    </p>
+
+    <hr>
+
+    <h4>3-Point Saddle Reference</h4>
+
+    <table style="width:100%;text-align:left;">
+      <tr>
+        <th>Center</th>
+        <th>Outer</th>
+        <th>Spacing / Rise</th>
+      </tr>
+      <tr>
+        <td>45°</td><td>22.5°</td><td>2.5 ×</td>
+      </tr>
+      <tr>
+        <td>60°</td><td>30°</td><td>2.0 ×</td>
+      </tr>
+    </table>
+
+    <hr>
+
+    <h4>Bender Marking Guide</h4>
+
+    <p><strong>Arrow:</strong>
+      Stub-ups, offsets, and outer saddle bends.
+    </p>
+
+    <p><strong>Star:</strong>
+      Back-to-back 90° bends.
+    </p>
+
+    <p><strong>Rim Notch:</strong>
+      Center of a saddle bend.
+    </p>
+
+    <p><strong>Degree Markings:</strong>
+      Used to achieve the required bend angle.
+    </p>
+
+    <p style="font-size:12px;opacity:0.75;">
+      Field-reference values are approximate.
+      Verify take-up, minimum stub length,
+      bend radius, and alignment marks using
+      your specific bender instructions.
+    </p>
+
+  </div>
+</details>
+
+
+  </div>
+</details>
+
+
 `);
 
   }
@@ -1168,6 +1493,9 @@ if (page === "plc") {
     ${plcCtdSimulatorHTML()}
       </div>
     </details>
+
+    ${plcLadderBuilderHTML()}
+
 
     <details class="calculator">
       <summary>🔍 PLC Troubleshooting</summary>
