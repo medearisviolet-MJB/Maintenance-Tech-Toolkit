@@ -1175,6 +1175,97 @@ content.insertAdjacentHTML("beforeend", `
 </details>
 
 
+<!-- BACK-TO-BACK 90 CALCULATOR -->
+
+<details class="calculator">
+  <summary>Back-to-Back 90° Calculator</summary>
+
+  <div class="calculator-body">
+
+    <h3>Back-to-Back 90° Bends</h3>
+
+    <p>
+      Calculate the first arrow mark and
+      second star mark for two 90° bends.
+    </p>
+
+    <label for="emtB2BSize">
+      EMT Conduit Size
+    </label>
+
+    <select id="emtB2BSize"
+      onchange="document.getElementById('emtB2BTakeup').value = this.value"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+      <option value="5">1/2" EMT</option>
+      <option value="6" selected>3/4" EMT</option>
+      <option value="8">1" EMT</option>
+      <option value="11">1-1/4" EMT</option>
+
+    </select>
+
+    <label for="emtB2BStub">
+      First Stub Height (inches)
+    </label>
+
+    <input id="emtB2BStub"
+      type="number"
+      value="24"
+      min="0.125"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="emtB2BDistance">
+      Distance Between Backs of 90s (inches)
+    </label>
+
+    <input id="emtB2BDistance"
+      type="number"
+      value="36"
+      min="0.125"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="emtB2BTakeup">
+      Bender Take-Up (inches)
+    </label>
+
+    <input id="emtB2BTakeup"
+      type="number"
+      value="6"
+      min="0"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <button type="button"
+      class="action"
+      onclick="calculateEmtBackToBack()">
+      Calculate Back-to-Back 90°
+    </button>
+
+    <div id="emtB2BResult"
+      style="margin-top:15px;">
+      Enter measurements and calculate.
+    </div>
+
+    <p style="font-size:12px;opacity:0.75;">
+      Arrow = first stub-up bend.
+      Star = back of second 90° bend.
+      Verify take-up and minimum bend spacing
+      against your specific bender.
+    </p>
+
+  </div>
+</details>
+
   <details class="calculator">
   <summary>Offset Bend Calculator</summary>
   <div class="calculator-body">

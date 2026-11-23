@@ -321,3 +321,129 @@ function calculateConduitReference() {
     </div>
   `;
 }
+
+
+/* ==========================================
+   BACK-TO-BACK 90 DEGREE CALCULATOR
+========================================== */
+
+function calculateEmtBackToBack() {
+
+  const stubField =
+    document.getElementById("emtB2BStub");
+
+  const distanceField =
+    document.getElementById("emtB2BDistance");
+
+  const takeupField =
+    document.getElementById("emtB2BTakeup");
+
+  const result =
+    document.getElementById("emtB2BResult");
+
+  if (!stubField || !distanceField ||
+      !takeupField || !result) return;
+
+  const stub = Number(stubField.value);
+  const distance = Number(distanceField.value);
+  const takeup = Number(takeupField.value);
+
+  if (
+    stubField.value.trim() === "" ||
+    distanceField.value.trim() === "" ||
+    takeupField.value.trim() === "" ||
+    !Number.isFinite(stub) ||
+    !Number.isFinite(distance) ||
+    !Number.isFinite(takeup) ||
+    stub <= 0 ||
+    distance <= 0 ||
+    takeup < 0
+  ) {
+    result.textContent =
+      "Enter valid positive measurements.";
+    return;
+  }
+
+  // First 90 uses the arrow and take-up.
+  const firstMark = stub - takeup;
+
+  if (firstMark <= 0) {
+    result.textContent =
+      "Stub height must exceed the bender take-up. " +
+      "Check the minimum stub height for your bender.";
+    return;
+  }
+
+  // Second 90 uses the star.
+  // Measure directly from the back of first bend.
+  const secondMark = distance;
+
+  result.innerHTML = `
+    <div style="
+      background:#0f172a;
+      color:white;
+      padding:16px;
+      border-radius:12px;">
+
+      <h3 style="color:#4ade80;">
+        Back-to-Back 90° Results
+      </h3>
+
+      <h4>First Bend — Arrow</h4>
+
+      <p>Desired Stub Height:
+        ${stub.toFixed(2)} inches
+      </p>
+
+      <p>Bender Take-Up:
+        ${takeup.toFixed(2)} inches
+      </p>
+
+      <h3 style="color:#4ade80;">
+        Mark: ${firstMark.toFixed(2)}"
+      </h3>
+
+      <p>
+        Measure from the original straight
+        conduit end. Align the bender arrow
+        with this mark and bend to 90°.
+      </p>
+
+      <hr>
+
+      <h4>Second Bend — Star &#9733;</h4>
+
+      <p>Desired Distance Between Backs:
+        ${distance.toFixed(2)} inches
+      </p>
+
+      <h3 style="color:#4ade80;">
+        Mark: ${secondMark.toFixed(2)}"
+      </h3>
+
+      <p>
+        Measure from the back of the
+        first completed 90° along the
+        straight conduit.
+      </p>
+
+      <p>
+        Align the bender star with this
+        mark and bend the second 90°,
+        keeping both bends in the same plane.
+      </p>
+
+      <p style="color:#facc15;">
+        No additional take-up deduction
+        is needed for the star mark.
+      </p>
+
+      <p style="font-size:12px;opacity:0.75;">
+        Verify your bender's markings,
+        minimum bend spacing and final fit
+        before bending.
+      </p>
+
+    </div>
+  `;
+}
