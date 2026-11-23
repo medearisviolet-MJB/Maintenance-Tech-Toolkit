@@ -1526,6 +1526,175 @@ content.insertAdjacentHTML("beforeend", `
 </details>
 
 
+<!-- WIRE SIZING -->
+
+<details class="calculator">
+  <summary>⚡ Wire Sizing Calculator</summary>
+
+  <div class="calculator-body">
+
+    <h3>Electrical Wire Sizing</h3>
+
+    <p>
+      Preliminary conductor sizing using
+      NEC 2023 Table 310.16.
+    </p>
+
+    <label for="wireLoadAmps">
+      Load Current (Amps)
+    </label>
+
+    <input id="wireLoadAmps"
+      type="number"
+      value="30"
+      min="0.1"
+      step="any"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+    <label for="wireMaterial">
+      Conductor Material
+    </label>
+
+    <select id="wireMaterial"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+      <option value="copper">
+        Copper
+      </option>
+
+      <option value="aluminum">
+        Aluminum
+      </option>
+    </select>
+
+    <label for="wireTemperature">
+      Applicable Ampacity Column
+    </label>
+
+    <select id="wireTemperature"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+      <option value="60" selected>
+        60°C
+      </option>
+
+      <option value="75">
+        75°C
+      </option>
+    </select>
+
+    <p style="font-size:12px;opacity:0.75;">
+      Select a temperature column supported
+      by the conductor insulation and
+      equipment terminations.
+    </p>
+
+    <label for="wireContinuous">
+      Load Type
+    </label>
+
+    <select id="wireContinuous"
+      style="width:100%;padding:12px;
+             margin:8px 0 15px;
+             background:white;color:#0f172a;">
+
+      <option value="no" selected>
+        Noncontinuous
+      </option>
+
+      <option value="yes">
+        Continuous
+      </option>
+    </select>
+    
+    
+<!-- VOLTAGE DROP INPUTS -->
+
+<label for="wireVoltage">
+  System Voltage (V)
+</label>
+
+<select id="wireVoltage"
+  style="width:100%;padding:12px;
+         margin:8px 0 15px;
+         background:white;color:#0f172a;">
+  <option value="120">120 V</option>
+  <option value="208">208 V</option>
+  <option value="240">240 V</option>
+  <option value="277">277 V</option>
+  <option value="480" selected>480 V</option>
+  <option value="600">600 V</option>
+</select>
+
+<label for="wirePhase">
+  Electrical System
+</label>
+
+<select id="wirePhase"
+  style="width:100%;padding:12px;
+         margin:8px 0 15px;
+         background:white;color:#0f172a;">
+  <option value="1">Single-Phase</option>
+  <option value="3" selected>Three-Phase</option>
+</select>
+
+<label for="wireDistance">
+  One-Way Wire Distance (feet)
+</label>
+
+<input id="wireDistance"
+  type="number"
+  value="150"
+  min="0.1"
+  step="any"
+  style="width:100%;padding:12px;
+         margin:8px 0 15px;
+         background:white;color:#0f172a;">
+
+<label for="wireDropLimit">
+  Maximum Voltage Drop
+</label>
+
+<select id="wireDropLimit"
+  style="width:100%;padding:12px;
+         margin:8px 0 15px;
+         background:white;color:#0f172a;">
+  <option value="2">2%</option>
+  <option value="3" selected>3%</option>
+  <option value="5">5%</option>
+</select>
+
+
+    <button type="button"
+      class="action"
+      onclick="calculateWireSize()">
+      Calculate Wire Size
+    </button>
+
+    <div id="wireSizeResult"
+      style="margin-top:15px;">
+      Enter your load and calculate.
+    </div>
+
+    <p style="font-size:12px;opacity:0.75;">
+      General-circuit reference only.
+      Additional NEC rules may require
+      different conductor sizing.
+      Do not use this tool alone to
+      select wiring for installation.
+    </p>
+
+  </div>
+</details>
+  
+  ${electricalColorCodesHTML()}
+
 `);
 
   }

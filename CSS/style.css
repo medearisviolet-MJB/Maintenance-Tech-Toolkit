@@ -272,3 +272,93 @@ details.plc-timer-dropdown[open] > summary {
   padding: 16px;
 }
 
+
+/* =====================================
+   UNIFIED ELECTRICAL DROPDOWN STYLING
+===================================== */
+
+details.electrical-unified {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+/* Restore full-size white dropdown buttons */
+
+details.electrical-unified > summary {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  color: #1e293b;
+  padding: 18px 20px;
+  min-height: 58px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+
+/* Original Electrical Dropdown Styling */
+
+.electrical-group {
+  background: #24313d;
+  border: 2px solid #aab3bd;
+  border-radius: 12px;
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+.electrical-group summary {
+  background: linear-gradient(135deg, #edf0f2, #929ba6);
+  color: #17202d;
+  padding: 18px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.electrical-group .group-content {
+  padding: 15px;
+}
+
+
+/* Electrical Dropdown Plus / Minus Indicators */
+
+details.electrical-group > summary {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+/* Hide default arrow */
+details.electrical-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.electrical-group > summary::marker {
+  content: "";
+}
+
+/* Remove existing custom arrow */
+details.electrical-group > summary::before {
+  content: none;
+}
+
+/* Show plus when closed */
+details.electrical-group > summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Show minus when expanded */
+details.electrical-group[open] > summary::after {
+  content: "−";
+}
+
