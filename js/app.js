@@ -1694,6 +1694,9 @@ content.insertAdjacentHTML("beforeend", `
 </details>
   
   ${electricalColorCodesHTML()}
+  ${etTroubleshootingHTML()}
+  ${tp3SimulatorHTML()}
+
 
 `);
 
