@@ -389,3 +389,27 @@ details.electrical-group[open] > summary::after {
   }
 
 }
+
+/* =====================================
+   MOBILE MOTOR LADDER RESPONSIVE FIX
+===================================== */
+
+@media (max-width: 600px) {
+
+  .plc-ladder-panel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .plc-ladder-panel .plc-ladder-svg {
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+  }
+
+}
