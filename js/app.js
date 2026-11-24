@@ -1756,17 +1756,20 @@ if (page === "plc") {
     ${plcCtdSimulatorHTML()}
       </div>
     </details>
-
+    
+    ${plcProgrammingGuidesHTML()}
     ${plcLadderBuilderHTML()}
+    ${plcWiringDiagramsHTML()}
+    ${plcSchematicTipsHTML()}
+
 
 
     <details class="calculator">
       <summary>🔍 PLC Troubleshooting</summary>
-      <div class="calculator-body">
-        <h3>Industrial PLC Diagnostics</h3>
-        <p>Input faults, output faults, communication problems, and processor status.</p>
+       <div class="calculator-body">
+    ${plcFaultFinderHTML()}
       </div>
-    </details>
+    </details> 
 
 
 <details class="calculator">
