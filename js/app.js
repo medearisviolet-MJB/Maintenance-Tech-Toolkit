@@ -1693,6 +1693,9 @@ content.insertAdjacentHTML("beforeend", `
   </div>
 </details>
   
+  
+  ${servoTroubleshootingHTML()}
+  ${necReferenceHTML()}
   ${electricalColorCodesHTML()}
   ${etTroubleshootingHTML()}
   ${tp3SimulatorHTML()}
