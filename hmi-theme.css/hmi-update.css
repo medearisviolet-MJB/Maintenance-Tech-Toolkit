@@ -1,0 +1,357 @@
+
+/* ==========================================
+   MAINTENANCE TECH TOOLKIT
+   INDUSTRIAL HMI THEME — VERSION 1
+
+   VISUAL OVERRIDES ONLY
+   No JavaScript or HTML behavior changes
+========================================== */
+
+/* INDUSTRIAL COLOR SYSTEM */
+
+:root {
+  --hmi-bg: #0b171c;
+  --hmi-panel: #14252c;
+  --hmi-panel-light: #1a3038;
+  --hmi-panel-dark: #101f25;
+
+  --hmi-border: #344e56;
+  --hmi-border-active: #4ade80;
+
+  --hmi-text: #e6f3f5;
+  --hmi-muted: #a5bbc3;
+
+  --hmi-green: #4ade80;
+  --hmi-cyan: #67d9e8;
+  --hmi-amber: #fbbf24;
+  --hmi-red: #f87171;
+}
+
+/* MAIN APPLICATION BACKGROUND */
+
+body {
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      #193139 0%,
+      #0b171c 58%
+    );
+
+  background-color: var(--hmi-bg);
+
+  color: var(--hmi-text);
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+/* HEADER / CONTROL PANEL TITLE */
+
+header {
+  position: relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      #1b333b,
+      #111f26
+    );
+
+  border-bottom:
+    1px solid var(--hmi-border);
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.22);
+}
+
+header::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #23875a,
+      #4ade80,
+      #23875a
+    );
+}
+
+header h1 {
+  color: var(--hmi-text);
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  font-weight: 750;
+}
+
+header p {
+  color: var(--hmi-muted);
+}
+
+/* MAIN SECTION HEADINGS */
+
+main h2 {
+  color: var(--hmi-text);
+
+  letter-spacing: 0.3px;
+}
+
+main h3,
+main h4 {
+  color: #c7f7d7;
+}
+
+/* MAIN NAVIGATION CARDS */
+
+main .grid {
+  gap: 12px;
+}
+
+main .grid > .card {
+  background:
+    linear-gradient(
+      145deg,
+      #1b323b,
+      #14262e
+    );
+
+  color: var(--hmi-text);
+
+  border:
+    1px solid var(--hmi-border);
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  font-weight: 650;
+
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+main .grid > .card:hover {
+  border-color: var(--hmi-green);
+
+  box-shadow:
+    0 0 0 1px rgba(74, 222, 128, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.22);
+}
+
+main .grid > .card:active {
+  background: #214039;
+}
+
+/* COLLAPSIBLE TOOL PANELS */
+
+main details.calculator,
+main details.electrical-group {
+  background:
+    linear-gradient(
+      180deg,
+      #192f36,
+      #14262d
+    );
+
+  border:
+    1px solid var(--hmi-border);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.12);
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* DROPDOWN HEADERS
+   Keep existing plus/minus indicators intact */
+
+main details.calculator > summary,
+main details.electrical-group > summary {
+  background:
+    linear-gradient(
+      90deg,
+      #1b343c,
+      #172a31
+    );
+
+  color: var(--hmi-text);
+
+  border-radius: 11px;
+
+  padding: 15px 16px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+main details.calculator > summary:hover,
+main details.electrical-group > summary:hover {
+  background: #233e45;
+}
+
+/* EXPANDED PANELS */
+
+main details.calculator[open],
+main details.electrical-group[open] {
+  border-color: #478466;
+
+  box-shadow:
+    inset 3px 0 0 #4ade80,
+    0 3px 12px rgba(0, 0, 0, 0.17);
+}
+
+main details.calculator[open] > summary,
+main details.electrical-group[open] > summary {
+  color: #d6ffe5;
+
+  border-bottom:
+    1px solid var(--hmi-border);
+
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* TOOL CONTENT AREAS */
+
+main .calculator-body,
+main .group-content {
+  background-color: var(--hmi-panel-dark);
+
+  color: var(--hmi-text);
+}
+
+/* NESTED DROPDOWNS */
+
+main .calculator-body details.calculator {
+  background: var(--hmi-panel-light);
+
+  border-color: #38545c;
+}
+
+/* INPUTS AND SELECT FIELDS */
+
+main .calculator-body input:not([type="checkbox"]):not([type="radio"]),
+main .calculator-body select,
+main .calculator-body textarea {
+  border:
+    1px solid #46616a;
+
+  border-radius: 8px;
+
+  accent-color: var(--hmi-green);
+}
+
+main .calculator-body input:not([style]),
+main .calculator-body select:not([style]),
+main .calculator-body textarea:not([style]) {
+  background-color: #0d1c22;
+
+  color: var(--hmi-text);
+}
+
+main .calculator-body label {
+  color: #cedee2;
+}
+
+/* EXISTING ACTION BUTTONS */
+
+main .calculator-body .action {
+  background:
+    linear-gradient(
+      180deg,
+      #236d4c,
+      #175238
+    );
+
+  color: #f1fff6;
+
+  border: 1px solid #428b65;
+
+  border-radius: 9px;
+
+  padding: 11px 15px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+main .calculator-body .action:hover {
+  background: #278357;
+}
+
+/* LINKS */
+
+main a {
+  color: var(--hmi-cyan);
+}
+
+/* VISIBLE KEYBOARD FOCUS */
+
+main .card:focus-visible,
+main summary:focus-visible,
+main button:focus-visible,
+main select:focus-visible,
+main input:focus-visible {
+  outline:
+    2px solid var(--hmi-amber);
+
+  outline-offset: 3px;
+}
+
+/* MOBILE OPTIMIZATION */
+
+@media (max-width: 600px) {
+
+  header {
+    padding: 22px 14px;
+  }
+
+  header h1 {
+    font-size: 23px;
+    line-height: 1.25;
+  }
+
+  main .grid {
+    gap: 10px;
+  }
+
+  main .grid > .card {
+    padding: 20px 10px;
+  }
+
+  main details.calculator > summary,
+  main details.electrical-group > summary {
+    padding: 14px 12px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+
+  main .grid > .card {
+    transition: none;
+  }
+
+}

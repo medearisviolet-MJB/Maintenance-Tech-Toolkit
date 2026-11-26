@@ -1,0 +1,206 @@
+/* Maintenance Tech Toolkit — AB-inspired HMI visual skin */
+:root {
+  --ab-bg: #101920;
+  --ab-panel: #1a2733;
+  --ab-panel-deep: #101b25;
+  --ab-edge: #647381;
+  --ab-line: #344959;
+  --ab-text: #edf4f8;
+  --ab-muted: #a9becd;
+  --ab-blue: #0871c9;
+  --ab-green: #1dd334;
+  --ab-red: #e32432;
+  --ab-amber: #f2b900;
+}
+
+body {
+  background: linear-gradient(180deg, #1c2a35, var(--ab-bg) 540px) fixed;
+  color: var(--ab-text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding-bottom: 136px;
+}
+
+header {
+  background: linear-gradient(180deg, #303d49 0%, #131d27 100%);
+  border-bottom: 4px solid #d62a37;
+  box-shadow: 0 5px 15px #0007, inset 0 1px #8996a288;
+}
+header h1 {
+  color: #f5f8fa;
+  font-weight: 800;
+  text-shadow: 0 2px 3px #000;
+  letter-spacing: .3px;
+}
+header p { color: #c7d4df; letter-spacing: 1.5px; }
+
+main { max-width: 1250px; min-width: 0; }
+main .grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+main .grid > .card {
+  min-width: 0;
+  color: #f3f7fc;
+  background: linear-gradient(180deg, #445260, #1c2934);
+  border: 2px solid #718290;
+  border-radius: 10px;
+  font-weight: 750;
+  text-shadow: 0 1px 2px #000;
+  box-shadow: inset 0 2px #a5b0bc80, inset 0 -3px #0a111880,
+              0 4px 9px #0008;
+  transition: border-color .15s, background .15s;
+}
+main .grid > .card:hover,
+main .grid > .card.ab-active {
+  background: linear-gradient(180deg, #228cd8, #07509b);
+  border-color: #77caff;
+  box-shadow: inset 0 2px #c0efff66, 0 0 0 2px #0062b5, 0 4px 12px #0008;
+}
+
+/* Keep all existing <details> elements and summary marker logic. */
+main details.calculator,
+main details.electrical-group {
+  color: var(--ab-text);
+  background: linear-gradient(180deg, #243442, #192834);
+  border: 1px solid #60717f;
+  border-radius: 9px;
+  margin-block: 9px;
+  box-shadow: inset 0 1px #9ca8b548, 0 2px 5px #0007;
+}
+main details.calculator > summary,
+main details.electrical-group > summary {
+  color: var(--ab-text);
+  background: linear-gradient(180deg, #3a4c5d, #243240);
+  padding: 13px 15px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+main details.calculator > summary:hover,
+main details.electrical-group > summary:hover {
+  background: linear-gradient(180deg, #435e74, #2b4358);
+}
+main details.calculator[open] > summary,
+main details.electrical-group[open] > summary {
+  background: linear-gradient(180deg, #1b6baf, #114578);
+  border-bottom: 1px solid #74a9d7;
+  border-radius: 8px 8px 0 0;
+}
+main .calculator-body,
+main .group-content {
+  color: var(--ab-text);
+  background: #172633;
+}
+main .calculator-body label,
+main .calculator-body p { color: #e0eaf1; }
+main .calculator-body .action {
+  background: linear-gradient(180deg, #197dc6, #0a4e87);
+  color: #fff;
+  border: 1px solid #65b2e7;
+  border-radius: 7px;
+  font-weight: 700;
+}
+main .calculator-body .action:hover { filter: brightness(1.13); }
+main button:focus-visible, main summary:focus-visible,
+main .card:focus-visible, #abHmiBar button:focus-visible {
+  outline: 3px solid var(--ab-amber);
+  outline-offset: 3px;
+}
+
+/* Simulator-specific surfaces — no changes to behavior. */
+#seqTrainer .seq-panel {
+  background: #152430 !important;
+  border: 1px solid #657685 !important;
+  box-shadow: inset 0 1px #99a8b044, 0 2px 5px #0006;
+}
+#seqTrainer .seq-rung { background: #0c1a26 !important; }
+#seqTrainer .seq-rung.seq-powered {
+  background: #064822 !important;
+  border-color: #13e159 !important;
+}
+#seqTrainer .seq-step.seq-current {
+  border-color: #25ed51 !important;
+  background: #08762f !important;
+  box-shadow: 0 0 10px #1dce4980;
+}
+
+/* Bottom operator strip: DEMO controls only, never real machine control. */
+#abHmiBar, #abHmiBar * { box-sizing: border-box; }
+#abHmiBar {
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: max(8px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(1240px, calc(100% - 20px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  color: #edf4f8;
+  background: linear-gradient(180deg, #394956, #16232e);
+  border: 2px solid #8495a2;
+  border-radius: 13px;
+  box-shadow: inset 0 2px #b4c2cd69, 0 5px 24px #000b;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+#abHmiBar .ab-buttons { display: flex; gap: 10px; flex: 0 1 auto; }
+#abHmiBar button {
+  min-width: 115px;
+  min-height: 55px;
+  padding: 8px 15px;
+  color: white;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  text-shadow: 0 1px 2px #0009;
+  box-shadow: inset 0 2px #ffffff66, inset 0 -3px #0005, 0 3px 5px #0008;
+  cursor: pointer;
+}
+#abHmiBar .ab-start { background: linear-gradient(#42d84e, #067b21); border: 2px solid #7ef188; }
+#abHmiBar .ab-stop  { background: linear-gradient(#f34d57, #a90018); border: 2px solid #ff9ca4; }
+#abHmiBar .ab-reset { background: linear-gradient(#ffe155, #d89700); border: 2px solid #fff199; color: #171600; text-shadow: none; }
+#abHmiBar button:disabled { opacity: .44; cursor: not-allowed; filter: grayscale(.3); }
+#abHmiBar .ab-lamps { display: flex; align-items: center; gap: 14px; padding: 0 5px; }
+#abHmiBar .ab-lamp-label { display: grid; justify-items: center; gap: 3px; font-size: 11px; font-weight: 800; }
+#abHmiBar .ab-lamp {
+  width: 18px; height: 18px;
+  background: radial-gradient(circle at 35% 25%, #c4cbd0, #354653 68%);
+  border: 2px solid #a7b4bf;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px #0009;
+}
+#abHmiBar .ab-lamp.ab-lit-green { background: radial-gradient(circle at 35% 25%, #b8ffbd, #0cc530 60%); box-shadow: 0 0 11px #19f048; }
+#abHmiBar .ab-lamp.ab-lit-red { background: radial-gradient(circle at 35% 25%, #ffadad, #d40721 65%); box-shadow: 0 0 11px #ff3048; }
+#abHmiBar .ab-lamp.ab-lit-blue { background: radial-gradient(circle at 35% 25%, #cff1ff, #298cd6 65%); box-shadow: 0 0 11px #2598ff; }
+#abHmiBar .ab-status {
+  flex: 1 1 190px;
+  min-width: 0;
+  border: 2px solid #6c8496;
+  border-radius: 8px;
+  background: #101c27;
+  padding: 10px 12px;
+  box-shadow: inset 0 3px 8px #000b;
+  color: #58ff75;
+  font-size: 13px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+#abHmiBar .ab-status.ab-fault { color: #ff6464; }
+#abHmiBar .ab-status small { display: block; color: #a5bccd; font-size: 10px; font-weight: 600; margin-bottom: 3px; }
+
+@media(max-width: 800px) {
+  main .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #abHmiBar { gap: 8px; padding: 8px; flex-wrap: wrap; }
+  #abHmiBar .ab-buttons { flex: 1 1 100%; width: 100%; }
+  #abHmiBar button { flex: 1 1 0; min-width: 0; min-height: 42px; padding: 7px 5px; font-size: 13px; }
+  #abHmiBar .ab-lamps { gap: 11px; }
+  #abHmiBar .ab-status { min-height: 42px; padding: 5px 8px; font-size: 11px; }
+  body { padding-bottom: 170px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  main .grid > .card { transition: none; }
+}

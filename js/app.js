@@ -1757,6 +1757,7 @@ if (page === "plc") {
       </div>
     </details>
     
+    ${plcSequentialLogicHTML()}
     ${plcProgrammingGuidesHTML()}
     ${plcLadderBuilderHTML()}
     ${plcWiringDiagramsHTML()}
